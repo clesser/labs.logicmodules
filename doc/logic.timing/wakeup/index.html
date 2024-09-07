@@ -1,0 +1,187 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Zeitsteuerungsbausteine - Wecker (Weckzeit) - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Zeitsteuerungsbausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-alarm-44.png)">Wecker (Weckzeit)</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein wählt aus mehreren Weckzeiten (z.B. von beruflichen, privaten und Familienkalendern) die nächstgelegene Zeit (abzüglich der Vorlaufzeit) aus.</p>
+            <p>Es kann zudem eine Standardzeit aktiviert werden, die in die Berechnung einbezogen wird.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>xx. Datum und Zeit</td>
+                        <td>Datum und Zeit</td>
+                        <td>
+                            <p>Der nächste Termin auf einem Kalender. Die Weckzeit leitet sich von der Startzeit des Termin abzüglich der Vorlaufzeit ab.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Standardweckzeit verwenden</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Gibt an, ob die Standardweckzeit bei der Ermittlung der Weckzeit einbezogen wird (z.B. für Werktage und Wochenenden).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Standardweckzeit (täglich)</td>
+                        <td>Zeit</td>
+                        <td>
+                            <p>Standardweckzeit. Bei der Standardweckzeit wird die Vorlaufzeit nicht abgezogen - d.h. sie wird direkt in die Berechnung einbezogen.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eingänge</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Legt fest, wie viele Kalender (1..10) in die Berechnung der Weckzeit einbezogen werden sollen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Vorlaufzeit</td>
+                        <td>Zeit</td>
+                        <td>
+                            <p>Optionale Vorlaufzeit für eine Weckzeit (Weckzeit = Startzeit - Vorlaufzeit; 00:00:00 - 23:59:59). Die Vorlaufzeit kann genutzt werden, um beispielsweise Zeit für die Morgenroutine einzuplanen.</p>
+                            <p>Wenn also beispielsweise der erste Termin im Kalender um 08:00 Uhr beginnt und man eine Stunde vorher geweckt werden möchte, dann wird als Vorlaufzeit eine Stunde eingetragen.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Weckzeit</td>
+                        <td>Zeit</td>
+                        <td>
+                            <p>Ermittelt die früheste Weckzeit, indem es für jeden Kalender die Weckzeit (= Startzeit - Vorlaufzeit) ermittelt und dann den frühesten Zeitpunkt auswählt.</p>
+                            <p>Wird keine Weckzeit ermittelt, so liefert der Ausgang den Zeitpunkt "01.01.0001 00:00:00".</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Weckzeit ermitteln</h3>
+            <p>Wenn die Tagesroutine zu unterschiedlichen Zeiten beginnt, die sich nicht auf Wochentage festlegen lassen (-> Zeitschaltuhr), bietet es sich an, die zumeist existierenden Kalender auszulesen. Häufig exisiteren verschiedene Kalender parallel, so dass aus allen Kalendern gegebenenfalls der nächste bzw. früheste Termin ausgewählt werden muss.</p>
+            <p>Dieser Baustein nimmt von 1..10 Kalendern die Zeiten des jeweils nächsten Termins entgegen und bestimmt so den nächsten bzw. frühesten Termin, der dann an den Wecker weitergeleitet werden kann.</p>
+            <p>Da der Wecker zum Wecken aktiv eingeschaltet werden muss, können auch während des Tages jeweils die nächsten Termine an die Logikbausteine geschickt werden. Der Wecker würde nur dann auslösen, wenn er untertags aktiv geschaltet wird.</p>
+            <figure>
+                <img src="../calendar/example01.png" alt="Wecker (Weckzeit) - Zwei Kalender" />
+                <figcaption>
+                    In diesem Beispiel wird die Weckzeit aus zwei Kalendern bestimmt.
+                </figcaption>
+            </figure>
+            <p>Standardweckzeiten können beispielsweise durch Szenen, Zeitschaltuhren (z.B. Wochentag, Wochenende) oder auch Eingabegeräte auf einen der Eingänge gelegt werden.</p>
+            <p>Damit ein Wecker auslöst, muss der Termin rechtzeitig übermittelt werden. Dauert beispielsweise die Wecksequenz des Weckers 30 min, die Vorlaufzeit des Weckzeit-Bausteins 45 min, so muss der Termin mindestens 1h 15min vor der eigentlichen Weckzeit durch den Terminkalender-Logikbaustein übermittelt worden sein.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/Cxb6rt2FZRtd/alarm">Alarm</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

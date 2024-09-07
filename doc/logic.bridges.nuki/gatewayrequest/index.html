@@ -1,0 +1,195 @@
+
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[neleo.labs] X1 Nuki Bridge Bausteine - Auftraggeber - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Nuki Bridge Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-input-44.png)">Nuki Auftraggeber</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein simuliert die Eingabeseite eines Nuki-Geräts und kommuniziert dafür mit der <a href="../gatewayconnector/index.html">Nuki Bridge</a>.Der Gerätestatus wird dann mittels <a href="../gatewayresponse/index.html">Nuki Antwortfilter</a> bereitgestellt.</p>
+            <p>Um diesen Baustein zu nutzen, wird eine Nuki Bridge benötigt, die im gleichen Netzwerk erreichbar ist. Zur Konfiguration sind die Parameter "nukiID" und "deviceType" des zu verwaltenden Geräts erforderlich. Das Auslesen dieser Parameter ist auf dieser Webseite beschrieben: </p>
+            <p><a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--list" target="_blank">Ermitteln der Nuki SmartLock Gerätenummer</a> --&gt; Falls mehrere Geräte angezeigt werden, ist die Nummer des Nuki SmartLocks (deviceType = 0 oder 4) relevant.</p>
+            <p><strong>Hinweis</strong>: Soll nur ein einzelnes SmartLock gesteuert werden, so gibt es einen Baustein (<a href="../smartlock/index.html">Nuki SmartLock</a>) der die drei Komponenten (Bridge, Auftraggeber, Antwortfilter) vereint.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Abschließen</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fordert zum Abschließen (Sperren) der Tür auf, wenn eine 1 übermittelt wird.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aufschließen</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fordert zum Aufschließen (Entsperren) der Tür auf, wenn eine 1 übermittelt wird.</p>
+                            <p>Hinweis: Je nach Konfiguration des Nuki SmartLocks kann "Aufschließen" den Schlüssel geausoweit drehen, wie beim "Entsperren".</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Entsperren</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fordert zum Entsperren des Türriegels auf, wenn eine 1 gesendet wird. Falls die Tür abgeschlossen war, wird sie zuvor aufgeschlossen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Info (direkt)</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fragt den Status des Nuki SmartLocks und des Türsensors direkt am Gerät ab.</p>
+                            <p>Dies wirkt sich negativ auf die Batterielaufzeit der Geräte aus. </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gerät-ID</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Legt den Bezeichner des Geräts fest, an das die Anforderungen (Abschließen, Aufschließen, Entsperren, Statusaktualisierung) gesendet werden sollen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gerättyp</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Angabe des Nuki-Gerättyps (siehe <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--device-types" target="_blank">Device Types</a>).</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aufträge</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Sendet Auftragstelegramme, die der <a href="../doc/syntax.html">Telegrammsyntax</a> entsprechen.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Türschloss</h3>
+            <p>
+                Die Steuerung der Wohnungstür mit Hilfe der Nuki Logikbausteine kann folgendermaßen aussehen:
+            </p>
+            <figure>
+                <img src="../gatewayconnector/example01.png" alt="Nuki Bridge Logikbaustein" />
+                <figcaption>
+                    Anwendungsbeispiel der Nuki Logikbausteine.
+                </figcaption>
+            </figure>
+            <p>Weitere Informationen sind auf <a href="../gatewayconnector/index.html">dieser Seite</a> zusammengefasst.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen und rechtliche Hinweise für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/82745/input">Input</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

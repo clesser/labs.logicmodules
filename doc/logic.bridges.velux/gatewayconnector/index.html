@@ -1,0 +1,230 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Velux KLF Bausteine - Gateway - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Velux KLF-200 Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-router-44.png)">Velux KLF-200 Gateway</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein stellt die Verbindung zum Velux KLF-200 Gateway her. Er nimmt Auftragstelegramme entgegen und leitet sie als Datagramme an das Gateway weiter. Die Rückmeldungen des Gateways werden als Antworttelegramme ausgegeben.</p>
+            <p>Für die Telegramme wird eine URL-artige <a href="../doc/syntax.html">Telegrammsyntax</a> verwendet.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aufträge</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Nimmt Auftragstelegramme entgegen, die der <a href="../doc/syntax.html">Telegrammsyntax</a> entsprechen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status erfragen</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fordert den Velux KLF-200 auf, den Status aller Geräte abzufragen.</p>
+                            <p>Normalerweise ist es nicht erforderlich, den Status aktiv abzufragen - der Velux KLF-200 wird intern so vom Logikbaustein konfiguriert, dass er Aktualisierungen der Geräte mitbekommt und diese mitteilt. Beim Neustart des X1 oder des Logikbausteins wird der Status aller Geräte ebenfalls automatisch abgefragt.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Neu verbinden</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Baut eine neue Verbindung zum Velux KLF-200 auf, wenn eine "1" gesendet wird.</p>
+                            <p>Typischerweise ist ein manueller Verbindungsaufbau nicht erforderlich, da dieser automatisch beim Starten des X1-Logikmoduls beginnt. Falls die Verbindung zum Velux KLF-200 unterbrochen wird, versucht der Baustein automatisch, in einem siebenminütigen Zeitfenster die Verbingung neu aufzubauen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Neu starten</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Sendet die Bitte zum Velux KLF-200, sich neu zu starten. Der Logikbaustein versucht nach einer Minute automatisch, die Verbindung zum Velux KLF-200 aufzubauen.</p>
+                            <p>Damit der Befehl den Velux KLF-200 erreicht, muss zuvor eine aktive Verbindung zum Gateway bestehen.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IPv4-Adresse</td>
+                        <td>Text</td>
+                        <td>
+                            <p>IPv4-Adresse des Velux KLF-200 Gateways (z.B. "192.168.2.100"). Es muss sichergestellt werden, dass das Gateway auf Port 51200 erreichbar ist.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Passwort</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Passwort für das Velux KLF-200 Gateway. Sofern das Passwort nicht geändert wurde, entspricht es dem WiFi-Passwort, dass auf der Unterseite des Gateways zu finden ist.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Antworten</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Sendet Antworttelegramme, die der <a href="../doc/syntax.html">Telegrammsyntax</a> entsprechen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Informiert über den Verbindungsstatus des Logikmoduls zum Velux KLF-200 Gateway.</p>
+                            <ul>
+                                <li><em>Disconnecting</em><br />Status nach einem Anforderung zum Neustart des Gateways bzw. wenn sich der Logikbaustein neu verbinden soll.</li>
+                                <li><em>Disconnected</em><br />Der Logikbaustein kommuniziert nicht mit dem Velux KLF-200 gateway.</li>
+                                <li><em>Connecting</em><br />Der Logikbaustein beginnt damit, eine Verbindung zum Velux KLF-200 aufzubauen.</li>
+                                <li><em>Connected</em><br />Der Logikbaustein hält eine aktive Verbindung zum Velux KLF-200.</li>
+                            </ul>
+                            <p>Standardwert: <em>Disconnected</em></p>
+                            <p>Alle sieben Minuten wird geprüft, ob der Logikbaustein noch eine aktive Verbindung zum Velux KLF-200 hält. Falls die Verbindung (z.B. durch einen Strom- oder Netzwerkausfall des Velux KLF-200) abbricht, kann also sein, dass der Status innerhalb dieser Zeit noch den Status <em>Connected</em> anzeigt, bevor er auf <em>Disconnected</em> springt oder ein automatischer Versuch für einen neuen Verbindungsaufbau stattfindet.</p>
+                            <p>Scheitert der Logikbaustein dabei, die Verbindung automatisch neu aufzubauen (es wird genau einmal versucht), so muss die Verbindung manuell neu hergestellt werden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fehler</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Teilt Fehler mit, die bei der Auswertung von Telegrammen oder der Kommunikation mit dem Velux KLF-200 Gateway auftreten.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Konzept</h3>
+            <p>In der Regel befindet sich ein Gateway-Logikbaustein auf einem Logikblatt, um den herum die verschiedenen Auftraggeber (Rollladen: Küche, Rollladen: Esszimmer, Szene: Urlaub) und die Auwertungsmodule (Rollladen: Küche, Rollladen: Esszimmer) befinden.</p>
+            <figure>
+                <img src="example01.png" alt="Übersicht der Velux KLF-200 Logikkomponenten" />
+                <figcaption>
+                    Ein Gateway-Logikmodul im Verbund mit den Auftraggebern und Ausgabefiltern.
+                </figcaption>
+            </figure>
+            <p>Da ein Velux KLF-200 Gateway maximal zwei Verbindungen halten kann, <strong>soll pro pysikalischem Gateway nur ein passendes Gateway-Logikmodul verwendet werden</strong>.</p>
+            <p>Aus Gründen der Übersichtlichkeit können Telegramme durchaus auf verschiedenen Logikblättern erzeugt und ausgewertet werden. Dazu werden die Auftragstelegramme über eine lokale Variable "eingesammelt" und an das Gateway weitergleitet. Umgekehrt werden die Ausgangsdiagramme über eine weitere Variable "verteilt" und dann auf anderen Logikblättern gefiltert.</p>
+            <figure>
+                <img src="../doc/example02-03.png" alt="Zentrales Velux KLF-200" />
+                <figcaption>In diesem Fall wird ein Logikblatt verwendet, um das Gateway mit zwei internen Textvariablen zu verbinden, über die dann Aufträge eingereicht und Antworten verteilt werden.</figcaption>
+            </figure>
+            <figure>
+                <img src="../doc/example02-04.png" alt="Logikblatt mit einem Rollladenaktor." />
+                <figcaption>Beispiel einer Markisensteuerung. Der Antwortfilter filtert Telegramme für das Gerät "Balkon" und aktualisiert die Eigenschaften "Position" und "Bewegung"; der Auftraggeber nimmt die KNX-Telegramme entgegen und reicht umgewandelt sie an das Velux KLF-200 Gateway (Logikbaustein) weiter.</figcaption>
+            </figure>
+            <p>Gleichzeitig ist es so auch möglich, unterschiedliche Auftraggeber für ein und das selbe Gerät zu konfigurieren und dabei unterschiedliche Prioritäten (z.B. Automatiken, Sensoren, Nutzerinteraktion) zu hinterlegen.</p>
+            <figure>
+                <img src="../doc/example04-01.png" alt="Logikblatt mit erweiterten Möglichkeiten zur Steuerung des Logikbausteins." />
+                <figcaption>Das Logikblatt zeigt, wie ein neuer Verbindungsaufbau bzw. ein Neustart des Velus KLF-200 angefordert werden. Es wird zudem gezeigt, wie man den Verbindungsstatus ausgeben bzw. eine Störung signalisieren kann (dazu wird der <a href="../../logic.control/switch/index.html">Vergleicher+</a>-Baustein im Vergleichsmodus "Text" verwendet).</figcaption>
+            </figure>
+            <p>Die Seite <a href="../doc/setup.html">Hinweise zur Einrichtung</a> hält weitere Informationen bereit.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/0ruxkz6Qtla5/router">Router</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+       <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

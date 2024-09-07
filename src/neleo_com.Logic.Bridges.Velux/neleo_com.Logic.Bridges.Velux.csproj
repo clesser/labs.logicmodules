@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0CBBD135-FCF3-4269-BE43-BA53534D50B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>neleo_com.Logic.Bridges.Velux</RootNamespace>
+    <AssemblyName>neleo_com.Logic.Bridges.Velux</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\..\..\Neleo.Labs.LogicNodes\Mono Libraries\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="LogicModule.Nodes.Helpers">
+      <HintPath>..\LogicNodesSDK\LogicModule.Nodes.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="LogicModule.ObjectModel">
+      <HintPath>..\LogicNodesSDK\LogicModule.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Datagrams\GW_ACTIVATE_PRODUCTGROUP_CFM.cs" />
+    <Compile Include="Datagrams\GW_ACTIVATE_PRODUCTGROUP_REQ.cs" />
+    <Compile Include="Datagrams\GW_ACTIVATE_SCENE_CFM.cs" />
+    <Compile Include="Datagrams\GW_ACTIVATE_SCENE_REQ.cs" />
+    <Compile Include="Datagrams\GW_COMMAND_REMAINING_TIME_NTF.cs" />
+    <Compile Include="Datagrams\GW_COMMAND_RUN_STATUS_NTF.cs" />
+    <Compile Include="Datagrams\GW_COMMAND_SEND_CFM.cs" />
+    <Compile Include="Datagrams\GW_COMMAND_SEND_REQ.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_GROUPS_INFORMATION_CFM.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_GROUPS_INFORMATION_FINISHED_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_GROUPS_INFORMATION_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_GROUPS_INFORMATION_REQ.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_NODES_INFORMATION_CFM.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_NODES_INFORMATION_FINISHED_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_GROUP_INFORMATION_CFM.cs" />
+    <Compile Include="Datagrams\GW_GET_GROUP_INFORMATION_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_GROUP_INFORMATION_REQ.cs" />
+    <Compile Include="Datagrams\GW_GET_NODE_INFORMATION_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_NODES_INFORMATION_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_ALL_NODES_INFORMATION_REQ.cs" />
+    <Compile Include="Datagrams\GW_GET_NODE_INFORMATION_CFM.cs" />
+    <Compile Include="Datagrams\GW_GET_NODE_INFORMATION_REQ.cs" />
+    <Compile Include="Datagrams\GW_GET_SCENE_INFORMATION_CFM.cs" />
+    <Compile Include="Datagrams\GW_GET_SCENE_INFOAMATION_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_SCENE_INFORMATION_REQ.cs" />
+    <Compile Include="Datagrams\GW_GET_SCENE_LIST_CFM.cs" />
+    <Compile Include="Datagrams\GW_GET_SCENE_LIST_NTF.cs" />
+    <Compile Include="Datagrams\GW_GET_SCENE_LIST_REQ.cs" />
+    <Compile Include="Datagrams\GW_HOUSE_STATUS_MONITOR_DISABLE_CFM.cs" />
+    <Compile Include="Datagrams\GW_HOUSE_STATUS_MONITOR_DISABLE_REQ.cs" />
+    <Compile Include="Datagrams\GW_HOUSE_STATUS_MONITOR_ENABLE_CFM.cs" />
+    <Compile Include="Datagrams\GW_HOUSE_STATUS_MONITOR_ENABLE_REQ.cs" />
+    <Compile Include="Datagrams\GW_GROUP_INFORMATION_CHANGED_NTF.cs" />
+    <Compile Include="Datagrams\GW_NODE_INFORMATION_CHANGED_NTF.cs" />
+    <Compile Include="Datagrams\GW_NODE_STATE_POSITION_CHANGED_NTF.cs" />
+    <Compile Include="Datagrams\GW_REBOOT_CFM.cs" />
+    <Compile Include="Datagrams\GW_REBOOT_REQ.cs" />
+    <Compile Include="Datagrams\GW_SCENE_INFORMATION_CHANGED_NTF.cs" />
+    <Compile Include="Datagrams\GW_SESSION_FINISHED_NTF.cs" />
+    <Compile Include="Datagrams\GW_SET_UTC_CFM.cs" />
+    <Compile Include="Datagrams\GW_SET_UTC_REQ.cs" />
+    <Compile Include="Datagrams\GW_STOP_SCENE_CFM.cs" />
+    <Compile Include="Datagrams\GW_STOP_SCENE_REQ.cs" />
+    <Compile Include="Datagrams\Klf200GroupInformationDatagram.cs" />
+    <Compile Include="Datagrams\Klf200NodeInformationDatagram.cs" />
+    <Compile Include="Definitions\GW_CommandPriority.cs" />
+    <Compile Include="Definitions\GW_GroupCommandRequestState.cs" />
+    <Compile Include="Definitions\GW_SceneRequestState.cs" />
+    <Compile Include="Definitions\GW_RunState.cs" />
+    <Compile Include="Definitions\GW_RunStateError.cs" />
+    <Compile Include="Definitions\GW_RunStateOwner.cs" />
+    <Compile Include="Definitions\GW_CommandSource.cs" />
+    <Compile Include="Definitions\GW_GroupType.cs" />
+    <Compile Include="Definitions\GW_ParameterType.cs" />
+    <Compile Include="Definitions\GW_NodeCommandRequestState.cs" />
+    <Compile Include="Definitions\GW_InformationRequestState.cs" />
+    <Compile Include="Definitions\GW_NodeState.cs" />
+    <Compile Include="Definitions\GW_NodeType.cs" />
+    <Compile Include="Definitions\GW_NodeVariation.cs" />
+    <Compile Include="Definitions\GW_NodeVelocity.cs" />
+    <Compile Include="Definitions\GW_PowerMode.cs" />
+    <Compile Include="IKlf200DatagramTelegramDecoder.cs" />
+    <Compile Include="IKlf200DatagramTelegramEncoder.cs" />
+    <Compile Include="IKlf200DatagramSessionResponse.cs" />
+    <Compile Include="IKlf200DatagramSessionRequest.cs" />
+    <Compile Include="Klf200SocketBc.cs" />
+    <Compile Include="Klf200TelegramParameter.cs" />
+    <Compile Include="Klf200TelegramHelper.cs" />
+    <Compile Include="Datagrams\GW_ERROR_NTF.cs" />
+    <Compile Include="Datagrams\GW_PASSWORD_ENTER_CFM.cs" />
+    <Compile Include="Datagrams\GW_PASSWORD_ENTER_REQ.cs" />
+    <Compile Include="Definitions\GW_GatewayError.cs" />
+    <Compile Include="Klf200Catalog.cs" />
+    <Compile Include="Klf200DatagramHelper.cs" />
+    <Compile Include="Klf200TelegramMode.cs" />
+    <Compile Include="Klf200TelegramScope.cs" />
+    <Compile Include="Klf200Command.cs" />
+    <Compile Include="Datagrams\GW_GET_STATE_CFM.cs" />
+    <Compile Include="Datagrams\GW_GET_STATE_REQ.cs" />
+    <Compile Include="Definitions\GW_GatewayState.cs" />
+    <Compile Include="Klf200Datagram.cs" />
+    <Compile Include="Klf200DatagramService.cs" />
+    <Compile Include="Klf200Gateway.cs" />
+    <Compile Include="Klf200Socket.cs" />
+    <Compile Include="Klf200Telegram.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="VeluxGateway.cs" />
+    <Compile Include="VeluxRequest.cs" />
+    <Compile Include="VeluxResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\icons8-input-44.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icons8-output-44.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icons8-router-44.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.de.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Manifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\velux-cert.pem" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

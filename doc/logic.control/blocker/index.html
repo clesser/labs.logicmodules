@@ -1,0 +1,227 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Datenflussbausteine - Sperre+ - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Datenflussbausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(GiraIconLogicNodesBlocker.png)">Sperre+</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>
+                Dieser Baustein ist eine Erweiterung des Bausteins "Sperre". Es gibt es eine zusätzliche Option, einen Wert zu senden, wenn eine Sperre beendet wird.
+            </p>
+            <p>
+                Häufig verändern Logiken im automatisiert Werte, die durch eine Sperre nicht in jedem Fall das Ziel erreichen sollen. Wenn die Sperre aufgehoben wird, soll jedoch der letzte Wert an das Ziel geschickt werden. Dieser Baustein ermöglicht nicht nur das Senden fest eingestellter Werte bei der Aktivierung oder Deaktivierung der Sperre, sondern ermöglicht es, dass der jeweils letzte eingeangene Wert beim Aufheben der Sperre gesendet wird.
+            </p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eingang</td>
+                        <td>(Wert)</td>
+                        <td>
+                            <p>Eingang der Sperre</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aktiv</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Steuert das Verhalten des Bausteins:</p>
+                            <p>1 = alle Telegramme werden gesperrt<br />0 = alle Telegramme werden weitergeleitet</p>
+                            <p>Standardwert = 0</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sende bei Aktivierung</td>
+                        <td>Auswahl</td>
+                        <td>
+                            <p>Gibt an, ob ein Telegramm bei einer Aktivierung des Bausteins versendet werden soll.</p>
+                            <p><em>Kein Wert</em> = Sendet nichts<br /><em>Definierter Wert</em> = Sendet einen fest definierten Wert</p>
+                            <p>Standardwert = Kein Wert</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Wert bei Aktivierung</td>
+                        <td>(Wert)</td>
+                        <td>
+                            <p>Gibt an, welches Telegramm versendet werden soll, wenn der Baustein aktiviert wird.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sende bei Deaktivierung</td>
+                        <td>Auswahl</td>
+                        <td>
+                            <p>Gibt an, ob ein Telegramm bei einer Deaktivierung des Bausteins versendet werden soll.</p>
+                            <p><em>Kein Wert</em> = Sendet nichts<br /><em>Definierter Wert</em> = Sendet einen fest definierten Wert<br /><em>Letzter Wert</em> = Sende den zuletzt eingegangenen Wert</p>
+                            <p>Standardwert = Kein Wert</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Wert bei Deaktivierung</td>
+                        <td>(Wert)</td>
+                        <td>
+                            <p>Gibt an, welches Telegramm versendet werden soll, wenn der Baustein deaktiviert wird.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ausgang</td>
+                        <td>(Wert)</td>
+                        <td>
+                            <p>Ausgang der Sperre</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Einfache Rollladensteuerung</h3>
+            <p>
+                Als Beispiel sei eine einfache Rollladensteuerung genannt. Grundsätzlich fahren die Rollladen helligkeitsgesteuert (Tag/Nacht) automatisch. Jedoch möchte ich diese Automatik unterbrechen, wenn Gäste da sind (Sperre = ein). Wenn die Gäste wieder zu Hause sind, soll die Automatik weiter ausgeführt werden (Sperre = aus).
+            </p>
+            <p>
+                Da ich im Vorfeld nicht weiß, ob der Rollladen nach Ende der Sperre auf- oder abgefahren werden muss (Gäste können übernachten oder auch nicht :-) ), scheiden feste Werte bei der Deaktivierung aus. Wird jedoch der zuletzt eingegange Wert (Auf- oder Abfahren) einfach ausgegeben, wird der durch die Automatik vorgegebene Zustand einfach hergestellt.
+            </p>
+            <figure>
+                <img src="example01.png" alt="Sperre+ - Einfache Rollladensteuerung 1" />
+                <figcaption>
+                    In diesem Fall wird der Rollladen herabgefahren, wenn die Nacht anbricht und wenn die Automatiksteuerung (Sperre) dies zulässt. Wird die Automatik (z.B. nachdem der Besuch wieder weg ist) wieder aktiviert, so wird der Rollladen auf die gewünschte (durch die Automatik vorgegebene) Position eingestellt.
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="example02.png" alt="Sperre+ - Einfache Rollladensteuerung 2" />
+                <figcaption>
+                    Der Ablauf dieser Logik ist mit der vorherigen vergleichbar - es wird jedoch zudem ein Fenster überwacht. Wird dieses geöffnet, so fährt der Rollladen nach oben (Sende "auffahren" bei Aktivierung). Wenn das Fenster geschlossen wird, wird die Sperre deaktiviert und der ggf durch die Automatik bestimmte Wert übermittelt.
+                </figcaption>
+            </figure>
+
+            <h3>Beispiel: Farbtemperaturnachführung</h3>
+            <p>
+                Mitunter sollen im Tagesverlauf Farbtemperaturen zentral für verschiedene Leuchten vorgegeben werden. Durch eine Sperre kann diese Automatik gesteuert werden. In einigen Fällen verwirft der LED-Treiber jedoch die Informationen für die Farbtemperatur, wenn die Leuchte nicht eingeschaltet ist.
+            </p>
+            <p>
+                Um den jeweils gültigen Farbtemperaturwert einzustellen, kann die Sperre auch mit dem Schaltzustand der Leuchte verbunden werden. Ist die Leuchte ausgeschaltet, werden keine Informationen an die Leuchte geschickt (sie würde sie ja ohnehin ignorieren). Wird die Leuchte eingeschaltet, so wird mit einer Verzögerung der zuletzt gespeicherte Farbtemperaturwert an die Leuchte geschickt und somit die Leuchte korrekt justiert.
+            </p>
+            <figure>
+                <img src="example03.png" alt="Sperre+ - Farbtemperaturnachführung" />
+                <figcaption>
+                    Farbtemperaturnachführung mit zwei Sperren. Die erste Sperre verhindert Farbtemperaturnachführungen, wenn dies nicht automatisch geschehen soll. In Kombination mit der Ein-/Ausschaltverzögerung ist die zweite Sperre dafür verantwortlich, die Farbtemperatur beim Einschalten der Leuchte zu senden. Die beiden Dimmer werden durch zwei sonnenstandsabhängige (Sonnenaufgang/Sonnenuntergang) Zeitschaltuhren in Gang gesetzt.
+                </figcaption>
+            </figure>
+            <p>
+                <strong>Hinweis:</strong> Das gezeigte Beispiel verwendet den Logikbaustein DimCurve von Sönke Jacobs (<a href="http://service.knx-user-forum.de/?comm=download&id=20000030" target="_blank">Link zum Download im knx-user-forum.de</a>).
+
+            </p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li>Das Icon wurde der Komponente "Sperre" aus dem Gira Projekt Assistent entnommen.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿{
+    "PackageFormatVersion": "1.0",
+    "Assembly": "neleo_com.Logic.Bridges.Nuki.dll",
+    "PackageName": {
+        "en": "Nuki Bridge logic nodes",
+        "de": "Bausteine für die Nuki Bridge"
+    },
+    "DependentFiles": [
+        "LogicModule.Nodes.Helpers.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "Version": "1.0.1",
+    "Author": "neleo.com - Christoph Lesser",
+    "Copyright": "",
+    "DeveloperId": "neleo_com",
+    "License": "Free",
+    "PackageId": "3FCC16DD-E839-4500-AA93-4EC87AD48B4B",
+    "Nodes": [
+        {
+            "Type": "neleo_com.Logic.Bridges.Nuki.NukiSmartLock",
+            "Name": {
+                "en": "Nuki SmartLock",
+                "de": "Nuki SmartLock"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-lock-44.png",
+            "HelpTooltip": {
+                "en": "Allows to lock, unlock or unlatch a SINGLE SmartLock and shares lock state, door state as well as battery state.",
+                "de": "Ermöglicht das Sperren, Entsperren und Entriegeln eine EINZELNEN SmartLocks und liefert Informationen über den Schließzustand, Türsensor und Ladestand."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.bridges.nuki/smartlock/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Bridges.Nuki.NukiGateway",
+            "Name": {
+                "en": "Nuki Bridge",
+                "de": "Nuki Bridge"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-router-44.png",
+            "HelpTooltip": {
+                "en": "Connects to a Nuki Bridge to control multiple connected devices and get information about their state.",
+                "de": "Stellt eine Verbindung zur Nuki Bridge her und ermöglicht die Steuerung von mehr als einem angeschlossenen Gerät."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.bridges.nuki/gatewayconnector/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Bridges.Nuki.NukiRequest",
+            "Name": {
+                "en": "Nuki Request Builder",
+                "de": "Nuki Auftraggeber"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-input-44.png",
+            "HelpTooltip": {
+                "en": "Emulates a Nuki device to generate requests for the Nuki Bridge (Gateway).",
+                "de": "Simuliert ein Nuki Gerät und generiert Befehle für die Nuki Bridge (Gateway)."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.bridges.nuki/gatewayrequest/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Bridges.Nuki.NukiResponse",
+            "Name": {
+                "en": "Nuki Request Filter",
+                "de": "Nuki Antwortfilter"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-output-44.png",
+            "HelpTooltip": {
+                "en": "Emulates a Nuki device that reads the state from the Nuki Bridge (Gateway).",
+                "de": "Simuliert ein Nuki Gerät das Rückmeldungen von der Nuki Bridge (Gateway) liest."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.bridges.nuki/gatewayresponse/index.html"
+        }
+    ]
+}

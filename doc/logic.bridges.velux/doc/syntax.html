@@ -1,0 +1,389 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Velux KLF Bausteine - Telegrammsyntax</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Velux KLF-200 Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 class="noicon">Telegrammsyntax</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Die Kommunikation der Logikbausteine untereinander erfolgt mit Hilfe von Telegrammen, die einer URL-Syntax nachempfunden sind:</p>
+            <ul>
+                <li>request://{scene|group|node}{:id|/name}?param1=value1&amp;param2=value2#action</li>
+                <li>response://{scene|group|node}{:id|/name}?param1=value1</li>
+                <li>info://{scene|group|node}</li>
+            </ul>
+            <p>Die <a href="../gatewayrequest/index.html">Velux-Auftraggeber</a>-Bausteine generieren "request://"-Telegramme, die an den Eingang des <a href="../gatewayconnector/index.html">Velux Gateways</a> gesendet werden. Dieses antwortet mit "response://"-Telegrammen, die es über seinen Ausgang an die Eingänge der <a href="../gatewayresponse/index.html">Velux-Ausgabefilter</a>-Bausteine sendet ("Broadcast").</p>
+            <p><em>scene</em>, <em>group</em> oder <em>node</em> geben an, ob sich die nachfolgenden Parameter auf Szenen, Gruppen oder einzelne Geräte ("node") beziehen.</p>
+            <p>Die Szenen, Gruppen oder Geräte können entweder mit Hilfe ihrer internen Nummer (<em>:id</em>) oder anhand ihres Namens (<em>/name</em>) identifiziert werden (z.B. "request://scene/Aufwachen#start" oder "request://node:3?position=25").</p>
+            <p>Es schließt sich nun die optionale Parameterliste an. Sie beginnt mit dem Fragezeichen ("?") und dem ersten Schlüssel-Wert-Paar. Weitere Schlüssel-Wert-Paare werden durch kaufmännisches Unds ("&amp;") angehängt.</p>
+            <p>Weiterhin besteht die Möglichkeit, Schnellbefehle zu definieren. Diese werden mit der Raute ("#aktion") eingeleitet. So werden beispielsweise Stop-Befehle (z.B. "request://node:2#stop") gesendet.</p>
+            <p>Die möglichen Schlüssel-Wert-Paare und Aktionen sind u.a. von der Art der Anfrage (Szene, Gruppe, Gerät) und derer Fähigkeiten (z.B. auf/ab/stop, ein/aus) ab. Gegenwärtig wird nur das Setzen des Standardparameters (target=)unterstützt.</p>
+            <p>Es gibt zusätzlich die Möglichkeit, die Liste alle Szenen, Gruppen und Geräte (Nummer und Name) ausgeben zu lassen. Dazu wird die Anfrage "info://" mit der entsprechenden Klasse ("scene", "group" oder "node") in der Simulation des Gira Projekt Assistenten an das <a href="../gatewayconnector/index.html">Velux Gateway</a> geschickt. Die angefragten Informationen werden in dem Fall über den Ausgang "Antworten" des Logikbausteins ausgegeben und haben das Format "0=Name1, 1=Name2, ..", wobei die Ziffer der internen Nummer des Geräts, der Gruppe oder Szene entspricht.</p>
+            <p>In der Regel ist das manuelle Zusammenstellen der Telegramme nicht erforderlich - jedoch können damit gegebenenfalls auch noch nicht offiziell getestete Geräte angebunden werden.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Protokoll</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>request://</td>
+                        <td>
+                            <p>Das Telegramm richtet sich an den Eingang des <a href="../gatewayconnector/index.html">Velux Gateway</a>s. Es wird verwendet, um Eigenschaften in Geräten oder Gruppen zu setzen oder Szenen zu beginnen/beenden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>response://</td>
+                        <td>
+                            <p>Das Telegramm wird vom Ausgang des <a href="../gatewayconnector/index.html">Velux Gateway</a>s versendet. Es zeigt Veränderungen der Eigenschaften von Geräten an.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>info://</td>
+                        <td>
+                            <p>Das Telegramm richtet sich an den Eingang des <a href="../gatewayconnector/index.html">Velux Gateway</a>s. Es wird verwendet, um die Liste der Geräte (Nodes), Gruppen oder Szenen abzurufen. Die Liste wird Ausgang "Antworten" des Gateway-Logikbausteins gesendet und ist für die erleichterte Einrichtung gedacht.</p>
+                            <!--p>Alternativ kann auch der <a href="tester.html">KLF-200 Tester</a> verwendet werden, um die Liste der Geräte, Gruppen und Szenen auszulesen.</p-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Geltungsbereich</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>node</td>
+                        <td>
+                            <p>Gibt an, dass die nachfolgenden Parameter für ein einzelnes Gerät (Node) gelten.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>group</td>
+                        <td>
+                            <p>Gibt an, dass die nachfolgenden Parameter für eine Gruppe an Geräten gelten.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>scene</td>
+                        <td>
+                            <p>Gibt an, dass die nachfolgenden Aktionen sich auf eine Szene beziehen.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Bezeichner</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Protokolle</th>
+                        <th>Geltungsbereiche</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>:id</td>
+                        <td>request<br />response</td>
+                        <td>node<br />group<br />scene</td>
+                        <td>
+                            <p>Der Bezeichner eines Geräts, einer Gruppe oder einer Szene wird in Form der innernen Stellennummer im Velux KLF-200 Gateway angegeben.</p>
+                            <p>Das Velux KLF-200 Gateway unterstützt die folgenden Nummernkreise: Geräte: 0..199, Gruppen: 0..99, Szenen: 0..31.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>/name</td>
+                        <td>request<br />response</td>
+                        <td>node<br />group<br />scene</td>
+                        <td>
+                            <p>Der Bezeichner eines Geräts, einer Gruppe oder einer Szene wird mit dem im Velux KLF-200 Gateway vergebenen Namen angesprochen (z.B. "Esszimmer"). Der Name darf max. 64 Buchstaben lang sein.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Aktionen</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Protokolle</th>
+                        <th>Geltungsbereiche</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#start</td>
+                        <td>request</td>
+                        <td>node<br />group<br />scene</td>
+                        <td>
+                            <p>Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den Standardwert ("0xD300"). Dieser Wert ist nicht für allen Geräten definiert und wird gegebenenfalls ignoriert.</p>
+                            <p>Beginnt, eine Szene auszuführen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#stop</td>
+                        <td>request</td>
+                        <td>node<br />group<br />scene</td>
+                        <td>
+                            <p>Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den aktuellen Wert ("0xD200"). Damit werden laufende Aktionen eines Geräts oder einer Gruppe angehalten. Haben die Geräte oder Gerätegruppen ihre jeweiligen Zielwerte schon erreicht, wird das Telegramm ignoriert.</p>
+                            <p>Beendet eine laufende Szene. Ist die Szene bereits abgelaufen, wir das Telegramm ignoriert.</p>
+                        </td>
+                    </tr>
+                   <tr>
+                        <td>#min</td>
+                        <td>request</td>
+                        <td>node<br />group</td>
+                        <td>
+                            <p>Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den minimalen Wert ("0x000" = Auffahren bis zur Endposition bei Rollläden).</p>
+                            <p>Siehe Kapitel 14.1 der Velux KLF-200-Dokumentation.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#max</td>
+                        <td>request</td>
+                        <td>node<br />group</td>
+                        <td>
+                            <p>Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den maximalen Wert ("0xC800" = Abfahren bis zur Endposition bei Rollläden).</p>
+                            <p>Siehe Kapitel 14.1 der Velux KLF-200-Dokumentation.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="150" />
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Protokolle</th>
+                        <th>Geltungsbereiche</th>
+                        <th>Aktionen</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>source</td>
+                        <td>request</td>
+                        <td>node<br />group<br />scene</td>
+                        <td>min<br />max<br />start<br />stop</td>
+                        <td>
+                            <p>Definiert, wer das Telegramm initiiert hat:</p>
+                            <ul>
+                                <li><em>User</em></li>
+                                <li><em>Rain</em></li>
+                                <li><em>Timer</em></li>
+                                <li><em>UPS</em></li>
+                                <li><em>SAAC</em></li>
+                                <li><em>Wind</em></li>
+                                <li><em>LoadShedding</em></li>
+                                <li><em>LocalLight</em></li>
+                                <li><em>UnspecificEnvironmentSensor</em></li>
+                                <li><em>Emergency</em></li>
+                            </ul>
+                            <p>Standardwert: <em>User</em></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>priority</td>
+                        <td>request</td>
+                        <td>node<br />group<br />scene</td>
+                        <td>min<br />max<br />start<br />stop</td>
+                        <td>
+                            <p>Definiert, mit welcher Priorität das Telegramm behandelt werden soll:</p>
+                            <ul>
+                                <li><em>HumanProtection</em></li>
+                                <li><em>EnvironmentProtection</em></li>
+                                <li><em>UserLevel1</em></li>
+                                <li><em>UserLevel2</em></li>
+                                <li><em>ComfortLevel1</em></li>
+                                <li><em>ComfortLevel2</em></li>
+                                <li><em>ComfortLevel3</em></li>
+                                <li><em>ComfortLevel4</em></li>
+                            </ul>
+                            <p>Standardwert: <em>UserLevel2</em>, <br />für Stop-Telegramme: <em>UserLevel1</em></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>velocity</td>
+                        <td>request</td>
+                        <td>node<br />group<br />scene</td>
+                        <td>min<br />max<br />start</td>
+                        <td>
+                            <p>Definiert, mit welcher Geschwindigkeit die Geräte bzw. Gerätegruppen arbeiten sollen, sofern sie dies technisch unterstützen:</p>
+                            <ul>
+                                <li><em>Default</em></li>
+                                <li><em>Silent</em></li>
+                                <li><em>Fast</em></li>
+                            </ul>
+                            <p>Standardwert: <em>Default</em></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>target</td>
+                        <td>request</td>
+                        <td>node<br />group</td>
+                        <td>(wird durch #start, #stop, #min und #max überschrieben)</td>
+                        <td>
+                            <p>Der Zielwert kann auf unterschiedliche Weise festgelegt werden:</p>
+                            <ul>
+                                <li><em>Absoluter Zielwert</em><br />0x0000 = 0 = 0%<br />0xC800 = 51200 = 100%</li>
+                                <li><em>Relativer Zielwert</em><br />0xC900 = 51456 = -100%<br />0xCCE8 = 52456 = +/-0%<br />0xD0D0 = 53456 = +100%</li>
+                                <li><em>Default</em> entspricht #start</li>
+                                <li><em>Current</em> entspricht #stop</li>
+                            </ul>
+                            <p>Absolute und relative Zielwerte müssen in Dezimalschreibweise angegeben werden.</p>
+                            <p>Siehe Kapitel 13 der Velux KLF-200-Dokumentation.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>target</td>
+                        <td>response</td>
+                        <td>node</td>
+                        <td>-</td>
+                        <td>
+                            <p>Es wird der absolute Zielwert (0x000 .. 0xC800 bzw. 0..51200) für ein Gerät ausgegeben. Wurde ein relativer Zielwert (+/-%) gesetzt, liefert das Gateway den undefinierten Wert (0xF7FF = 63487).</p>
+                            <p>Werte werden immer in Dezimalschreibweise ausgegeben.</p>
+                            <p>Bei einem Rollladen entspricht dies der anzufahrenden Position.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>current</td>
+                        <td>response</td>
+                        <td>node</td>
+                        <td>-</td>
+                        <td>
+                            <p>Es wird der absolute Wert (0x000 .. 0xC800 bzw. 0..51200) des Standardparameters eines Geräts ausgegeben.</p>
+                            <p>Werte werden immer in Dezimalschreibweise ausgegeben.</p>
+                            <p>Bei einem Rollladen entspricht dies der gegenwärtigen Position.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>countdown</td>
+                        <td>response</td>
+                        <td>node</td>
+                        <td>-</td>
+                        <td>
+                            <p>Dieser Parameter informiert über die Zeit in Sekunden, die vom angegebenen Gerät benötigt wird, um den Zielwert des Standardparameters umzusetzen.</p>
+                            <p>Bei einem Rollladen entspricht dies der Fahrzeit von der aktuellen zur Zielposition.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>state</td>
+                        <td>response</td>
+                        <td>node</td>
+                        <td>-</td>
+                        <td>
+                            <p>Definiert, wer das Telegramm initiiert hat:</p>
+                            <ul>
+                                <li><em>NonExecuting</em></li>
+                                <li><em>ErrorWhileExecution</em></li>
+                                <li><em>NotUsed</em></li>
+                                <li><em>WaitingForPower</em></li>
+                                <li><em>Executing</em></li>
+                                <li><em>Done</em></li>
+                                <li><em>StateUnknown</em></li>
+                            </ul>
+                            <p>Typische Werte sind: <em>NotUsed</em>, <em>Executing</em> und <em>Done</em></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Die nachfolgenden Beispiele gehen von einem Rollladen mit dem Namen "Esszimmer" und der Gateway-internen Nummer von "1" aus:</p>
+            <p><code>request://node:1#min</code><br />Fährt den Rollladen aufwärts bis zur Endposition (intern verwendete Standardparameter: source=User, priority=UserLevel2, velocity=Default).</p>
+            <p><code>request://node:1?priority=UserLevel1#min</code><br />Fährt den Rollladen mit einer höhreren Priorisierung aufwärts bis zur Endposition (intern verwendete Standardparameter: source=User, velocity=Default).</p>
+            <p><code>request://node/Esszimmer?target=25600</code><br />Fährt den Rollladen auf 50% (50% von 51200 entsprechen 25600;  intern verwendete Standardparameter: source=User, priority=UserLevel2, velocity=Default). Die Angabe des Zielwertes 50% beziehen sich auf die Fahrzeit, nicht auf die "technische" Höhe des Rollladens. Hier muss ein wenig experiementiert werden, um die für jeden Rollladen korrekten "50%" zu finden.</p>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

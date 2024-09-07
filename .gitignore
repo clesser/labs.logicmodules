@@ -1,0 +1,24 @@
+# Certificates
+*.p12
+
+# System files
+[Tt]humbs.db
+*.DS_Store
+
+# Visual Studio files
+*.vs
+*.vscode
+*.vspscc
+*.vssscc
+[Cc]ache
+[Oo]bj
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+
+# Tooling
+[Tt]est[Rr]esult*
+
+# Project files
+[Bb]uild/
+node_modules/

@@ -1,0 +1,79 @@
+﻿{
+    "PackageFormatVersion": "1.0",
+    "Assembly": "neleo_com.Logic.Timing.dll",
+    "PackageName": {
+        "en": "Timing logic nodes",
+        "de": "Zeitsteuerungsbausteine"
+    },
+    "DependentFiles": [
+        "LogicModule.Nodes.Helpers.dll"
+    ],
+    "Version": "1.0.0",
+    "Author": "neleo.com - Christoph Lesser",
+    "Copyright": "",
+    "DeveloperId": "neleo_com",
+    "License": "Free",
+    "PackageId": "69C7E910-9CF7-4109-BB50-4887CA86D9EC",
+    "Nodes": [
+        {
+            "Type": "neleo_com.Logic.Timing.Alarm",
+            "Name": {
+                "en": "Alarm",
+                "de": "Wecker"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-alarm-44.png",
+            "HelpTooltip": {
+                "en": "An alarm clock that may generate a squence of telegrams before the bell actually rings.",
+                "de": "Ein Wecker, der vor der eigentlichen Weckzeit bereits Telegramme generieren kann."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.timing/alarm/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Timing.Wakeup",
+            "Name": {
+                "en": "Alarm (Wakeup)",
+                "de": "Wecker (Weckzeit)"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-alarm-44.png",
+            "HelpTooltip": {
+                "en": "Module returns the first of up to 10 alarm start times.",
+                "de": "Logikmodul, dass die früheste von bis zu 10 Weckzeiten bestimmt."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.timing/wakeup/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Timing.Calendar",
+            "Name": {
+                "en": "Diary",
+                "de": "Terminkalender"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-today-44.png",
+            "HelpTooltip": {
+                "en": "Module takes an iCal and extracts the upcoming events.",
+                "de": "Logikmodul, dass einen iCal Kalender liest und anstehenden Termine ausgibt."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.timing/calendar/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Timing.Observer",
+            "Name": {
+                "en": "Observer",
+                "de": "Beobachter"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-attendance-44.png",
+            "HelpTooltip": {
+                "en": "An observer that can be used to manage presence state.",
+                "de": "Ein Beobachter u.a. für die Anwesenheitserkennung und mehrstufige Alarmierung."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.timing/observer/index.html"
+        }
+    ]
+}

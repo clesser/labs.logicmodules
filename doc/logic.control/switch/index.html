@@ -1,0 +1,194 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Datenflussbausteine - Vergleicher+ - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Datenflussbausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(GiraIconLogicNodesNumericCompare.png)">Vergleicher+</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>
+                Dieser Baustein ergänzt den Baustein "Vergleicher". Es können mehrere Vergleiche (Zahlen oder Texte) parallel an den Ausgängen signalisiert werden.
+            </p>
+            <p>
+                Mitunter werden von Bausteinen Werte ausgegeben, die traditionell mit mehreren Vergleichern innerhalb einer Logik verteilt werden müssen. Mit diesem Baustein können eingehenede Werte ähnlich einer Switch-Case-Logik simultan in einem einzelnen Baustein ausgewertet werden können.
+            </p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eingang</td>
+                        <td>Ganzzahl / Text</td>
+                        <td>
+                            <p>Eingang der Sperre (je nach Konfiguration akzeptiert der Baustein Zahl- oder Textwerte)</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vergleichsmodus</td>
+                        <td>Auswahl</td>
+                        <td>
+                            <p>Steuert das Verhalten des Bausteins:</p>
+                            <p><em>Zahl</em> = numerische Werte werden miteinander verglichen<br /><em>Text</em> = Zeichenvergleich basierend auf der aktuellen Kultur<br /><em>Text (neutral)</em> = Zeichenvergleich ohne Berücksichtigung der aktuellen Kultur, sowie Groß-/ und Kleinschreibung</p>
+                            <p>Standardwert = Zahl</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Anzahl Vergleichswerte</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Gibt an, wie viele Vergleiche parallel stattfinden sollen</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>x. Wert</td>
+                        <td>Ganzzahl / Text</td>
+                        <td>
+                            <p>Vergleichwert (je nach Konfiguration akzeptiert der Baustein Zahl- oder Textwerte)</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Keine Übereinstimmung</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Zeigt an, dass der Eingangswert nicht mit einem Vergleichswert übereinstimmt.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>x. Auslöser</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Zeigt an, dass der Eingangswert mit dem korrespondierenden Vergleichswert übereinstimmt.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Szenenvisualisierung</h3>
+            <p>
+                Zentrale Szenen sollen mitunter zentral visualisiert werden. Bei einer eingehenden Szenennummer können dann entsprechende Telegramme an LEDs etc. verschickt werden.
+            </p>
+            <figure>
+                <img src="example01.png" alt="Vergleicher+ - Szenenvisualisierung" />
+                <figcaption>
+                    Dieser Vergleicher+ wird gewählt, um die jeweils zuletzt gewählte bereichsübergreifende Szene zu visualisieren (Szenennummer --> LEDs).
+                </figcaption>
+            </figure>
+            <h3>Beispiel: IoT-Gerätezustände auswerten</h3>
+            <p>
+                Viele IoT-Geräte geben den Zustand in in Form von Zustandskennzahlen aus, auf die in einer Logik reagiert werden kann. Mit Hilfe des Bausteins kann so z.B. ein eingehender Byte-Wert verschiedene Signalisierungen auslösen.
+            </p>
+            <p>Beispiel: <a href="../../logic.bridges.nuki/smartlock/index.html">Fehlerauswertung beim Nuki Smartlock</a>.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li>Das Icon wurde der Komponente "Vergleicher" aus dem Gira Projekt Assistent entnommen.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

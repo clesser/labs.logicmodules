@@ -1,0 +1,232 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Aggregationsbausteine - Wertesammler - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Aggregationsbausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-bar-chart-44.png)">Wertesammler</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein sammelt tage- und stundenweise Daten und liefert statistische Auswertungen darüber.</p>
+            <p>Der Hauptanwendungsfall ist die stündliche Protokollierung von Daten (z.B. der Temperatur) über einen Zeitraum von 1-14 Tagen hinweg, so dass daraus Schaltvorgänge (z.B. Heizperiode beginnen/beenden) abgeleitet werden können.</p>
+            <p>Es wird jeweils der erste pro Stunde eingehende Wert intern gespeichert. Für einen Tag stehen demnach intern bis zu 24 Werte zur Verfügung. Da die Rohdaten gespeichert werden, kann die Auswertungsmethode geändert werden, ohne dass bereits erfasste Daten ungültig werden.</p>
+            <p><strong>Hinweis:</strong> Das Entfernen des Logikbausteins von einem Logikblatt, das Rücksetzen des X1/L1 oder das Löschen der Applikationsdaten bei der Inbetriebnahme führt dazu, dass der interne Wertspeicher gelöscht wird!</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eingang</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Eingang des Wertesammlers</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Auswertungsmethode</td>
+                        <td>Auswahl</td>
+                        <td>
+                            <p>Gibt die Berechnungsvorschrift an, mit der die gesammelten Werte zusammengefasst werden sollen.</p>
+                            <p><em>Durchschnitt</em> = Es wird das <a href="https://de.wikipedia.org/wiki/Arithmetisches_Mittel" target="_blank">arithmetische Mittel</a> über alle verfügbaren Werte des Zeitraums gebildet.<br /><em>Median</em> = Es wird der <a href="https://de.wikipedia.org/wiki/Median" target="_blank">Median</a> über alle verfügbaren Werte des Zeitraums gewählt.<br /><em>Modus</em> = Es wird der <a href="https://de.wikipedia.org/wiki/Modus_(Statistik)" target="_blank">Modus</a> aus den (auf ganze Zahlen gerundeten) Werten des Zeitraums gewählt.</p>
+                            <p>Standardwert = Durchschnitt</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Auswertungszeitraum</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Gibt die Anzahl der Tage (1..14) in der Vergangenheit an, auf die sich die Auswertungen beziehen.</p>
+                            <p>Die Werte stehen auch nach einem Neustart des X1/L1 zur Verfügung - jedoch werden alle Berechnungen nur auf die verfügbaren Tage angewendet. Wenn also 5 Tage berücksichtigt werden sollen, aber erst Daten für 4 Tage vorliegen, so werden auch nur 4 Tage ausgewertet.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Maximum (Auswertungszeitraum)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert den maximalen Wert aller zwischengespeicherten Werte des gesamten Auswertungszeitraums.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Durchschnitt (Auswertungszeitraum)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert das arithmetische Mittel (Durchschnitt / Mittelwert) aller zwischengespeicherten Werte des gesamten Auswertungszeitraums.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Durchschnitt (Heute-x)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert das arithmetische Mittel (Durchschnitt / Mittelwert) für einen der zurückliegenden Tage (Heute-1 = gestern, Heute-2 = vorgestern, ...).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Median (Auswertungszeitraum)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert den Median (Zentralwert) aller zwischengespeicherten Werte des gesamten Auswertungszeitraums.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Median (Heute-x)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert den Median (Zentralwert) für einen der zurückliegenden Tage (Heute-1 = gestern, Heute-2 = vorgestern, ...).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Modus (Auswertungszeitraum)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert den Modus (Modalwert) aller zwischengespeicherten Werte des gesamten Auswertungszeitraums.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Modus (Heute-x)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert den Modus (Modalwert) für einen der zurückliegenden Tage (Heute-1 = gestern, Heute-2 = vorgestern, ...).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Minimum (Auswertungszeitraum)</td>
+                        <td>Zahl</td>
+                        <td>
+                            <p>Liefert den minimalen Wert aller zwischengespeicherten Werte des gesamten Auswertungszeitraums.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Heizperiode</h3>
+            <p>Der Hauptanwendungfall ist die Berechnung der <a href="https://de.wikipedia.org/wiki/Heizperiode" target="_blank">Heizperiode</a>. Hierbei werden typischerweise die Tagesdurchschnitttemperaturen stündlich für fünf zurückliegende Tage ermittelt. Unterschreitet das Fünftagemittel 15°C in Deutschland, so beginnt die Heizperiode.</p>
+            <p>Um den Baustein möglichst flexibel nutzen zu können, beschränkt er sich auf das stündliche Einsammeln der Temperaturwerte und der Zusammenfassung mittels einer Berechnungsvorschrift (Durchschnitt, Median, Modus). Gemeinsam mit Vergeleicherbausteinen (oder Schwellwertbausteinen mit Hysterese) kann eine individuelle Heizungsperiode bestimmt werden.</p>
+            <p>Da gerade in der Übergangszeit teilweise signifikante Schwankungen auftreten können, können diese z.B. mit dem Median als Berechnungsvorschrift "normalisiert" werden. Es kann auch einen Unterschied geben, ob die Durchschnittstemperaturen der Einzeltage (Vergleicher + Und-Verknüpfung) oder des gesamten Überwachungszeitraums an die Vergleicher weitergereicht werden.</p>
+            <figure>
+                <img src="example01.png" alt="Wertesammler - Einfache Steuerung der Heizperiode" />
+                <figcaption>
+                    Vereinfachte Auswertung: Wenn die Durchschnittstemperatur der letzten 5 Tage unter 15 °C lag, beginnt die Heizperiode.
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="example02.png" alt="Wertesammler - Gesetzeskonforme Steuerung der Heizperiode" />
+                <figcaption>
+                    Mögliche gesetzeskonforme Auswertung (für Deutschland - sofern die Heizperiode nicht kalendarisch definiert wird): Die Heizperiode beginnt, wenn 5 aufeinanderfolgende kalte Tage festgestellt werden und endet, wenn 5 aufeinanderfolgende warme Tage ermittelt wurden.
+                </figcaption>
+            </figure>
+            <p><strong>Hinweis:</strong> Das gezeigte Beispiel verwendet den Logikbaustein Formelberechnung von Horst Lehner (<a href="http://service.knx-user-forum.de/?comm=download&id=20000010" target="_blank">Link zum Download im knx-user-forum.de</a>), um je ein komplexes UND- bzw. invertiertes UND-Gatter zu vermeiden.</p>
+            <p>Dabei wird die Anzahl der aufeinanderfolgenden Tage gezählt, an denen es kälter ist als 15°C (5 Vergleicher) und Wahrheitswerte per Typumwandlung am Ausgang mittels einfacher Summenformel "{Tag1:N}+{Tag2:N}+{Tag3:N}+{Tag4:N}+{Tag5:N}" durch den Formelberechner aggregiert.</p>
+            <p>Sind fünf aufeinanderfolgende Tage zu kalt, beginnt die Heizperiode. Sind null aufeinanderfolgende Tage zu warm, endet sie. Der Baustein "Schwellwert mit Hysterese" muss dafür auf 1..4 eingestellt werden, damit die Werte über- bzw. unterschritten werden.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/Ww4I6zPDi4xI/bar-chart">Bar Chart</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

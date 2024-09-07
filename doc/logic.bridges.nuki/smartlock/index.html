@@ -1,0 +1,256 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Nuki Bridge Bausteine - Smartlock - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Nuki Bridge Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-lock-44.png)">Nuki SmartLock</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein ermöglicht das Abschließen (Sperren), Aufschließen (Entsperren) und Entriegeln eines Türschlosses mittels Nuki SmartLock und liefert Informationen über den Schließzustand, Türsensor und Ladestand.</p>
+            <p>Um diesen Baustein zu nutzen, wird eine Nuki Bridge benötigt, die im gleichen Netzwerk erreichbar ist. Zur Konfiguration sind die Parameter "token" der Nuki Bridge und "nukiId" (nachfolgend als "Geräte-ID" bezeichnet) des Nuki SmartLocks erforderlich. Die Einrichtung der Nuki Bridge und das Auslesen dieser Parameter ist auf dieser Webseite beschrieben: </p>
+            <ol>
+                <li><a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--bridge-discovery" target="_blank">Ermitteln der Nuki Bridge IP-Adresse</a> --> Die IP-Adresse der Nuki Bridge sollte statisch vergeben werden.</li>
+                <li><a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--token" target="_blank">Erzeugen eines Zugriffstokens</a> --> Das Erzeugen muss innerhalb von 30sek an der Nuki Bridge bestätigt werden.</li>
+                <li><a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--list" target="_blank">Ermitteln der Nuki SmartLock Gerätenummer</a> --> Falls mehrere Geräte angezeigt werden, ist die Nummer des Nuki SmartLocks (deviceType = 0 oder 4) relevant.</li>
+            </ol>
+            <p>Nach jeder Aktion (Abschließen, Aufschließen, Entriegeln), die die Nuki Bridge als "erfolgreich" quittiert, wird der "Status: Schloss" entsprechend aktualisiert, ohne dass dabei der tatsächliche Zustand abgefragt wird.</p>
+            <p>In der Praxis führt dies zu zügigen Rückmeldungen (Visualisierung), die im Rahmen des nächsten Aktualisierungszyklus gegebenenfalls korrigiert werden. Dies betrifft insbesondere das Entsperren der Tür (Status = 5), der nach der eingestellten Sperrzeit auf "Nicht verschlossen" (Status = 3) wechselt, dies aber erst bei der nächsten Aktualisierung des Gerätestatus im X1 wiederspiegelt.</p>
+            <p><strong>Hinweis</strong>: Dieser Baustein eigenet sich gut, um ein <strong>einzelnes</strong> SmartLock, dass mit einer Bridge verbunden ist, zu steuern. Falls <strong>mehrere</strong> Geräte mit der gleichen Bridge verbunden sind, ist die Kombination von <a href="../gatewayconnector/index.html">Nuki Bridge</a>, <a href="../gatewayrequest/index.html">Nuki Auftraggeber</a> und <a href="../gatewayresponse/index.html">Nuki Antwortfilter</a> vorzuziehen.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Abschließen</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fordert zum Abschließen (Sperren) der Tür auf, wenn eine 1 übermittelt wird.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aufschließen</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fordert zum Aufschließen (Entsperren) der Tür auf, wenn eine 1 übermittelt wird.</p>
+                            <p>Hinweis: Je nach Konfiguration des Nuki SmartLocks kann "Aufschließen" den Schlüssel geausoweit drehen, wie beim "Entsperren".</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Entsperren</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fordert zum Entsperren des Türriegels auf, wenn eine 1 gesendet wird. Falls die Tür abgeschlossen war, wird sie zuvor aufgeschlossen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Info (direkt)</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fragt den Status des Nuki SmartLocks und des Türsensors direkt am Gerät ab.</p>
+                            <p>Dies wirkt sich negativ auf die Batterielaufzeit der Geräte aus. </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Info (zwischengespeichert)</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Fragt den Status des Nuki SmartLocks und des Türsensors an der Bridge ab.</p>
+                            <p>Dies wirkt sich positiv auf die Batterielaufzeit der Geräte aus. </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bridge IP-Adresse</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Legt die IP4-Adresse der Nuki Bridge (z.B. "0.0.0.0") fest. Der Logikbaustein ergänzt intern den Port "8080".</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bridge Token</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Eingabe des Zugriffstokens.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gerät-ID</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Legt den Bezeichner des Geräts fest, an das die Anforderungen (Abschließen, Aufschließen, Entsperren, Statusaktualisierung) gesendet werden sollen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gerättyp</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Angabe des Nuki-Gerättyps (siehe <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--device-types" target="_blank">Device Types</a>).</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Status: Schloss</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Liefert den Status des Nuki SmartLocks (siehe <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4#heading--lock-states" target="_blank">Lock State</a>).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status: Tür</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Liefert den Status des Nuki DoorSensors (siehe <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4#heading--doorsensor-states" target="_blank">DoorSensor State</a>).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status: Batterie</td>
+                        <td>Prozent</td>
+                        <td>
+                            <p>Liefert den Ladestand des Nuki SmartLocks (0..100%).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fehler</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Liefert eventuelle Netzwerk-Fehlermeldungen aus der Kommunikation mit der Nuki Bridge.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Türschloss</h3>
+            <p>
+                Die Steuerung der Wohnungstür mit Hife eines Nuki SmartLocks kann folgendermaßen aussehen:
+            </p>
+            <figure>
+                <img src="example01.png" alt="Nuki SmartLock Logikbaustein" />
+                <figcaption>
+                    Anwendungsbeispiel des Nuki SmartLocks Logikbausteins.
+                </figcaption>
+            </figure>
+            <p>Gesteuert wird das Schloss mit Hilfe von drei Eingängen, über die beispielsweise das Schloss mit Tastern oder im Rahmen einer Szene abgeschlossen, aufgeschlossen oder entriegelt werden kann. Hierzu ein paar Empfehlungen für die Konfiguration der Datenpunkte:</p>
+            <ul>
+                <li>Gruppenadress-Datenpunkte. Es werden zwei Gruppenadressen und zwei Datenpunkte benötigt. Auf Datenpunkt 1 wird die Gruppenadresse 1 (Senden) und Gruppenadresse 2 (Status) gelegt, auf den Datenpunkt 2 die Gruppenadresse 2 (Senden). Datenpunkt 1 wird nun zum Schalten des Nuki SmartLocks (mit Hilfe eines Flankendetektors oder Filters) gelegt und der Datenpunkt 2 hinter dem "Vergleicher+", um den Schaltzustand zu erfassen. Für die Visualisierung kann ein Schalter gewählt werden.</li>
+                <li>Variablen-Datenpunkte. Hierfür empfielt es sich, drei Datenpunkte anzulegen: Datenpunkt 1 zum Abschließen, Datenpunkt 2 zum Aufschließen und Datenpunkt 3 für die Statusanzeige nach dem "Vergleicher+". Die Visualisierung kann derzeit nur mit Hilfe von Ein/Aus-Tastern und einer Binäranzeige gestaltet werden.<br />Falls das Schloss ausschließlich über Szenen abgeschlossen bzw. aufgeschlossen wird (und daher keine Schaltervisualisierung erforderlich ist), dann ein Datenpunkt mit dem Flankendetektor bzw. Filter (analog zu den Gruppenadress-Datenpunkten) genutzt werden (siehe Abbildung).</li>
+                <li>Für das Entriegeln bietet sich ein beliebiger Datenpunkt an, der über einen Ein/Aus-Taster visualisiert werden kann.</li>
+            </ul>
+            <p>Der Telegrammgenerator sorgt dafür, dass der Zustand (incl. Ladestand der Batterie) regelmäßig von der Nuki Bridge ausgelesen wird. Dafür sind zwei Eingänge vorgesehen:</p>
+            <ul>
+                <li><em>Info (direkt)</em> liest den Status des Gerätes direkt aus dem Gerät aus. Werden die Statusabfragen häufig durchgeführt, wirkt sich das negativ auf die Lebensdauer von Batterie / Akku aus.</li>
+                <li><em>Info (zwischengespeichert)</em> liest zwischengespeicherten Status des Geräts an der Bridge aus. In dem Fall wird die Batterie des Geräts geschont.</li>
+            </ul>
+            <p>Auf der Seite der Ausgänge werden die vom Nuki SmartLock definierten Zustände ausgegeben. Mit dem "Vergleicher+"-Logikbaustein werden die Werte ausgewertet (Abgeschlossen/Aufgeschlossen/Störung bzw. Geöffnet/Geschlossen/Störung). Der Ladestand wird direkt weitergereicht. Mit einem Vergleicher könnte hier ein Alarm bei kritischem Ladestand realisiert werden.</p>
+            <p>Ein klassischer Türsensor erkennt wenn die Tür geöffnet wird und setzt den Zustand des Schlosses auf "Offen" (Filterbaustein in der letzten Zeile). Dadurch wird dieser Status auch außerhalb eines Updatezyklus umgehend bereitgestellt.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen und rechtliche Hinweise für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/15437/lock">Lock</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

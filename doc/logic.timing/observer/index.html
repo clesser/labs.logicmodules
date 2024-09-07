@@ -1,0 +1,214 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Zeitsteuerungsbausteine - Beobachter - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Zeitsteuerungsbausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-attendance-44.png)">Beobachter</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein ist ein Beobachter u.a. für die Anwesenheitserkennung und mehrstufige Alarmierung.</p>
+            <p>Nachdem der Beobachter durch ein Ereignis aktiv wird, wartet er die eingestellte Nachlaufzeit ab und ignoriert in dieser Zeit noch alle Aktivitätssignale. Anschließend beginnen bis zu 15 aufeinanderfolgende Wartezeiten, deren Ende jeweils an einem Ausgang signalisiert wird. Geht während der Beobachtungszeit (= die einzelnen Wartezeiten) ein Aktivitätssignal ein, so wird die Beobachtung beendet und dies am Ausgang signalisiert.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="200" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Beobachtungszyklus beginnen</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Setzt alle Ausgänge zurück und beginnt mit einem neuen Beobachtungszyklus (Nachlaufzeit + Wartezeiten 1..15).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aktivität melden</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Meldet eine Aktivität (1 / true), die zum Abbruch des Beobachtungszyklus führt.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="200" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nachlaufzeit</td>
+                        <td>Zeitspanne</td>
+                        <td>
+                            <p>Definiert die Zeitspanne zu Beginn eines Beobachtungszyklus, in dem Aktivitätssignale ignoriert werden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Beobachtungsschritte</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Definiert 1..15 mögliche Beobachtungszeiten. Jeder Beobachtungsschritt wird durch eine Wartezeit (Parameter) und einen entsprechenden Auslöser (Ausgang) definiert.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>x. Wartezeit</td>
+                        <td>Zeitspanne</td>
+                        <td>
+                            <p>Definiert die Wartezeit eines Beobachtungsschritts. Geht während der Wartezeit kein Aktivitätssignal ein, so wird am Ende der Wartezeit eines Schritts, eine 1/true an den zugehörigen Ausgang geschickt.</p>
+                            <p>Die Wartezeiten bauen auf einander auf. Soll die erste Wartezeit 30 min nach Zyklusbeginn und die zweite Wartezeit nach 60 min nach Zyklusbeginn (der Einfachheit halber sei die Nachlaufzeit = 0) zu Ende sein, so wird für beide Schritte "30 min"" angegeben.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="200" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Laufender Beobachtungszyklus</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Zeigt an, ob gerade ein Beobachtungszyklus aktiv ist. Der Beobachtungszyklus beginnt, nachdem eine 1/true an den gleichnamigen Eingang geschickt wird und endet, wenn entweder der letzte Beobachtungsschritt erreicht wurde, oder zwischenzeitlich ein Aktivitätssignal erkannt wurde, dass zum Abbruch des Zyklus führte.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>x. Wartezeit abgelaufen</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Zeigt mit einem "1"-Telegramm an, dass die Wartezeit des jeweiligen Schritts abgelaufen ist und zwischenzeitlich kein Aktivitätssignal eingegangen ist.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aktivität erkannt</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Zeigt mit einem "1"-Telegramm an, eine Aktivität erkannt wurde und damit ein laufender (bzw. abgelaufener) Zyklus abgebrochen wird.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Anwesenheitserkennung</h3>
+            <p>
+                Dieser Anwendungsfall ist inspiriert von dem Baustein "Präsenz" von Sönke Jacobs. Er ist jedoch etwas universeller angelegt.
+            </p>
+            <p>
+                Im nachfolgenden Beispiel wird die Anwesenheitserkennung immer dann aktiviert, wenn die Wohnungstür geöffnet/geschlossen wird. Nach einer Nachlaufzeit, in der exisiterende Automatiken in den Ruhezustand gehen können, beginnen drei Überwachungszeiträume, denen unterschiedliche Aktionen bzw. Szenen zugewiesen (z.B. Außer Haus, Dienstreise, Urlaub) werden können.
+            </p>
+            <p>
+                Mit Hilfe einer Sperre kann die Aktivierung des Beobachtungszeitraums unterdrückt werden. Hierfür können ggf. Balkon- und Terrassentüren oder Szenen (Schlafen, Blumengießen im Urlaub) herangezogen werden.
+            </p>
+            <figure>
+                <img src="example01.png" alt="Beobachter - Szenen entsprechend der Abwesenheitsdauer schalten" />
+                <figcaption>
+                    Dieses Beispiel nutzt Wertgeneratoren an den verschiedene Ausgängen, um mit Hilfe von Szenen in einem Szenenset die einzelnen Schaltzustände abzubilden. Die Sperre unterdrückt die Anwesenheitserkennung, wenn bestimmte Szenen (2, 3, 6) eingestellt wurden. Diese sperrenden Szenen werden nach spätestens 15h indirekt zurückgesetzt, in dem ein Beobachtungszyklus eingeleitet (und damit die Sperre überbrückt) wird. Nach ca. 15h (+ 5m) + 30m + 11h30m ist in jedem Fall der letzte Status ("Szene 5") erreicht, falls währenddessen keine Aktivität erkannt wurde.
+                </figcaption>
+            </figure>
+            <h3>Beispiel: Mehrstufige Alarmierung</h3>
+            <p>
+                Mit Hilfe dieser Logik lässt sich auch ein mehrstufiger Wachhund implementieren, bei dem nach der Aktivierung (= Beobachtungszyklus beginnen) auf ein weiteres Eregnis (= Aktivität melden) gewartet wird. Während die Wartezeit verstreicht, kann zu bestimmten Zeiten eine Aktion (z.B. Hinweis, Warnung, Voralarm, Alarm) ausgelöst werden.
+            </p>
+            <figure>
+                <img src="example02.png" alt="Beobachter - Mehrstufige Alarmierung" />
+                <figcaption>
+                    In diesem Fall wird die Überwachung der Öffnungszeit eines Fensters bei steigender Flanke (= Öffnen) begonnen und bei fallender Flanke (= Schließen) beendet. In der Zwischenzeit werden nach dem Verstreichen bestimmter Zeitmarken eine Warnung und ein Alarm ausgelöst.
+                </figcaption>
+            </figure>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/50896/attendance">Attendance</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

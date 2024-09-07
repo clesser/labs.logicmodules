@@ -1,0 +1,65 @@
+﻿{
+    "PackageFormatVersion": "1.0",
+    "Assembly": "neleo_com.Logic.Bridges.Velux.dll",
+    "PackageName": {
+        "en": "Velux KLF-200 gateway logic nodes",
+        "de": "Bausteine für das Velux KLF-200 Gateway"
+    },
+    "DependentFiles": [
+        "LogicModule.Nodes.Helpers.dll",
+        "BouncyCastle.Crypto.dll"
+    ],
+    "Version": "1.0.1",
+    "Author": "neleo.com - Christoph Lesser",
+    "Copyright": "",
+    "DeveloperId": "neleo_com",
+    "License": "Free",
+    "PackageId": "DBA73EED-2393-476F-9852-58667D052D09",
+    "Nodes": [
+        {
+            "Type": "neleo_com.Logic.Bridges.Velux.VeluxGateway",
+            "Name": {
+                "de": "Velux KLF-200 Gateway",
+                "en": "Velux KLF-200 Gateway"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-router-44.png",
+            "HelpTooltip": {
+                "de": "Stellt eine Verbindung zum Velux KLF-200 Gateway her und ermöglicht die Steuerung und das Auslesen der Eigenschaften der dort angeschlossenen Geräte.",
+                "en": "Connects to a Velux KLF-200 gateway to control connected devices and get information about their state."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.bridges.velux/gatewayconnector/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Bridges.Velux.VeluxResponse",
+            "Name": {
+                "de": "Velux KLF-200 Antwortfilter",
+                "en": "Velux KLF-200 Response Filter"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-output-44.png",
+            "HelpTooltip": {
+                "de": "Filtert die vom Velux KLF-200 Gateway generierten Telegrame, um den Status eines Geräts abzubilden.",
+                "en": "Filters Velux KLF-200 gateway response telegrams to represent the state of a node."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.bridges.velux/gatewayresponse/index.html"
+        },
+        {
+            "Type": "neleo_com.Logic.Bridges.Velux.VeluxRequest",
+            "Name": {
+                "de": "Velux KLF-200 Auftraggeber",
+                "en": "Velux KLF-200 Request Builder"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-input-44.png",
+            "HelpTooltip": {
+                "de": "Simuliert ein Gerät, eine Gruppe oder Szene und generiert Telegramme für das Velux KLF-200 Gateway.",
+                "en": "Models a device, group or scene and generates telegrams for the Velux KLF-200 Gateway."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.bridges.velux/gatewayrequest/index.html"
+        }
+    ]
+}

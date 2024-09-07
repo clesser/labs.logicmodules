@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LogicModule.Nodes.Helpers</name>
+    </assembly>
+    <members>
+        <member name="T:LogicModule.Nodes.Helpers.DatapointHelpers">
+            <summary>
+            Contains data point related helper functions
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.DatapointHelpers.CreateValueObjectFromDatapoint(LogicModule.ObjectModel.INodeContext,LogicModule.ObjectModel.TypeSystem.DataPointValueObject,System.String)">
+            <summary>
+            Creates a value object from a data point.
+            </summary>
+            <param name="context">The node context with all services accessible for logic nodes.</param>
+            <param name="datapoint">The data point.</param>
+            <param name="name">The name of the value object</param>
+            <returns>A new value object that contains the type- and constraints of the given 
+            data point; if no DataPoint is set, an AnyValueObject is returned. </returns>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.DeactivateOption">
+            <summary>
+            This class contains the valid options to be interpreted by timing nodes as possible actions
+            when deactivating a node by settings it's Active input from true to false.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.DeactivateOption.Finish">
+            <summary>
+            The displayed text for the Finish option.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.DeactivateOption.Abort">
+            <summary>
+            The displayed text for the Abort option.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.DeactivateOption.AbortAndSend">
+            <summary>
+            The displayed text for the AbortAndSend option.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.DeactivateOption.Pause">
+            <summary>
+            The displayed text for the Pause option.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.DeactivateOption.PauseAndSend">
+            <summary>
+            The displayed text for the PauseAndSend option.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.DeactivateOption.AllowedDeactivationActionOptions">
+            <summary>
+            The three possibilities packed into an array to be passed to <see cref="M:LogicModule.ObjectModel.ITypeService.CreateEnum(System.String,System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.DeactivateOption.PausableAllowedDeactivationActionOptions">
+            <summary>
+            The three possibilities packed into an array to be passed to <see cref="M:LogicModule.ObjectModel.ITypeService.CreateEnum(System.String,System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.IActivatable`1">
+            <summary>Determines that implementing classes possess a binary Active port, a binary ActivateAction port and an ActivateAction
+            </summary>
+            <typeparam name="T"> The IValueObject type of the ActivateValue. Usually a boolean or any, but can be anything.
+            </typeparam>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IActivatable`1.ActivateAction">
+            <summary>
+            Gets or sets the property that determines if any action is to be taken when activating.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IActivatable`1.ActivateValue">
+            <summary>
+            Gets or sets the property that determines the value to send on the output when activating.
+            </summary>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.IActivatable`2">
+            <summary>Determines that implementing classes possesses possesses a binary Active port, an ActivateAction port and an ActivateAction
+            </summary>
+            <typeparam name="T1"> The IValueObject type of the ActivateAction.</typeparam>
+            <typeparam name="T2"> The IValueObject type of the ActivateValue. Usually a boolean or any, but can be anything.
+            </typeparam>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IActivatable`2.Active">
+            <summary>
+            Gets the property that determines if the node is active or inactive.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IActivatable`2.ActivateAction">
+            <summary>
+            Gets or sets the property that determines if any action is to be taken when activating.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IActivatable`2.ActivateValue">
+            <summary>
+            Gets or sets the property that determines the value to send on the output when activating.
+            </summary>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.IDeactivatable`1">
+            <summary>Determines that implementing classes possess a binary Active port, an enumeration DeactivateAction port and DeactivateAction
+            </summary>
+            <typeparam name="T"> The IValueObject type of the ActivateValue. Usually a boolean or any, but can be anything.
+            </typeparam>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IDeactivatable`1.DeactivateAction">
+            <summary>
+            Gets or sets the property that determines if any action is to be taken when deactivating.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IDeactivatable`1.DeactivateValue">
+            <summary>
+            Gets or sets the property that determines the value to send on the output when activating.
+            </summary>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.IReinitializable">
+            <summary>Determines that implementing classes possess two properties, that determine if two other properties, 
+            Restart and Reinitialize are present on the node.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IReinitializable.Restart">
+            <summary>
+            Gets or sets the Input on which the node can be restarted by setting the value to 1.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IReinitializable.Reinitialize">
+            <summary>
+            Gets or sets the Input on which the node can be restarted
+            and the values of the parameters, one of which should be "Active",
+            can be set to their initial values by setting the value to 1.             
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IReinitializable.HasRestartInput">
+            <summary>
+            Gets or sets the parameter which determines whether the <see cref="P:LogicModule.Nodes.Helpers.IReinitializable.Restart" /> input exists or is null.
+            This can be set after instantiating the node.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.IReinitializable.HasReinitializeInput">
+            <summary>
+            Gets or sets the parameter which determines whether the <see cref="P:LogicModule.Nodes.Helpers.IReinitializable.Reinitialize" /> input exists or is null.
+            This can be set after instantiating the node.
+            </summary>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.ListHelpers">
+            <summary>
+            Contains helper functions for logic nodes
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.ListHelpers.UpdateListLength``1(System.Collections.Generic.IList{``0},System.Int32,System.Func{System.Int32,LogicModule.ObjectModel.TypeSystem.IValueObject},System.EventHandler{LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs})">
+            <summary>
+            Grow or shrink a list of inputs or outputs to a new number of elements.
+            </summary>
+            <typeparam name="T">
+            type of the inputs
+            </typeparam>
+            <param name="list">
+            list of InOutDefinitions to grow/shrink
+            </param>
+            <param name="newCount">
+            new number of elements in list
+            </param>
+            <param name="creator">
+            factory method to create new element of list
+            </param>
+            <param name="handler"> the event handler to attach or detach to the ValueSet event.</param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.ListHelpers.ConnectListToCounter``1(System.Collections.Generic.IList{``0},LogicModule.ObjectModel.TypeSystem.ValueObject{System.Int32},System.Func{System.Int32,LogicModule.ObjectModel.TypeSystem.IValueObject},System.EventHandler{LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs},System.Action)">
+            <summary>
+            Add a handler to grow or shrink a list of inputs or outputs 
+            whenever an input with the requested number of elements changes.
+            </summary>
+            <typeparam name="T">
+            type of the inputs
+            </typeparam>
+            <param name="list">
+            list of InOutDefinitions to grow/shrink
+            </param>
+            <param name="countParameter">
+            number of elements in list
+            </param>
+            <param name="creator">
+            factory method to create new element of list
+            </param>
+            <param name="handler">
+            A handler to attach and detach to the ValueSet event.
+            </param>
+            <param name="listLengthChangedCallback">
+            Optional function to execute, when the number of value objects of the list has been changed.
+            </param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.ListHelpers.GetValueObjectCreator(LogicModule.ObjectModel.ITypeService,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Gets a function which creates an boolean input/output for synchronizing lists to counters
+            </summary>
+            <param name="typeService">The type service to create the object from</param>
+            <param name="portType">Type of the ports to create.</param>
+            <param name="prefix">The prefix for the objects name</param>
+            <param name="defaultValue">The default value for the input/output</param>
+            <returns>
+            A creator function for value objects
+            </returns>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.ListHelpers.LocalizePrefix(System.Resources.ResourceManager,System.Globalization.CultureInfo,System.String,System.String)">
+            <summary>
+            Localizes the name of an input/output contained in a list which is synchronized with a counter
+            </summary>
+            <param name="resourceManager">The resource manager</param>
+            <param name="culture">The culture to localize this list entry to</param>
+            <param name="prefix">The prefix of the generated input names</param>
+            <param name="key">The generated input name to localize</param>
+            <returns>
+            The localized name of the input/output;
+            <code>null</code> if either the key is in the wrong format or if the resource could not be found.
+            </returns>
+            <remarks>
+            Use this function when using a creator generated with the provided extensions on <see cref="T:LogicModule.ObjectModel.ITypeService" />.
+            It simply replaces the prefix with the localization of the prefix.
+            </remarks>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.LocalizablePrefixLogicNodeBase">
+            <summary>
+            Base class to for nodes to localize one user defined count for a list of input or output ports.
+            Uses the <see cref="M:LogicModule.Nodes.Helpers.ListHelpers.LocalizePrefix(System.Resources.ResourceManager,System.Globalization.CultureInfo,System.String,System.String)"/> extension method.
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LocalizablePrefixLogicNodeBase.#ctor(LogicModule.ObjectModel.INodeContext,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:LogicModule.Nodes.Helpers.LocalizablePrefixLogicNodeBase"/> class.</summary>
+            <param name="context">The <see cref="T:LogicModule.ObjectModel.INodeContext"/> to retrieve services from.</param>
+            <param name="inputPrefix">The prefix of the ports to localize.</param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LocalizablePrefixLogicNodeBase.Localize(System.String,System.String)">
+            <summary>
+            Localizes the specified key to a specified language.
+            </summary>
+            <param name="language">The language.</param>
+            <param name="key">The key.</param>
+            <returns>The localized text.</returns>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.LogicNodeBase">
+            <summary>
+            This class can serve as base class for logic nodes. It helps to implement logic nodes by avoiding the need to implement every method of the <see cref="T:LogicModule.ObjectModel.ILogicNode"/> interface.
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LogicNodeBase.#ctor(LogicModule.ObjectModel.INodeContext)">
+            <summary>Initializes a new instance of the <see cref="T:LogicModule.Nodes.Helpers.LogicNodeBase"/> class.
+            </summary>
+            <param name="context">The <see cref="T:LogicModule.ObjectModel.INodeContext"/> to retrieve services from.</param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LogicNodeBase.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:LogicModule.Nodes.Helpers.LogicNodeBase"/> class.
+            </summary>
+        </member>
+        <member name="P:LogicModule.Nodes.Helpers.LogicNodeBase.ResourceManager">
+            <summary>
+            Gets or sets the resource manager to localize the node's in- and outputs 
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LogicNodeBase.Execute">
+            <summary>
+            Calculate new values for outputs based on the current values of all inputs.
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LogicNodeBase.Startup">
+            <summary>
+            this method provides the hook to implement startup logic. This method is executed after the event processing has started.
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LogicNodeBase.Localize(System.String,System.String)">
+            <summary>
+            Translate the text referenced by key into the requested language.
+            </summary>
+            <param name="language"> the requested language, e.g. "de" or "en" </param>
+            <param name="key"> the key for the text, e.g. the value of *InOutDefinition.Name </param>
+            <returns> the translated text </returns>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.LogicNodeBase.Validate(System.String)">
+            <summary>
+            Validates the logic node to see if it has been configured properly
+            </summary>
+            <param name="language">The language key which is used for localizing the validation message</param>
+            <returns>A <see cref="T:LogicModule.ObjectModel.ValidationResult"/> containing information if the validation succeeded and an error message if it failed</returns>
+            <remarks>If this method is not overridden, validation always succeeds for this logic node</remarks>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.NodeHelperExtensions">
+            <summary>
+            Extensions to be used by
+            </summary>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.NodeHelperExtensions.IsCloseTo(System.Double,System.Double,System.Double)">
+            <summary>
+            Determines if a double value is nearly equal to another, considering precision loss on doubles.
+            </summary>
+            <param name="self">
+            The double to be compared to another double.
+            </param>
+            <param name="other">
+            The value to compare against.
+            </param>
+            <param name="epsilon">
+            The precision to compare against. Defaults to a very marginal error.
+            </param>
+            <returns>
+            True, if the two values are closer to each other than the precision error determined by epsilon epsilon.
+            </returns>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.NodeHelperExtensions.CreateRestartAndReinitializeInputs(LogicModule.Nodes.Helpers.IReinitializable,LogicModule.ObjectModel.ITypeService)">
+            <summary>
+            Extension method that creates the <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/> inputs HasRestartInput and HasReinitializeInput, 
+            and creates the <see cref="T:LogicModule.ObjectModel.TypeSystem.BoolValueObject"/> inputs Restart and Reinitialize on the fly when the former are set to 
+            <see cref="F:LogicModule.Nodes.Helpers.NodeHelperExtensions.YesNoEnum.Yes"/>.
+            </summary>
+            <param name="self">The node</param>
+            <param name="typeService">The <see cref="T:LogicModule.ObjectModel.ITypeService"/> to create Inputs</param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.NodeHelperExtensions.CreateActivationInputs``1(LogicModule.Nodes.Helpers.IActivatable{``0},LogicModule.ObjectModel.ITypeService,System.String,System.Boolean,System.Object,System.Action)">
+            <summary>
+            Extension method that creates the <see cref="T:LogicModule.ObjectModel.TypeSystem.BoolValueObject"/> input ActivateAction and the 
+            <typeparamref name="T"/> ActivateValue on the fly when the former is set to true.
+            </summary>
+            <typeparam name="T">The type of the ActivateValue Property.</typeparam>
+            <param name="self">The node</param>
+            <param name="typeService">The <see cref="T:LogicModule.ObjectModel.ITypeService"/> to create Inputs</param>
+            <param name="portTypeName">The port type name to use when creating the port. See <see cref="T:LogicModule.ObjectModel.TypeSystem.PortTypes"/></param>
+            <param name="defaultActivateAction">The default value to set on the ActivateAction input</param>
+            <param name="defaultActivateValue">The default value to set on the ActivateValue input</param>
+            <param name="valuePortChangedCallback">Optional function to execute, when the <c>ActivateValue</c> value object has been created or destroyed.</param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.NodeHelperExtensions.CreateYesNoActivationInputs``2(LogicModule.Nodes.Helpers.IActivatable{``0,``1},LogicModule.ObjectModel.ITypeService,System.String,System.Boolean,System.Object,System.Action)">
+            <summary>
+            Extension method that creates the <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/> input ActivateAction with <see cref="F:LogicModule.Nodes.Helpers.NodeHelperExtensions.YesNoEnum.AllowedValues"/> and the 
+            <typeparamref name="T2"/> ActivateValue on the fly when the former is set to true.
+            </summary>
+            <typeparam name="T1">The type of the ActivateAction Property, must be an <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/>.</typeparam>
+            <typeparam name="T2">The type of the ActivateValue Property.</typeparam>
+            <param name="self">The node</param>
+            <param name="typeService">The <see cref="T:LogicModule.ObjectModel.ITypeService"/> to create Inputs</param>
+            <param name="portTypeName">The port type name to use when creating the port. See <see cref="T:LogicModule.ObjectModel.TypeSystem.PortTypes"/></param>
+            <param name="defaultActivateAction">The default value to set on the ActivateAction input</param>
+            <param name="defaultActivateValue">The default value to set on the ActivateValue input</param>
+            <param name="valuePortChangedCallback">Optional function to execute, when the <c>ActivateValue</c> value object has been created or destroyed.</param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.NodeHelperExtensions.CreateDeactivationInputs``1(LogicModule.Nodes.Helpers.IDeactivatable{``0},LogicModule.ObjectModel.ITypeService,System.String,System.String,System.Object,System.Boolean,System.Action)">
+            <summary>
+            Extension method that creates the <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/> input DeactivateAction 
+            with <see cref="F:LogicModule.Nodes.Helpers.DeactivateOption.AllowedDeactivationActionOptions"/> and the 
+            <typeparamref name="T"/> DeactivateValue on the fly when the former is set to 
+            <see cref="F:LogicModule.Nodes.Helpers.DeactivateOption.AbortAndSend"/>.
+            </summary>
+            <typeparam name="T">
+            The type of the DeactivateValue Property.
+            </typeparam>
+            <param name="self">
+            The node
+            </param>
+            <param name="typeService">
+            The <see cref="T:LogicModule.ObjectModel.ITypeService"/> to create Inputs
+            </param>
+            <param name="portTypeName">
+            The port type name to use when creating the DeactivateValue port. See <see cref="T:LogicModule.ObjectModel.TypeSystem.PortTypes"/>
+            </param>
+            <param name="defaultDeactivateAction">
+            The default value to set on the ActivateAction input
+            </param>
+            <param name="defaultDeactivateValue">
+            The default value to set on the ActivateValue input
+            </param>
+            <param name="allowPauseOption">
+            Whether to include the <see cref="F:LogicModule.Nodes.Helpers.DeactivateOption.Pause"/> as allowed option.
+            Defaults to false.
+            </param>
+            <param name="valuePortChangedCallback">
+            Optional function to execute, when the <c>DeactivateValue</c> value object has been created or destroyed.
+            </param>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.NodeHelperExtensions.IsNull``1(``0)">
+            <summary>
+            Checks, if the object is null.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="obj">The object.</param>
+            <returns>True, if the object is null, false, otherwise.</returns>
+        </member>
+        <member name="M:LogicModule.Nodes.Helpers.NodeHelperExtensions.ThrowIfNull``1(``0,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException" />, if the argument is null.
+            </summary>
+            <typeparam name="T">The type of the argument.</typeparam>
+            <param name="argument">The argument.</param>
+            <param name="argumentName">The name of the argument.</param>
+        </member>
+        <member name="T:LogicModule.Nodes.Helpers.NodeHelperExtensions.YesNoEnum">
+            <summary>
+            The constants used for the regularly used Yes and No Dropdown.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.NodeHelperExtensions.YesNoEnum.TypeName">
+            <summary>
+            The TypeName to pass to <see cref="M:LogicModule.ObjectModel.ITypeService.CreateEnum(System.String,System.String,System.String)"/>.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.NodeHelperExtensions.YesNoEnum.Yes">
+            <summary>
+            The constant representing yes.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.NodeHelperExtensions.YesNoEnum.No">
+            <summary>
+            The constant representing no.
+            </summary>
+        </member>
+        <member name="F:LogicModule.Nodes.Helpers.NodeHelperExtensions.YesNoEnum.AllowedValues">
+            <summary>
+            The allowedValues array to pass to <see cref="M:LogicModule.ObjectModel.ITypeService.CreateEnum(System.String,System.String,System.String)"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

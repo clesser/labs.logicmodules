@@ -1,0 +1,249 @@
+html {
+    background-color: #e6e6e6;
+    color: #3C3C3C;
+    font-family: Verdana;
+    font-size: 12px;
+    line-height: 18px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 970px;
+    margin: 40px auto 40px auto;
+    padding: 0;
+    border: 0;
+    background-color: #ffffff;
+    left: auto;
+}
+
+article {
+    margin: 0;
+}
+
+    article > header {
+        font-family: Arial;
+        font-weight: normal;
+        padding: 30px 35px 10px 35px;
+    }
+
+        article > header span {
+            font-size: 36px;
+            line-height: 42px;
+        }
+
+            article > header span.headDonate {
+                float: right;
+            }
+
+                article > header span.headDonate a {
+                    display: inline-block;
+                    vertical-align: middle;
+                    border-color: #e6e6e6;
+                    border-style: solid;
+                    border-radius: 0.5ex;
+                    line-height: 2ex;
+                    padding: 0.5ex;
+                    font-size: 24px;
+                    text-decoration: none;
+                }
+
+                    article > header span.headDonate a:before {
+                        content: "\1F44D";
+                    }
+
+            article > header span.headLogo {
+                font-weight: bold;
+                padding: 0 0.25ex 0 0;
+            }
+
+                article > header span.headLogo::before {
+                    content: "X1";
+                }
+
+            article > header span.headBlack {
+                padding: 0 0.75ex 0 0;
+            }
+
+            article > header span.headGray {
+                color: #a0a0a0;
+            }
+
+        article > header h1 {
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: normal;
+            line-height: 48px;
+            color: #323232;
+            margin: 0;
+            padding: 3ex 0 2ex 44px;
+            background-position-x: -4px;
+            background-position-y: 3ex;
+            background-repeat: no-repeat;
+        }
+
+            article > header h1.noicon {
+                padding-left: 0;
+            }
+
+        article > header nav {
+            margin: 0;
+            padding: 0.5ex 0;
+            border-top: 1px solid #cccccc;
+            border-bottom: 1px solid #cccccc;
+        }
+
+            article > header nav a {
+                padding: 0 1ex 0 0;
+                text-decoration: none;
+                color: #a0a0a0;
+            }
+
+            article > header nav a:first-child {
+                padding: 0 3ex 0 0.5ex;
+                text-decoration: none;
+                color: #000000;
+            }
+
+            article > header nav a:first-child::before {
+                content: "\2630\00A0";
+            }
+
+    article > section {
+        padding: 10px 35px 10px 35px;
+    }
+
+        article > section header {
+            font-family: Arial;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+            padding: 3ex 0 1ex 0;
+        }
+
+            article > section header h2 {
+                display: inline;
+                font-weight: normal;
+            }
+
+            article > section header nav {
+                display: inline;
+                float: right;
+            }
+
+                article > section header nav a {
+                    color: #999;
+                    text-decoration: none;
+                }
+
+        article > section h3 {
+            margin: 0;
+            padding: 2ex 0 2ex 0;
+            font-size: 16px;
+            line-height: 22px;
+            font-weight: normal;
+            color: #4d4d4d;
+        }
+
+        article > section table + h3 {
+            padding-top: 4ex;
+        }
+
+        article > section p {
+            margin: 0;
+            padding: 0 0 8px 0;
+        }
+
+        article > section ol,
+        article > section ul {
+            margin: 0;
+        }
+
+            article > section ol li,
+            article > section ul li {
+                margin: 0;
+                padding: 0 0 4px 0;
+            }
+
+                article > section ol li:first-child,
+                article > section ul li:first-child {
+                    padding-top: 4px;
+                }
+
+        article > section table {
+            margin: 0 0 8px 0;
+            width: 100%;
+            max-width: 900px;
+        }
+
+            article > section table th {
+                color: #4d4d4d;
+                text-align: left;
+                vertical-align: top;
+                padding: 3px 4px 3px 4px;
+                border-bottom: 1px solid #cccccc;
+            }
+
+            article > section table tr th:first-child {
+                padding-left: 0;
+            }
+
+            article > section table tr th p:last-child {
+                padding-bottom: 4px;
+            }
+
+            article > section table td {
+                text-align: left;
+                vertical-align: top;
+                padding: 8px 4px 4px 4px;
+                border-bottom: 1px solid #cccccc;
+            }
+
+            article > section table tr td:first-child {
+                padding-left: 0;
+            }
+
+            article > section table tr td p:last-child {
+                padding-bottom: 4px;
+            }
+
+        article > section figure {
+        }
+
+            article > section figure img {
+                width: 820px;
+                border: none;
+                margin: 0;
+            }
+
+            article > section figure figcaption {
+                font-size: 10px;
+                color: #a0a0a0;
+            }
+
+        article > section a {
+            color: #999;
+            display: inline;
+            text-decoration: none;
+        }
+
+    article > footer {
+        background-color: #f4f4f4;
+        font-family: Arial;
+        padding: 30px 35px 30px 35px;
+    }
+
+        article > footer .footerGray {
+            color: #a0a0a0;
+        }
+
+        article > footer a {
+            color: #999;
+            display: inline;
+            text-decoration: none;
+        }
+
+.todo {
+    background-color: red;
+    color: white;
+}

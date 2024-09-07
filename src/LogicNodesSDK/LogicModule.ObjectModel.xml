@@ -1,0 +1,2617 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LogicModule.ObjectModel</name>
+    </assembly>
+    <members>
+        <member name="T:LogicModule.ObjectModel.CommunicationException">
+            <summary>
+            This exception is thrown if the communication to an external component failed, 
+            e.g. data points can't be read, or application values can't be written.
+            By using ErrorCode, logic nodes can implement error handling dependant on the error cause.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.CommunicationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.CommunicationException"/> class.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.CommunicationException.#ctor(System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.CommunicationException"/> class.
+            </summary>
+            <param name="errorCode">The code for the cause of the error.</param>
+            <param name="message">The text explanation of the error.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.CommunicationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.CommunicationException" /> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.CommunicationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.CommunicationException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.CommunicationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.CommunicationException" /> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.CommunicationException.ErrorCode">
+            <summary>
+            Gets the code for the cause of the error.
+            </summary>
+            <remarks>0 = unknown cause / no details available</remarks>
+        </member>
+        <member name="M:LogicModule.ObjectModel.CommunicationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with information about the exception.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+            <PermissionSet>
+              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Read="*AllFiles*" PathDiscovery="*AllFiles*" />
+              <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="SerializationFormatter" />
+              </PermissionSet>
+            <exception cref="T:System.ArgumentNullException"> Throws an exception if info is null. </exception>
+        </member>
+        <member name="T:LogicModule.ObjectModel.IPersistenceService">
+            <summary>
+            Service which allows the node developers to save data to the GDS.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IPersistenceService.SetValue(LogicModule.ObjectModel.ILogicNode,System.String,System.String)">
+            <summary>
+            Stores the value in the GDS.
+            </summary>
+            <param name="node">The logic node. Required to create a unique id</param>
+            <param name="key">The key to access the value.</param>
+            <param name="value">The value.</param>
+            <exception cref="T:LogicModule.ObjectModel.CommunicationException">Thrown if the value can't be set.</exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IPersistenceService.GetValue(LogicModule.ObjectModel.ILogicNode,System.String)">
+            <summary>
+            Retrieves the stored value from the GDS.
+            </summary>
+            <param name="node">The logic node. Required to create a unique id</param>
+            <param name="key">The key to access the value.</param>
+            <returns>The stored value.</returns>
+            <exception cref="T:LogicModule.ObjectModel.CommunicationException">Thrown if the value can't be retrieved.</exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IPersistenceService.DeleteValue(LogicModule.ObjectModel.ILogicNode,System.String)">
+            <summary>
+            Deletes the stored value.
+            </summary>
+            <param name="node">The logic node. Required to create a unique id</param>
+            <param name="key">The key to access the value.</param>
+            <exception cref="T:LogicModule.ObjectModel.CommunicationException">Thrown if the value can't be deleted.</exception>
+        </member>
+        <member name="T:LogicModule.ObjectModel.ISharedTypeToken">
+            <summary>
+            This token is returned by the RegisterSharedType method of the <see cref="T:LogicModule.ObjectModel.IEditorService"/> interface. It can be used to unregister the registration by calling its Unregister method.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ISharedTypeToken.Unregister">
+            <summary>
+            Unregisters the registration of shared types which is represented by this token instance.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.ParameterAttribute">
+            <summary>
+            Marker Attribute for parameters of logic nodes (fixed value, no connections allowed).
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.ParameterAttribute.AsTitle">
+            <summary>
+            Gets or sets a value indicating whether this parameter is used as title.
+            </summary>
+            <value>
+              <c>true</c> if the parameter is used as title; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:LogicModule.ObjectModel.ParameterAttribute.InitOrder">
+            <summary>
+            Gets or sets the order.
+            Specifies the initialization order of the inputs.
+            A value of 1 means the input is initialized first, 2 second, 3 ...
+            The order value must be positive, a value of zero or less is considered as unordered and initialized / displayed last.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.IEditorService">
+            <summary>
+            This is the service needed for manipulation of the appearance of the logic nodes within the logic node editor.
+            this service is registered within the <see cref="T:LogicModule.ObjectModel.INodeContext" /> and can only be within the constructor.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IEditorService.ClearAllSharedTypeRegistration(LogicModule.ObjectModel.ILogicNode)">
+            <summary>
+            Clears the shared type registration completely.
+            </summary>
+            <param name="node">The node of which all registrations should be removed</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IEditorService.RegisterSharedType(LogicModule.ObjectModel.ILogicNode,LogicModule.ObjectModel.TypeSystem.IValueObject[])">
+            <summary>
+            Registers all ValueObjects which should share the same <see cref="T:LogicModule.ObjectModel.TypeSystem.IPortType" />.
+            </summary>
+            <param name="node">The node in question.</param>
+            <param name="ports">The ports which should share their port type.</param>
+            <returns>Returns the token of the registration</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IEditorService.SetNodeName(LogicModule.ObjectModel.ILogicNode,System.String)">
+            <summary>
+            Sets the name of the node.
+            </summary>
+            <param name="node">The node, which name should be changed.</param>
+            <param name="newName">The new name of the logic node.</param>
+        </member>
+        <member name="T:LogicModule.ObjectModel.IDataPointService">
+            <summary>
+            This service can be requested by the node context and provides methods to interact with data points.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IDataPointService.RegisterEvent(System.String,LogicModule.ObjectModel.TypeSystem.IValueObject)">
+            <summary>
+            Registers for a data point event.
+            </summary>
+            <param name="address"> The address of the data point. </param>
+            <param name="valueObject"> The value object. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IDataPointService.UnregisterEvent(LogicModule.ObjectModel.TypeSystem.IValueObject)">
+            <summary>
+            Unregisters a value object from the registered data point.
+            </summary>
+            <param name="valueObject"> The value object. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IDataPointService.GetValue(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Gets a data point value.
+            </summary>
+            <param name="address"> The address of the data point. </param>
+            <param name="portType"> The port type of the data point. </param>
+            <returns> The value of the data point. </returns>
+            <exception cref="T:LogicModule.ObjectModel.CommunicationException">Thrown if the data point value can't be retrieved, e.g. if the address is invalid.</exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.IDataPointService.SetValue(System.String,LogicModule.ObjectModel.TypeSystem.IValueObject)">
+            <summary>
+            Sets a data point value to the value of a ValueObject.
+            </summary>
+            <param name="address"> The address of the data point. </param>
+            <param name="valueObject"> The value object supplying the value. </param>
+            <exception cref="T:LogicModule.ObjectModel.CommunicationException">Thrown if the data point value can't be set, e.g. if the address is invalid.</exception>
+        </member>
+        <member name="T:LogicModule.ObjectModel.INodeContextService">
+            <summary>
+            This is a marker interface to identify services you can get from an <see cref="T:LogicModule.ObjectModel.INodeContext"/> instance.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.PortAttribute">
+            <summary>
+            Marker Attribute for ports of logic nodes.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.PortAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.PortAttribute"/> class.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.PortAttribute.DisplayOrder">
+            <summary>
+            Gets or sets the order.
+            Specifies the initialization order of the inputs.
+            This is currently also used the display order of the inputs
+            A value of 1 means the input is initialized first, 2 second, 3 ...
+            The order value must be positive, a value of zero or less is considered as unordered and initialized / displayed last.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.PortAttribute.IsDefaultShown">
+            <summary>
+            Gets or sets a value indicating whether this instance is shown per default in the diagram.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.PortAttribute.IsRequired">
+            <summary>
+            Gets or sets a value indicating whether this instance is required as port on the node.
+            </summary>
+            <value>
+            <c>true</c> if this instance is required as port on the node; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:LogicModule.ObjectModel.ISchedulerService">
+            <summary>
+            This service can be requested by the node context and provides methods to get time information or perform actions in the future. 
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.ISchedulerService.Now">
+            <summary>
+            Gets the current date and time in local time.
+            </summary>
+            <value>
+            The current date and time in local time.
+            </value>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ISchedulerService.InvokeIn(System.TimeSpan,System.Action)">
+            <summary>
+            Invokes a action after the specified time span.
+            </summary>
+            <param name="delay"> The delay. </param>
+            <param name="action"> The action. </param>
+            <returns> A unique ID for removal of this action. </returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if no more actions can be queued because the queue is full.</exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ISchedulerService.InvokeAt(System.DateTime,System.Action)">
+            <summary>
+            Invokes a action at the specified time.
+            </summary>
+            <param name="dueTime">The due time.</param>
+            <param name="action">The action.</param>
+            <returns> A unique ID for removal of this action. </returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if no more actions can be queued because the queue is full.</exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ISchedulerService.Remove(LogicModule.ObjectModel.SchedulerToken)">
+            <summary>
+            Remove one action identified by the ID returned from the Invoke* call.
+            </summary>
+            <param name="schedulerToken">The ID returned from the Invoke* call.</param>
+            <returns>True if an action was removed.</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.ITypeService">
+            <summary>
+             This service can be requested by the node context and provides factory methods for IValueObject instances and access to the type manager.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateValueObject(System.String,System.String,System.Object)">
+            <summary>
+            Create an AnyValueObject.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> An <see cref="T:LogicModule.ObjectModel.TypeSystem.AnyValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateAny(System.String,System.String,System.Object)">
+            <summary>
+            Create an AnyValueObject.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> An <see cref="T:LogicModule.ObjectModel.TypeSystem.AnyValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateBool(System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Create a boolean value object.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectBase"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateByte(System.String,System.String,System.Nullable{System.Byte},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.ByteValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateInt(System.String,System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.IntValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateDouble(System.String,System.String,System.Nullable{System.Double},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.DoubleValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateUInt(System.String,System.String,System.Nullable{System.UInt32},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.UIntValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateUShort(System.String,System.String,System.Nullable{System.UInt16},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.UShortValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateTimeSpan(System.String,System.String,System.Nullable{System.TimeSpan},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.TimeSpanValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateDateTime(System.String,System.String,System.Nullable{System.DateTime},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.DateTimeValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateString(System.String,System.String,System.String)">
+            <summary>
+            Create a string value type.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.StringValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateEnum(System.String,System.String,System.String)">
+            <summary>
+            Create a value objects based on an enumeration/>.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateEnum(System.String,System.String,System.String[],System.String)">
+            <summary>
+            Creates a new enumeration type and returns a new instance of it.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="allowedValues">The list of allowed values, which is defined for the new type.</param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.CreateStruct(System.String,System.String)">
+            <summary>
+            Create a struct.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.StructValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ITypeService.RegisterType(LogicModule.ObjectModel.TypeSystem.Registration.PortTypeDefinition)">
+            <summary>
+            Registers the type definition.
+            </summary>
+            <param name="definition" >The type definition. </param>
+            <exception cref="T:System.Exception"> Thrown if type could not be registered. </exception>
+        </member>
+        <member name="T:LogicModule.ObjectModel.INodeContext">
+            <summary>
+            The NodeContext interface.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.INodeContext.GetService``1">
+            <summary>
+            Gets the service.
+            </summary>
+            <typeparam name="T">The requested interface type which has to be marked by the <see cref="T:LogicModule.ObjectModel.INodeContextService"/> interface.</typeparam>
+            <returns>an implementation of the requested type</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.Messages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.InvalidCast">
+            <summary>
+              Looks up a localized string similar to Unable to cast value &apos;{0}&apos; into &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.MaxValueLowerThanMinValue">
+            <summary>
+              Looks up a localized string similar to The new upper bound {0} is below the lower bound {1}.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.MinValueHigherThanMaxValue">
+            <summary>
+              Looks up a localized string similar to The new lower bound {0} is above the upper bound {1}.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.NegativeLength">
+            <summary>
+              Looks up a localized string similar to The new maximal length {0} is negative..
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.NoMinMaxValue">
+            <summary>
+              Looks up a localized string similar to The type &apos;{0}&apos; does not have a static field &apos;{1}&apos; and can therefore not be used as type parameter for NumericValueObject.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.OutOfDefinedRange">
+            <summary>
+              Looks up a localized string similar to Value &apos;{0}&apos; is out of range [{1}..{2}] defined in type &apos;{3}&apos;.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.OutOfRange">
+            <summary>
+              Looks up a localized string similar to The string &apos;{3}&apos; exceeds with a length of &apos;{0}&apos; the limit of {1} characters as defined in type &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.UnsupportedConversion">
+            <summary>
+              Looks up a localized string similar to The value &apos;{0}&apos; cannot be converted to type &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.UnsupportedValueNaN">
+            <summary>
+              Looks up a localized string similar to double.NaN is not supported.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.Messages.ValueNotInSet">
+            <summary>
+              Looks up a localized string similar to The value &apos;{0}&apos; is not in the list of allowed values of type &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.SchedulerToken">
+            <summary>
+            This class represents a subscription to the scheduler service.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.SchedulerToken.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.SchedulerToken"/> class.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.SchedulerToken.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+            </returns>
+            <param name="obj">The object to compare with the current object. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.SchedulerToken.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type. 
+            </summary>
+            <returns>
+            A hash code for the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeService">
+            <summary>
+             This proxy can be requested by the node context and provides factory methods for IValueObject instances and access to the type manager.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeService.typeManager">
+            <summary>
+            The type manager.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.#ctor(LogicModule.ObjectModel.TypeSystem.PortTypeManager)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeService"/> class.
+            </summary>
+            <param name="typeManager">The type manager.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeService"/> class.
+            Uses the default <see cref="T:LogicModule.ObjectModel.TypeSystem.PortTypeManager" />.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.RegisterType(LogicModule.ObjectModel.TypeSystem.Registration.PortTypeDefinition)">
+            <summary>
+            Registers the type definition.
+            </summary>
+            <param name="definition" >The type definition. </param>
+            <exception cref="T:System.Exception"> Thrown if type could not be registered. </exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateValueObject(System.String,System.String,System.Object)">
+            <summary>
+            Create an AnyValueObject.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> An <see cref="T:LogicModule.ObjectModel.TypeSystem.AnyValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateAny(System.String,System.String,System.Object)">
+            <summary>
+            Create an AnyValueObject.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> An <see cref="T:LogicModule.ObjectModel.TypeSystem.AnyValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateBool(System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Create a boolean value object.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectBase"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateByte(System.String,System.String,System.Nullable{System.Byte},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.ByteValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateInt(System.String,System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.IntValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateDouble(System.String,System.String,System.Nullable{System.Double},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.DoubleValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateUInt(System.String,System.String,System.Nullable{System.UInt32},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.UIntValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateUShort(System.String,System.String,System.Nullable{System.UInt16},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.UShortValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateTimeSpan(System.String,System.String,System.Nullable{System.TimeSpan},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.TimeSpanValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateDateTime(System.String,System.String,System.Nullable{System.DateTime},System.String)">
+            <summary>
+            Create a <see cref="T:LogicModule.ObjectModel.TypeSystem.DateTimeValueObject"/> instance with the specified name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object. this can be kept null, if it should be considered undefined. </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> an instance of an <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/> implementation. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateString(System.String,System.String,System.String)">
+            <summary>
+            Create a string value type.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.StringValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateEnum(System.String,System.String,System.String)">
+            <summary>
+            Create a value objects based on an enumeration/>.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateEnum(System.String,System.String,System.String[],System.String)">
+            <summary>
+            Creates a new enumeration type and returns a new instance of it.
+            </summary>
+            <param name="typeName"> The name of the type. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="allowedValues">The list of allowed values, which is defined for the new type.</param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateStruct(System.String,System.String)">
+            <summary>
+            Create a struct.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <returns> The <see cref="T:LogicModule.ObjectModel.TypeSystem.StructValueObject"/>. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeService.CreateNumeric``2(System.String,System.String,System.Nullable{``0},System.String)">
+            <summary>
+            Create a numeric value type.
+            </summary>
+            <typeparam name="T"> The type parameter </typeparam>
+            <typeparam name="TResult"> The type of the specific <see cref="T:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1"/> derivative </typeparam>
+            <param name="typeName"> The type name. </param>
+            <param name="name"> The name of the value object </param>
+            <param name="defaultValue"> The initial value of the value object </param>
+            <param name="unit">The unit of measurement</param>
+            <returns> The NumericValueObject. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.DataPointAccess">
+            <summary>
+            The possible access options to a data point; multiple options can be simultaneously available for a data point.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.DataPointAccess.None">
+            <summary> The data point is not accessible. </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.DataPointAccess.Event">
+            <summary> The data point supports events via IDataPointService.RegisterEvent. </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.DataPointAccess.Read">
+            <summary> The data point is readable via IDataPointService.GetValue. </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.DataPointAccess.Write">
+            <summary> The data point is writable via IDataPointService.SetValue. </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.DataPointAccess.All">
+            <summary> All of the above DataPointAccess options. </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.LongPortType">
+            <summary>
+            A port type based on <see cref="T:System.UInt32"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.LongPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.LongPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.LongPortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.LongValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.ULongPortType">
+            <summary>
+            A port type based on <see cref="T:System.UInt32"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.ULongPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.ULongPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.ULongPortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.ULongValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.DoublePortType">
+            <summary>
+            A port type based on <see cref="T:System.Double"/> struct.
+            </summary> 
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.DoublePortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.DoublePortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.DoublePortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.DoubleValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.AnyPortType">
+            <summary>
+            A port type based on <see cref="T:System.Object"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.AnyPortType.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.AnyPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.AnyPortType.CreateInstance">
+            <summary>
+            Creates the instance of the GDS type.
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.BytePortType">
+            <summary>
+            A port type based on <see cref="T:System.Byte"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.BytePortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.BytePortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.BytePortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.UShortValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.DateTimePortType">
+            <summary>
+            A port type based on <see cref="T:System.DateTime"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.DateTimePortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.DateTimePortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.DateTimePortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.DateTimeValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.IntPortType">
+            <summary>
+            A port type based on <see cref="T:System.Int32"/> struct.
+            </summary> 
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.IntPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.IntPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.IntPortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.IntValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.UIntPortType">
+            <summary>
+            A port type based on <see cref="T:System.UInt32"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.UIntPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.UIntPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.UIntPortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.UIntValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.UShortPortType">
+            <summary>
+            A port type based on <see cref="T:System.UInt16"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.UShortPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.UShortPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.UShortPortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.UShortValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.BoolPortType">
+            <summary>
+            A port type based on <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.BoolPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.BoolPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.BoolPortType.CreateInstance">
+            <summary>
+            Creates the instance of the GDS type.
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.DataPointPortType">
+            <summary>
+            A port type based on <see cref="T:LogicModule.ObjectModel.TypeSystem.DataPoint"/> struct.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.DataPointPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.DataPointPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.DataPointPortType.CreateInstance">
+            <summary>
+            Creates the instance of <see cref="T:LogicModule.ObjectModel.TypeSystem.DataPointValueObject"/>.
+            </summary>
+            <returns> An instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.DataPointValueObject"/>. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.EnumPortType">
+            <summary>
+            A string port type with a fixed set of allowed values based on <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.EnumPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.EnumPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+            <param name="allowedValues"> The list of allowed values. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.Internal.EnumPortType.AllowedValues">
+            <summary>
+            Gets the maximum length.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.EnumPortType.CreateInstance">
+            <summary>
+            Creates the instance of the GDS type.
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.PortTypeBase">
+            <summary>
+            Base class for port types
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.PortTypeBase.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.PortTypeBase"/> class.
+            </summary>
+            <param name="name"> The name. </param>
+            <param name="baseType"> The base type. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.Internal.PortTypeBase.BaseType">
+            <summary>
+            Gets the base type.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.Internal.PortTypeBase.Name">
+            <summary>
+            Gets the name.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.PortTypeBase.CreateInstance">
+            <summary>
+            Creates the instance of the port type.
+            </summary>
+            <returns> An instance of the port type. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.PortTypeBase.IsAssignableTo(LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Checks if a value of this port type is assignable to the given port type
+            </summary>
+            <param name="other">The port type to check against</param>
+            <returns><c>true</c> if a value of this port type is assignable to the given port type</returns>
+            <remarks>This method checks if the given port type can be found by traversing the type tree upwards from this port type</remarks>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.PortType`1">
+            <summary>
+            Generic version of the GDS type
+            </summary>
+            <typeparam name="T"> The underlying type. </typeparam>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.PortType`1.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.PortType`1"/> class. 
+            </summary>
+            <param name="name"> The name. </param>
+            <param name="baseType"> The base type. </param>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Internal.TimeSpanPortType">
+            <summary>
+            A port type based on <see cref="T:System.TimeSpan"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.TimeSpanPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.TimeSpanPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Internal.TimeSpanPortType.CreateInstance">
+            <summary>
+            Creates an implementation of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IValueObject"/>, namely <see cref="T:LogicModule.ObjectModel.TypeSystem.TimeSpanValueObject"/>
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.LongPortTypeDefinition">
+            <summary>
+            The definition of a Port type based on <see cref="T:System.UInt16"/>.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.ULongPortTypeDefinition">
+            <summary>
+            The definition of a Port type based on <see cref="T:System.UInt16"/>.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.AnyPortTypeDefinition">
+            <summary>
+            The port type definition of an any type, which is based on <see cref="T:System.Object"/>.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.BooleanPortTypeDefinition">
+            <summary>
+            The port type definition of an boolean type.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.BytePortTypeDefinition">
+            <summary>
+            The port type definition of an byte based port type.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.DateTimePortTypeDefinition">
+            <summary>
+            The port type definition of an port type based on <see cref="T:System.DateTime"/>.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.DoublePortTypeDefinition">
+            <summary>
+            The port type definition of an port type based on <see cref="T:System.Double"/>.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.EnumPortTypeDefinition">
+            <summary>
+            Port type definition of a string type with a fixed set of allowed values.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Registration.EnumPortTypeDefinition.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Registration.EnumPortTypeDefinition"/> class.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.Registration.EnumPortTypeDefinition.AllowedValues">
+            <summary>
+            Gets or sets the allowed values for an <see cref="T:LogicModule.ObjectModel.TypeSystem.Internal.EnumPortType"/>.
+            </summary>
+            <value>
+            The allowed values.
+            </value>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.IntPortTypeDefinition">
+            <summary>
+            The port type definition of an port type based on <see cref="T:System.Int32" />.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.PortTypeDefinition">
+            <summary>
+            The definition of a Port type.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.Registration.PortTypeDefinition.BaseType">
+            <summary>
+            Gets or sets the base type of the GDS type.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.Registration.PortTypeDefinition.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.UIntPortTypeDefinition">
+            <summary>
+            The port type definition of an port type based on <see cref="T:System.Int32" />.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.UShortPortTypeDefinition">
+            <summary>
+            The definition of a Port type based on <see cref="T:System.UInt16"/>.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.TimeSpanPortTypeDefinition">
+            <summary>
+            The port type definition of an port type based on <see cref="T:System.Int32" />.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.StringPortTypeDefinition">
+            <summary>
+            Port type definition of a string.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.Registration.StructPortTypeDefinition">
+            <summary>
+            The Port type definition of a struct type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.Registration.StructPortTypeDefinition.members">
+            <summary>
+            The members of the struct.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.Registration.StructPortTypeDefinition.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.Registration.StructPortTypeDefinition"/> class.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.Registration.StructPortTypeDefinition.Members">
+            <summary>
+            Gets the members of the struct.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.BoolValueObject">
+            <summary>
+            Object representing an boolean value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.BoolValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.BoolPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.BoolValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.BoolValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified object.
+            </summary>
+            <param name="value"> The new value. </param>
+            <returns>the adjusted validated value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.ByteValueObject">
+            <summary>
+            Object representing a byte value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ByteValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.BytePortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ByteValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ByteValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>the validated and corrected value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.DataPointValueObject">
+            <summary>
+            Object representing a data point value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPointValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.DataPointPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.DataPointValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DataPointValueObject.AcceptedAccessTypes">
+            <summary>
+            Gets or sets the allowed data point access types;
+            only data points with one or more of the selected access types are 
+            displayed when the data point parameter can be set in the editor.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DataPointValueObject.Metadata">
+            <summary>
+            Gets metadata like min/max values or units.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPointValueObject.Convert(System.Object)">
+            <summary>
+            Converts to data point.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The converted data point</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPointValueObject.ApplyMetadata(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Sets metadata (AcceptedAccessTypes).
+            </summary>
+            <param name="metadata">The metadata to apply</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPointValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified object.
+            </summary>
+            <param name="value"> The new value. </param>
+            <returns>the adjusted validated value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.DateTimeValueObject">
+            <summary>
+            Object representing a <see cref="T:System.DateTime"/> value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DateTimeValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.DateTimePortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.DateTimeValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DateTimeValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The validated value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.DoubleValueObject">
+            <summary>
+            Object representing a double value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DoubleValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.DoublePortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.DoubleValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DoubleValueObject.MinValue">
+            <summary>
+            Gets or sets the minimum value.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Thrown if value is out of range. </exception>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DoubleValueObject.MaxValue">
+            <summary>
+            Gets or sets the maximum value.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Thrown if value is out of range. </exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DoubleValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value"> The value. </param>
+            <returns> The value if valid. </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Throws if value is invalid (out of range). </exception>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.ULongValueObject">
+            <summary>
+            A value object based on an integer.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ULongValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.ULongPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ULongValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ULongValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>the validated and corrected value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.LongValueObject">
+            <summary>
+            A value object based on an integer.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.LongValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.LongPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.LongValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.LongValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>the validated and corrected value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.IntValueObject">
+            <summary>
+            A value object based on an integer.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IntValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.IntPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.IntValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IntValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>the validated and corrected value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.OutOfRangeBehavior">
+            <summary>
+            The behavior when type is out of range.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.OutOfRangeBehavior.Saturation">
+            <summary>
+            Saturate if out of range.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.OutOfRangeBehavior.Exception">
+            <summary>
+            Throw exception if out of range.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.IPortType">
+            <summary>
+            This is the public interface for all port types providing their name, their base port type and its methods.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IPortType.BaseType">
+            <summary>
+            Gets the base type.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IPortType.Name">
+            <summary>
+            Gets the name.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IPortType.CreateInstance">
+            <summary>
+            Creates the instance of the port type.
+            </summary>
+            <returns> An instance of the port type. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IPortType.IsAssignableTo(LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Checks if a value of this port type is assignable to the given port type
+            </summary>
+            <param name="other">The port type to check against</param>
+            <returns><c>true</c> if a value of this port type is assignable to the given port type</returns>
+            <remarks>This method checks if the given port type can be found by traversing the type tree upwards from this port type</remarks>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.AnyValueObject">
+            <summary>
+            Object representing any value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.AnyValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.AnyPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.AnyValueObject" /> class.
+            </summary>
+            <param name="baseType"> Type of the base. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.AnyValueObject.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.AnyValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified object. Since the <see cref="T:LogicModule.ObjectModel.TypeSystem.AnyValueObject"/> can hold every object, this functions just satisfy the interface.
+            </summary>
+            <param name="value">The new value.</param>
+            <returns>Just returns the value.</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.DataPoint">
+            <summary>
+            Representation of a data point, which is an addressable external or internal value with data type.
+            Used in data point actions and events.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPoint.#ctor(System.String,System.String,LogicModule.ObjectModel.TypeSystem.DataPointAccess)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.DataPoint"/> struct.
+            </summary>
+            <param name="address"> The address/URN of the data point. </param>
+            <param name="portType"> The data type of the data point. </param>
+            <param name="accessType"> The possible access options to a data point; multiple options can be simultaneously available for a data point. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DataPoint.PortType">
+            <summary>
+            Gets the data type of the data point.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DataPoint.Address">
+            <summary>
+            Gets the address of the data point event.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DataPoint.AccessType">
+            <summary>
+            Gets possible access options through IDataPointService for this data point.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.DataPoint.Metadata">
+            <summary>
+            Gets metadata for the data point
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPoint.op_Equality(LogicModule.ObjectModel.TypeSystem.DataPoint,LogicModule.ObjectModel.TypeSystem.DataPoint)">
+            <summary>
+            Compares two data points for equality.
+            </summary>
+            <param name="left"> A data point to compare. </param>
+            <param name="right"> Another data point to compare. </param>
+            <returns> True if both data points are equal, otherwise false. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPoint.op_Inequality(LogicModule.ObjectModel.TypeSystem.DataPoint,LogicModule.ObjectModel.TypeSystem.DataPoint)">
+            <summary>
+            Compares two data points for inequality.
+            </summary>
+            <param name="left"> A data point to compare. </param>
+            <param name="right"> Another data point to compare. </param>
+            <returns> True if both data points are not equal, otherwise false. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPoint.Equals(LogicModule.ObjectModel.TypeSystem.DataPoint)">
+            <summary>
+            Compares two data points for equality.
+            </summary>
+            <param name="other"> The other. </param>
+            <returns> True if other is equal to this instance of the data point. </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPoint.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns> true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false. </returns>
+            <param name="obj">Another object to compare to. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.DataPoint.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns> A 32-bit signed integer that is the hash code for this instance. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject">
+            <summary>
+            A value object, where only one of the allowed values can be assigned to.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.EnumValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.EnumPortType,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.EnumValueObject" /> class.
+            </summary>
+            <param name="portType"> The GDS type. </param>
+            <param name="allowedValues"> The List of allowed values </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.EnumValueObject.AllowedValues">
+            <summary>
+            Gets the list of allowed values
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.EnumValueObject.Value">
+            <summary>
+            Gets or sets the currentValue.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.EnumValueObject.Metadata">
+            <summary>
+            Gets metadata, AllowedValues is comma-separated.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.EnumValueObject.op_Implicit(LogicModule.ObjectModel.TypeSystem.EnumValueObject)~System.String">
+            <summary>
+            Implicit cast operator returning just the value.
+            </summary>
+            <param name="valueObject">The value object</param>
+            <returns></returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.EnumValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified currentValue.
+            </summary>
+            <param name="value"> The currentValue. </param>
+            <returns> The currentValue if valid. </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Thrown if currentValue is out of range. </exception>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.PortTypeManager">
+            <summary>
+            The GDS type manager.
+            </summary>
+            <summary>
+            The GDS type manager.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypeManager.types">
+            <summary>
+            The GDS types.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.PortTypeManager.RegisteredTypes">
+            <summary>
+            Gets the registered types to this GDS type manager.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.PortTypeManager.CreateInstance(System.String,System.String,System.Object)">
+            <summary>
+            Creates an instance of the given value type.
+            </summary>
+            <param name="typeName">
+            The type name.
+            </param>
+            <param name="name">
+            The name of the value object
+            </param>
+            <param name="defaultValue">
+            The initial value of the value object
+            </param>
+            <returns>
+            An instance of the value type.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            Thrown if the type is unknown.
+            </exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.PortTypeManager.GetPortType(System.String)">
+            <summary>
+            Gets the GDS type corresponding to the type name.
+            </summary>
+            <param name="typeName"> The type name. </param>
+            <returns> GDS type corresponding to the type name. </returns>
+            <exception cref="T:System.ArgumentException"> Thrown if type name is unknown. </exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.PortTypeManager.RegisterType(LogicModule.ObjectModel.TypeSystem.Registration.PortTypeDefinition)">
+            <summary>
+            Registers the type definition.
+            </summary>
+            <param name="definition">The type definition. </param>
+            <exception cref="T:System.Exception"> Thrown if type could not be registered. </exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.PortTypeManager.ValidateIfEmpty(System.String)">
+            <summary>
+            Check if type name is null or empty
+            </summary>
+            <param name="typeName">Name of the type.</param>
+            <exception cref="T:System.ArgumentException">Thrown if type name is empty.</exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.PortTypeManager.AddType(LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Adds the type.
+            </summary>
+            <param name="type"> The type. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.PortTypeManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.PortTypeManager"/> class.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.TimeSpanValueObject">
+            <summary>
+            Object representing a <see cref="T:System.TimeSpan"/> value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TimeSpanValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.TimeSpanPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.TimeSpanValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TimeSpanValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>the validated and corrected value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.TypeConversion">
+            <summary>
+            This class helps to transform C# values to more specific types defined as <see cref="T:LogicModule.ObjectModel.TypeSystem.IPortType" />
+            derivatives.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.TypeConversion.Converters">
+            <summary>
+            Dictionary which maps for the type to a converter function.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.TypeConversion.Serializers">
+            <summary>
+            Dictionary which maps for the type to a converter function.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.Convert``1(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <typeparam name="T">The target type</typeparam>
+            <param name="value">The value.</param>
+            <returns>
+            The converted value
+            </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.Convert(System.Type,System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="type">The type to convert to.</param>
+            <param name="value">The value.</param>
+            <returns>
+            The converted value
+            </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToBoolean(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToTimeSpan(System.Object)">
+            <summary>
+            Converts the type of the time span.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            The input value converted to Timespan
+            </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToDateTime(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToDouble(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToInt32(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToByte(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToUInt16(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToUInt32(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToInt64(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToUInt64(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.ConvertToString(System.Object)">
+            <summary>
+            Converts the specified value.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.TypeConversion.TryGetNumber``1(System.Func{System.Object,System.Globalization.CultureInfo,``0},System.Object)">
+            <summary>
+            Tries the get number from any object
+            </summary>
+            <typeparam name="T">the type to convert to</typeparam>    
+            <param name="convertFunction">The convert function which converts to the specified type.</param>
+            <param name="value">The value.</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.UIntValueObject">
+            <summary>
+            Object representing a <see cref="T:System.UInt32"/> value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.UIntValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.UIntPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.UIntValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.UIntValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>the validated and corrected value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.UShortValueObject">
+            <summary>
+            Object representing a <see cref="T:System.UInt16"/> value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.UShortValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.UShortPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.UShortValueObject"/> class.
+            </summary>
+            <param name="portType">Type of the port.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.UShortValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>the validated and corrected value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.ValueObject`1">
+            <summary>
+            A currentValue object.
+            </summary>
+            <typeparam name="T"> The underlying type. </typeparam>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObject`1.#ctor(LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObject`1" /> class.
+            </summary>
+            <param name="portType"> GDS type of the ValueObject. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObject`1.Value">
+            <summary>
+            Gets or sets the value. This property redefines the Value property to provide a typed access.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObject`1.op_Implicit(LogicModule.ObjectModel.TypeSystem.ValueObject{`0})~`0">
+            <summary>
+            Implicit cast operator returning just the value.
+            </summary>
+            <param name="valueObject">The value object</param>
+            <returns></returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObject`1.Validate(System.Object)">
+            <summary>
+            Validates the specified object.
+            </summary>
+            <param name="value"> The new value. </param>
+            <returns>the adjusted validated value</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.IValueObject">
+            <summary>
+            The common interface to a ValueObject, representing a port (parameter, input or output) of a logic node.
+            </summary>
+        </member>
+        <member name="E:LogicModule.ObjectModel.TypeSystem.IValueObject.ValueSet">
+            <summary>
+            Fired when a value is set.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IValueObject.Name">
+            <summary>
+            Gets or sets the name of this parameter, input or output.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IValueObject.PortType">
+            <summary>
+            Gets the port type.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IValueObject.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IValueObject.HasValue">
+            <summary>
+            Gets a value indicating whether a value was assigned.
+            If a logic node wants to read a parameter which may not be assigned, it can use this property to check first.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IValueObject.WasSet">
+            <summary>
+            Gets or sets a value indicating whether the value was just set. 
+            This flag is important to identify the written ports within the execute method of a logic node.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.IValueObject.Metadata">
+            <summary>
+            Gets metadata like min/max values or units.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified object.
+            </summary>
+            <param name="value">The new value.</param>
+            <returns>returns the validated adjusted value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IValueObject.ValueEquals(System.Object)">
+            <summary>
+            Checks if the value of this ValueObject equals the specified value
+            </summary>
+            <param name="value">The value to compare to</param>
+            <returns> <c>true</c>if the value of this ValueObject equals the specified value; <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IValueObject.ApplyMetadata(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Applies metadata like min/max values or units.
+            </summary>
+            <param name="metadata">The metadata to apply</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.IValueObject.BlockGraph">
+            <summary>
+            Blocks the graph, so that a synchronous call can be implemented, when only an asynchronous interface exists below.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1">
+            <summary>
+            Numeric value object.
+            </summary>
+            <typeparam name="T"> The underlying type. </typeparam>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.maxValue">
+            <summary>
+            The maximum value
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.minValue">
+            <summary>
+            The minimum value
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.#ctor(LogicModule.ObjectModel.TypeSystem.Internal.PortType{`0},`0,`0,LogicModule.ObjectModel.TypeSystem.OutOfRangeBehavior)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1"/> class.
+            </summary>
+            <param name="portType"> The GDS type. </param>
+            <param name="minValue"> The minimum value. </param>
+            <param name="maxValue"> The maximum value. </param>
+            <param name="outOfRangeBehavior">The behavior if out of range. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.Unit">
+            <summary>
+            Gets or sets the unit.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.MaxValue">
+            <summary>
+            Gets or sets the maximum value.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Thrown if value is out of range. </exception>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.MinValue">
+            <summary>
+            Gets or sets the minimum value.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Thrown if value is out of range. </exception>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.OutOfRangeBehavior">
+            <summary>
+            Gets or sets the behavior if out of range.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.Metadata">
+            <summary>
+            Gets metadata like min/max values or units.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.ApplyMetadata(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Applies metadata like min/max values or units.
+            </summary>
+            <param name="metadata">The metadata to apply</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.RegisterCatchRangeFunctions(System.Collections.Generic.IEnumerable{System.Func{`0,`0,System.Object,`0}})">
+            <summary>
+            Registers the catch range functions.
+            </summary>
+            <param name="functions">The functions.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.NumericValidate(System.Object,System.Func{System.Object,System.Globalization.CultureInfo,`0})">
+            <summary>
+            Validates objects if they are numerical values are in range and corrects them accordingly.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="convertFunction">The convert function.</param>
+            <returns>The validated corrected number as a undefined numeric type. A cast is still needed.</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.ConversionFunctions">
+            <summary>
+            Conversion functions for numeric objects.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.ConversionFunctions.CatchDoubleRange``1(``0,``0,System.Object)">
+            <summary>
+            The range check function to validate in the range of doubles.
+            </summary>
+            <param name="min">The lower bound.</param>
+            <param name="max">The upper bound</param>
+            <param name="value">The value.</param>
+            <typeparam name="T1">The type.</typeparam>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.ConversionFunctions.CatchULongRange``1(``0,``0,System.Object)">
+            <summary>
+            The range check function to validate in the range of unsigned longs.
+            </summary>
+            <param name="min">The lower bound.</param>
+            <param name="max">The upper bound</param>
+            <param name="value">The value.</param>
+            <typeparam name="T1">The type.</typeparam>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.ConversionFunctions.CatchLongRange``1(``0,``0,System.Object)">
+            <summary>
+            The range check function to validate in the range of longs.
+            </summary>
+            <param name="min">The lower bound.</param>
+            <param name="max">The upper bound</param>
+            <param name="value">The value.</param>
+            <typeparam name="T1">The type.</typeparam>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.ConversionFunctions.CatchIntRange``1(``0,``0,System.Object)">
+            <summary>
+            The range check function to validate in the range of integers.
+            </summary>
+            <param name="min">The lower bound.</param>
+            <param name="max">The upper bound</param>
+            <param name="value">The value.</param>
+            <typeparam name="T1">The type.</typeparam>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.NumericValueObject`1.ConversionFunctions.CatchDoubleRange(System.TimeSpan,System.TimeSpan,System.Object)">
+            <summary>
+            The range check function to validate in the range of doubles.
+            </summary>
+            <param name="min">The lower bound.</param>
+            <param name="max">The upper bound</param>
+            <param name="value">The value.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.StringPortType">
+            <summary>
+            A string port type based on <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StringPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.StringPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+            <param name="maxLength"> Maximum length. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StringPortType.CreateInstance">
+            <summary>
+            Creates the instance of the GDS type.
+            </summary>
+            <returns> An instance of the GDS type. </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.StringValueObject">
+            <summary>
+            A string value object.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.StringValueObject.maxLength">
+            <summary>
+            The maximum length.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StringValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.StringPortType,System.Int32,LogicModule.ObjectModel.TypeSystem.OutOfRangeBehavior)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.StringValueObject" /> class.
+            </summary>
+            <param name="portType"> The GDS type. </param>
+            <param name="maxLength"> Length of the max. </param>
+            <param name="outOfRangeBehavior">The behavior if out of range. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.StringValueObject.MaxLength">
+            <summary>
+            Gets or sets the maximum length.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Thrown if currentValue is out of range. </exception>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.StringValueObject.OutOfRangeBehavior">
+            <summary>
+            Gets or sets the behavior if currentValue is out of range.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.StringValueObject.Value">
+            <summary>
+            Gets or sets the currentValue.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.StringValueObject.Metadata">
+            <summary>
+            Gets metadata, AllowedValues is comma-separated.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StringValueObject.op_Implicit(LogicModule.ObjectModel.TypeSystem.StringValueObject)~System.String">
+            <summary>
+            Implicit cast operator returning just the value.
+            </summary>
+            <param name="valueObject">The value object</param>
+            <returns></returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StringValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified currentValue.
+            </summary>
+            <param name="value"> The currentValue. </param>
+            <returns> The currentValue if valid. </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Thrown if currentValue is out of range. </exception>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StringValueObject.ApplyMetadata(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Sets metadata like min/max values or units.
+            </summary>
+            <param name="metadata">The metadata to apply</param>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.StructPortType">
+            <summary>
+            A struct port type based on a list of members defined itself by <see cref="T:LogicModule.ObjectModel.TypeSystem.IPortType"/>.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StructPortType.#ctor(System.String,LogicModule.ObjectModel.TypeSystem.IPortType,System.Collections.Generic.IDictionary{System.String,LogicModule.ObjectModel.TypeSystem.IPortType})">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.StructPortType"/> class.
+            </summary>
+            <param name="name"> The name of the port type. </param>
+            <param name="baseType"> The base port type. </param>
+            <param name="members">The members of the struct.</param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.StructPortType.Members">
+            <summary>
+            Gets the members of the struct.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StructPortType.CreateInstance">
+            <summary>
+            Creates the instance of the GDS type.
+            </summary>
+            <returns>
+            An instance of the GDS type.
+            </returns>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.StructValueObject">
+            <summary>
+            A struct currentValue object.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.StructValueObject.syncObject">
+            <summary>
+            Sync object for locking while executing the value setter.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.StructValueObject.suppressValueSet">
+            <summary>
+            Should the ValueSet be suppressed?
+            Used for setting multiple members at once
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StructValueObject.#ctor(LogicModule.ObjectModel.TypeSystem.StructPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.StructValueObject" /> class.
+            </summary>
+            <param name="portType"> The GDS type. </param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.StructValueObject.Members">
+            <summary>
+            Gets the Value.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.StructValueObject.Value">
+            <summary>
+            Gets or sets the Value.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StructValueObject.Validate(System.Object)">
+            <summary>
+            Validates the specified object.
+            </summary>
+            <param name="value">The new value.</param>
+            <returns>The corrected value</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StructValueObject.ValueEquals(System.Object)">
+            <summary>
+            Checks if the value of this ValueObject equals the specified value
+            </summary>
+            <param name="value">The value to compare to</param>
+            <returns> <c>true</c>if the value of this ValueObject equals the specified value; <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.StructValueObject.AddMember(System.String,LogicModule.ObjectModel.TypeSystem.IValueObject)">
+            <summary>
+            Adds a member to the struct
+            </summary>
+            <param name="key">The member name</param>
+            <param name="value">The value to add</param>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.ValueObjectBase">
+            <summary>
+            Base class for value objects.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.valueSetEventHandler">
+            <summary>
+            Occurs when currentValue is set;
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.#ctor(LogicModule.ObjectModel.TypeSystem.IPortType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectBase" /> class.
+            </summary>
+            <param name="portType"> GDS type of the ValueObject. </param>
+        </member>
+        <member name="E:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ValueSet">
+            <summary>
+            Occurs when a value is set.
+            </summary>    
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>
+            The value wrapped by this instance.
+            </value>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.HasValue">
+            <summary>
+            Gets a value indicating whether a value was assigned.
+            If a logic node wants to read a parameter which may not be assigned, it can use this property to check first.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.WasSet">
+            <summary>
+            Gets or sets a value indicating whether the value was just set. This flag is important to identify the written ports within the execute method of a logic node.
+            </summary>
+            <value>
+              <c>true</c> if the value was just set; otherwise <c>false</c>.
+            </value>  
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.PortType">
+            <summary>
+            Gets the type of the GDS.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.Metadata">
+            <summary>
+            Gets metadata like min/max values or units.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ApplyMetadata(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Sets metadata like min/max values or units.
+            </summary>
+            <param name="metadata">The metadata to apply</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>
+            A string that represents the current object.
+            </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.Validate(System.Object)">
+            <summary>
+            Validates the specified object.
+            </summary>
+            <param name="value">The new value.</param>
+            <returns>
+            returns the validated adjusted value
+            </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ValueEquals(System.Object)">
+            <summary>
+            Checks if the value of this ValueObject equals the specified value
+            </summary>
+            <param name="value">The value to compare to</param>
+            <returns> <c>true</c>if the value of this ValueObject equals the specified value; <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.BlockGraph">
+            <summary>
+            Blocks the graph, so that a synchronous call can be implemented, when only an asynchronous interface exists below.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ReadMetadata``1(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Reads a member of the metadata.
+            </summary>
+            <typeparam name="T"> Type of the metadata member </typeparam>
+            <param name="metadata"> The metadata dictionary </param>
+            <param name="key"> The key of the data to read </param>
+            <returns> <c>null</c> if the conversion failed or the metadata do not contain the given key; the parsed metadata otherwise </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.OnValueSet(System.Object,System.Object)">
+            <summary>
+            Called when currentValue is set.
+            </summary>
+            <param name="newValue">The new value.</param>
+            <param name="oldValue">The old value.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ThrowRangeException(System.Object,System.Object,System.Object)">
+            <summary>
+            Throws the range exception.
+            Helper function to throw a out of range exception. Adds the name of the value object.
+            </summary>
+            <param name="number">The failing numeric value.</param>
+            <param name="minValue">The minimum value.</param>
+            <param name="maxValue">The maximum value.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ThrowRangeException(System.String)">
+            <summary>
+            Throws the range exception.
+            Helper function to throw a out of range exception. Adds the name of the value object.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectBase.ThrowConversionException(System.Object)">
+            <summary>
+            Throws the conversion exception.
+            Helper function to throw a conversion exception. Adds the name of the value object.
+            </summary>
+            <param name="value">The message.</param>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException">
+            <summary>
+            Exception for value objects, which is thrown when a value is out of range
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException"/> class.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException"/> class.
+            </summary>
+            <param name="message">
+            The error message that explains the reason for this exception.
+            </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException" /> class.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+            <param name="name">The name of the value object where the exception occurred.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException"/> class.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">An object that describes the source or destination of the serialized data.</param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException.Name">
+            <summary>
+            Gets the name of the value where the exception occurred.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectConversionException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with information about the exception.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+            <PermissionSet>
+              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Read="*AllFiles*" PathDiscovery="*AllFiles*" />
+              <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="SerializationFormatter" />
+            </PermissionSet>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException">
+            <summary>
+            Exception for value objects, which is thrown when a value is out of range
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException"/> class.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException"/> class.
+            </summary>
+            <param name="message">
+            The error message that explains the reason for this exception.
+            </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException" /> class.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+            <param name="name">The name of the value object where the exception occurred.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException"/> class.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">An object that describes the source or destination of the serialized data.</param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException.Name">
+            <summary>
+            Gets the name of the value where the exception occurred.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueObjectOutOfRangeException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with information about the exception.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+            <PermissionSet>
+              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Read="*AllFiles*" PathDiscovery="*AllFiles*" />
+              <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="SerializationFormatter" />
+            </PermissionSet>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs">
+            <summary>
+            The value changed event args.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs.name">
+            <summary>
+            The name of the value object.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs.#ctor(System.Object,System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs" /> class.
+            </summary>
+            <param name="newValue">The new value.</param>
+            <param name="oldValue">The old value.</param>
+            <param name="name">The name of the value object.</param>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs.NewValue">
+            <summary>
+            Gets the new value
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs.OldValue">
+            <summary>
+            Gets the old value.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.TypeSystem.ValueChangedEventArgs.Name">
+            <summary>
+            Gets the name of the value object.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="T:LogicModule.ObjectModel.TypeSystem.PortTypes">
+            <summary>
+            This static class provides string constants for all built in port types.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Any">
+            <summary>
+            This is a constant specifying the Any port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Binary">
+            <summary>
+            This is a constant specifying the Binary port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Bool">
+            <summary>
+            This is a constant specifying the Bool port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Switch">
+            <summary>
+            This is a constant specifying the Switch port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.UpDown">
+            <summary>
+            This is a constant specifying the UpDown port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Number">
+            <summary>
+            This is a constant specifying the Number port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Float">
+            <summary>
+            This is a constant specifying the Float port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Temperature">
+            <summary>
+            This is a constant specifying the Temperature port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Percent">
+            <summary>
+            This is a constant specifying the Percent port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Degree">
+            <summary>
+            This is a constant specifying the Degree port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Integer">
+            <summary>
+            This is a constant specifying the Integer port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Byte">
+            <summary>
+            This is a constant specifying the Byte port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Word">
+            <summary>
+            This is a constant specifying the Word port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.DWord">
+            <summary>
+            This is a constant specifying the DWord port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Int64">
+            <summary>
+            This is a constant specifying the Int64 port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.QWord">
+            <summary>
+            This is a constant specifying the QWord port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.TimeSpan">
+            <summary>
+            This is a constant specifying the TimeSpan port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Time">
+            <summary>
+            This is a constant specifying the Time port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.Date">
+            <summary>
+            This is a constant specifying the Date port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.DateTime">
+            <summary>
+            This is a constant specifying the DateTime port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.String">
+            <summary>
+            This is a constant specifying the String port type.
+            </summary>
+        </member>
+        <member name="F:LogicModule.ObjectModel.TypeSystem.PortTypes.DataPoint">
+            <summary>
+            This is a constant specifying the DataPoint port type.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.InputAttribute">
+            <summary>
+            Marker Attribute for inputs of logic nodes.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.InputAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogicModule.ObjectModel.InputAttribute"/> class.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.InputAttribute.IsInput">
+            <summary>
+            Gets or sets a value indicating whether the input is connectable (=usable as input) by default in the UI.
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.InputAttribute.InitOrder">
+            <summary>
+            Gets or sets the order.
+            Specifies the initialization order of the inputs.
+            A value of 1 means the input is initialized first, 2 second, 3 ...
+            The order value must be positive, a value of zero or less is considered as unordered and initialized / displayed last.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.ILogicNode">
+            <summary>
+            Common interface a logic node needs to implement to be usable by the logic engine.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ILogicNode.Execute">
+            <summary>
+            Calculate new values for outputs based on the current values of all inputs.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ILogicNode.Startup">
+            <summary>
+            this method provides the hook to implement startup logic. This method is executed after the event processing has started.
+            </summary>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ILogicNode.Localize(System.String,System.String)">
+            <summary>
+            Translate the text referenced by key into the requested language.
+            </summary>
+            <param name="language"> the requested language, e.g. "de" or "en" </param>
+            <param name="key"> the key for the text, e.g. the value of *InOutDefinition.Name </param>
+            <returns> the translated text </returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ILogicNode.Validate(System.String)">
+            <summary>
+            Validates the logic node to see if it has been configured properly
+            </summary>
+            <param name="language">The language key which is used for localizing the validation message</param>
+            <returns>A <see cref="T:LogicModule.ObjectModel.ValidationResult"/> containing information if the validation succeeded and an error message if it failed</returns>
+            <remarks>If this method is not overridden, validation always succeeds for this logic node</remarks>
+        </member>
+        <member name="T:LogicModule.ObjectModel.OutputAttribute">
+            <summary>
+            Marker Attribute for outputs of logic nodes.
+            </summary>
+        </member>
+        <member name="T:LogicModule.ObjectModel.ValidationResult">
+            <summary>
+            Represents the result of a call to the logic node's validate function 
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.ValidationResult.Message">
+            <summary>
+            Gets or sets the error message to display
+            </summary>
+        </member>
+        <member name="P:LogicModule.ObjectModel.ValidationResult.HasError">
+            <summary>
+            Gets or sets a value indicating whether the validation has found an error
+            </summary>
+            <value>
+            <c>True</c> if the validation has found an error; <c>False</c>, otherwise
+            </value>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ValidationResult.op_Equality(LogicModule.ObjectModel.ValidationResult,LogicModule.ObjectModel.ValidationResult)">
+            <summary>
+            Checks if two <see cref="T:LogicModule.ObjectModel.ValidationResult"/>s are equal
+            </summary>
+            <param name="left">The left <see cref="T:LogicModule.ObjectModel.ValidationResult"/></param>
+            <param name="right">The right<see cref="T:LogicModule.ObjectModel.ValidationResult"/></param>
+            <returns><c>true</c> if both <see cref="T:LogicModule.ObjectModel.ValidationResult"/>s are equal; <c>false</c>, otherwise</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ValidationResult.op_Inequality(LogicModule.ObjectModel.ValidationResult,LogicModule.ObjectModel.ValidationResult)">
+            <summary>
+            Checks if two <see cref="T:LogicModule.ObjectModel.ValidationResult"/>s are not equal
+            </summary>
+            <param name="left">The left <see cref="T:LogicModule.ObjectModel.ValidationResult"/></param>
+            <param name="right">The right<see cref="T:LogicModule.ObjectModel.ValidationResult"/></param>
+            <returns><c>true</c> if both <see cref="T:LogicModule.ObjectModel.ValidationResult"/>s are not equal; <c>false</c>, otherwise</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ValidationResult.Equals(LogicModule.ObjectModel.ValidationResult)">
+            <summary>
+            Checks if two <see cref="T:LogicModule.ObjectModel.ValidationResult"/>s are equal
+            </summary>
+            <param name="other">The <see cref="T:LogicModule.ObjectModel.ValidationResult"/> to check against</param>
+            <returns>true if <paramref name="other"/> and this instance represent the same value; otherwise, false.</returns>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ValidationResult.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param>
+        </member>
+        <member name="M:LogicModule.ObjectModel.ValidationResult.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,272 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hilfe - Velux KLF-200 Gateway</title>
+    <title>[neleo.labs] X1 Velux KLF Bausteine - Auftraggeber - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Velux KLF-200 Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-input-44.png)">Velux KLF-200 Auftraggeber</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein simuliert die Bedieneingänge eines Geräts (Node), einer Gerätegruppe (Group) oder dient dem Abruf einer Szene (Scene). Dabei setzt der Baustein die Steuersignale in Telegramme um, die das Velux KLF 200 Gateway verarbeiten kann.</p>
+            <p>Für die Telegramme wird eine URL-artige <a href="../doc/syntax.html">Telegrammsyntax</a> verwendet.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Geltungsbereiche</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Zielwert</td>
+                        <td>Ganzzahl</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Empfängt den Zielwert für ein Gerät oder eine Gerätegruppe entsprechend des Eingangswertbereichs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zielwert (%)</td>
+                        <td>Prozent</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Empfängt den Zielwert für ein Gerät oder eine Gerätegruppe entsprechend des Eingangswertbereichs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Min / Max</td>
+                        <td>Binär</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Weist das Gerät oder die Gerätegruppe an, den maximalen (1 = 100%) oder minimalen (0 = 0%) Wert für den Standardparameter zu setzen.</p>
+                            <p>Bei einem Rollladen fährt ein 1-Telegramm den Rollladen vollständig herunter, bei einem 0-Telegramm vollständig herauf.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Stop / Start</td>
+                        <td>Binär</td>
+                        <td>Node<br />Group<br />Scene</td>
+                        <td>
+                            <p>Beginnt (1) oder unterbricht (0) die Ausführung einer Szene. Bei Geräten oder Gerätegruppen wir mit (1) der Standardwert eingestellt und mit (0) die Ausführung einer Wertänderung abgebrochen.</p>
+                            <p>Bei einem Rollladen führt eine (1) in der Regel zu keiner Aktion, eine (0) jedoch zum Anhalten des Motors.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Auf / Ab (Lang)</td>
+                        <td>Binär</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Weist das Gerät oder die Gerätegruppe an, den maximalen (1 = 100%) oder minimalen (0 = 0%) Wert für den Standardparameter zu setzen.</p>
+                            <p>Bei einem Rollladen fährt ein 1-Telegramm den Rollladen vollständig herunter, bei einem 0-Telegramm vollständig herauf.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Auf / Ab (Kurz)</td>
+                        <td>Binär</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Die Wertänderungen im Gerät bzw. der Gerätegruppe erfolgen in der definierten Schrittweite (z.B. 10%).</p>
+                            <p>Bei einem Rollladen fährt ein 1-Telegramm den Rollladen um den in der Schrittweite defnierten Wert herunter, bei einem 0-Telegramm - analog dazu - herauf.</p>
+                            <p>Führt das Gerät gerade eine Wertänderung durch (z.B. ein fahrender Rollladen), so wird ein "Auf/Ab (Kurz)" für die "Auf/Ab (Dauer)" als "Stop" interpretiert.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Geltungsbereiche</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Geltungsbereich</td>
+                        <td>Auswahl</td>
+                        <td>Node<br />Group<br />Scene</td>
+                        <td>
+                            <p>Wählt aus, ob der Auftraggeber ein Gerät, eine Gerätegruppe oder eine Szene respräsentieren soll.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Eingabewertbereich</td>
+                        <td>Auswahl</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Legt fest, wie der "Zielwert" eingegeben werden sollen:<br /><em>Standard (0..51200)</em> erwartet die Rohdaten,<br /><em>Prozent (0..100)</em> erwartet einen Prozentwert, <br /><em>Prozent (100..0)</em> erwartet einen Prozentwert und invertiert ihn intern.</p>
+                            <p>Standardwert: <em>Prozent (0..100)</em>.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Auf / Ab (Dauer)</td>
+                        <td>Zeitspanne</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Legt die Zeitdauer einer vollständigen Wertänderung (z.B. Auffahrt eines Rollladens) fest. In dieser Zeitspanne werden "Auf / Ab (Kurz)"- Befehle als "Stop"-Befehl ausgeführt. Nach Ablauf dieser Zeit, werden "Auf / Ab (Kurz)"-Befehle wieder als Schritt-Befehle ausgeführt. Weiterhin wird in dieser Zeit das wiederholte Senden eines Wertes unterbunden (es kann jederzeit ein anderer Wert gesendet werden - nur nicht der gleiche. Nach Ablauf der Zeitspanne, wird auch der gleiche Wert wieder als Telegramm geschickt.*</p>
+                            <p>Bei einem Rollladen wird beispielsweise die Zeit für eine vollständige Aufwärtsbewegung (+5-10% Puffer) angegeben.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Auf / Ab (Kurz %)</td>
+                        <td>Ganzzahl</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Legt die Schrittweite für eine Wertänderung über den Eingang "Auf / Ab (Kurz)" in 0..100% fest.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Name oder :Bezeichner</td>
+                        <td>Text</td>
+                        <td>Node<br />Group</td>
+                        <td>
+                            <p>Name oder Bezeichner des Geräts, der Gerätegruppe oder Szene.</p>
+                            <p>Dem Bezeichner kann ein "/" vorangestellt sein. Es kann zudem der interne Bezeichner (Nummer) genutzt werden, wenn diesem ein ":" (z.B. ":3") vorangestellt wird.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ausführungsgeschwindigkeit</td>
+                        <td>Auswahl</td>
+                        <td>Node<br />Group<br />Scene</td>
+                        <td>
+                            <p>Einige Geräte unterstützen unterschiedliche Geschwindigkeiten für die Wertänderungen. Es kann gewählt werden zwischen:<br /><em>Standard</em> enstpricht der normalen Ausführungsgeschwindigkeit, <br /><em>Still</em> reduziert die Geschwindigkeit und <br /><em>Schnell</em> erhöht sie gegenüber der Normalgeschwindigkeit.</p>
+                            <p>Standardwert: <em>Standard</em></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Absender</td>
+                        <td>Auswahl</td>
+                        <td>Node<br />Group<br />Scene</td>
+                        <td>
+                            <p>Definiert den Absender eines Telegramms. Der Standardwert <em>Benutzer - Prio 2</em> wird für alle menschlichen Interaktionen genutzt. Der Wert <em>Komfort - Prio 2</em> für alle Automatiken.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Priorität</td>
+                        <td>Auswahl</td>
+                        <td>Node<br />Group<br />Scene</td>
+                        <td>
+                            <p>Definiert die Priorität des Telegramms. Der Standardwert <em>Mensch</em> wird für alle menschlichen Interaktionen genutzt. Der Wert <em>Logik / Automatik</em> wird für automatische Steuerungen verwendet.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aufträge</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Sendet Auftragstelegramme, die der <a href="../doc/syntax.html">Telegrammsyntax</a> entsprechen.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>In der Regel befindet sich ein Gateway-Logikbaustein auf einem Logikblatt, um den herum die verschiedenen Auftraggeber (Rollladen: Küche, Rollladen: Esszimmer, Szene: Urlaub) und die Auwertungsmodule (Rollladen: Küche, Rollladen: Esszimmer) befinden.</p>
+            <figure>
+                <img src="../gatewayconnector/example01.png" alt="Übersicht der Velux KLF-200 Logikkomponenten" />
+                <figcaption>
+                    Ein Gateway-Logikmodul im Verbund mit den Auftraggebern und Ausgabefiltern.
+                </figcaption>
+            </figure>
+            <p>Weitere Informationen Beispiele wurden auf der Seite <a href="../doc/setup.html">Hinweise zur Einrichtung</a> gesammelt.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/82745/input">Input</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

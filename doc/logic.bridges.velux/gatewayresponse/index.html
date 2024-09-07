@@ -1,0 +1,208 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Velux KLF Bausteine - Antwortfilter - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Velux KLF-200 Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-output-44.png)">Velux KLF-200 Antwortfilter</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Der Antwortfilter liest die vom <a href="../gatewayconnector/index.html">Gateway Connector</a> des Velux KLF-200 Gateways generierten Antworttelegramme ein, filtert die für ein Gerät passenden Nachrichten heraus und stellt die Werte an den Ausgängen dar.</p>
+            <p>Je nach Initialisierungsreihenfolge der Bausteine kann es sein, das die Statusinformationen über die Geräte, die per Velux KLF-200 verbunden sind, erst im nächsten Aktualisierungsintervall (alle 15 min) oder nach der ersten Aktion der Geräte an den Antwortfiltern sichtbar werden. Ein "Stop"-Befehl für ein Gerät liefert eine unmittelbare Aktualisierung der Ausgänge.</p>
+            <p>Für die Telegramme wird eine URL-artige <a href="../doc/syntax.html">Telegrammsyntax</a> verwendet.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Antworten</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Nimmt Antworttelegramme entgegen, die der <a href="../doc/syntax.html">Telegrammsyntax</a> entsprechen.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gerätebezeichner</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Bezeichner (Name) des Geräts.</p>
+                            <p>Dem Bezeichner kann ein "/" vorangestellt sein. Es kann zudem der interne Bezeichner (Nummer) genutzt werden, wenn diesem ein ":" (z.B. ":3") vorangestellt wird. Das Gateway wird jedoch immer Telegramme mit dem Namen aussenden, so dass diese Funktion nur zu Testzwecken genutzt werden kann.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ausgabewertbereich</td>
+                        <td>Auswahl</td>
+                        <td>
+                            <p>Legt fest, wie die Werte "Aktueller Wert" und "Zielwert" ausgegeben werden sollen:<br /><em>Standard (0..51200)</em> liefert die Rohdaten,<br /><em>Prozent (0..100)</em> rechnet die Rohdaten in einen Prozentwert um, <br /><em>Prozent (100..0)</em> rechnet die Rohdaten in Prozent (invertiert) um.</p>
+                            <p>Standardwert: <em>Prozent (0..100)</em>.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aktueller Wert</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Zeigt den aktuell eingestellten Wert des Standardparameters des gefilterten Geräts an. Die Ausgabe erfolgt entsprechend des gewählten Ausgabewertbereichs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aktueller Wert (%)</td>
+                        <td>Prozent</td>
+                        <td>
+                            <p>Zeigt den aktuell eingestellten Wert des Standardparameters des gefilterten Geräts an. Die Ausgabe erfolgt entsprechend des gewählten Ausgabewertbereichs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zielwert</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Zeigt den (zuletzt) angeforderten Wert des Standardparameters des gefilterten Geräts an. Die Ausgabe erfolgt entsprechend des gewählten Ausgabewertbereichs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zielwert (%)</td>
+                        <td>Prozent</td>
+                        <td>
+                            <p>Zeigt den (zuletzt) angeforderten Wert des Standardparameters des gefilterten Geräts an. Die Ausgabe erfolgt entsprechend des gewählten Ausgabewertbereichs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aktivität</td>
+                        <td>Binär</td>
+                        <td>
+                            <p>Zeigt an, ob das Gerät gerade arbeitet, um den Zielwert für den Standardparameter einzunehmen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fehler</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Zeigt an, ob ein Gerät einen Fehler meldet.</p>
+                            <ul>
+                                <li><em>NoContact</em> - Gerät ist nicht erreichbar (d.h. in der Regel stromlos)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>In der Regel befindet sich ein Gateway-Logikbaustein auf einem Logikblatt, um den herum die verschiedenen Auftraggeber (Rollladen: Küche, Rollladen: Esszimmer, Szene: Urlaub) und die Auwertungsmodule (Rollladen: Küche, Rollladen: Esszimmer) befinden.</p>
+            <figure>
+                <img src="../gatewayconnector/example01.png" alt="Übersicht der Velux KLF-200 Logikkomponenten" />
+                <figcaption>
+                    Ein Gateway-Logikmodul im Verbund mit den Auftraggebern und Ausgabefiltern.
+                </figcaption>
+            </figure>
+            <p>Weitere Informationen Beispiele wurden auf der Seite <a href="../doc/setup.html">Hinweise zur Einrichtung</a> gesammelt.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/90318/output">Output</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

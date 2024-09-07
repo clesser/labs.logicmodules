@@ -1,0 +1,109 @@
+{
+  "title": "Json schema for manifest.json file of Gira's logic node SDK",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "PackageFormatVersion",
+    "Assembly",
+    "DependentFiles",
+    "Version",
+    "Author",
+    "PackageId",
+    "DeveloperId"
+  ],
+  "properties": {
+    "PackageFormatVersion": {
+      "type": "string",
+      "description": "Version of the manifest.json schema.",
+      "minLength": 3,
+      "default": "1.0",
+      "pattern": "^[0-9]+(\\.[0-9]+)+$"
+    },
+    "Assembly": {
+      "type": "string",
+      "pattern": ".*\\.dll$",
+      "description": "The filename of the dll (including the file extension)."
+    },
+    "PackageName": {
+      "type": "object",
+      "description": "Object with key-string pairs where the key is a country code and the value is the name of the node package in the respective language."
+    },
+    "DependentFiles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": ".*\\.dll$",
+        "description": "The filename of the dependent dll (including the file extension)."
+      }
+    },
+    "Version": {
+      "type": "string",
+      "description": "The version of the logic nodes assembly the manifest.json describes. Shall be incremented.",
+      "pattern": "^[0-9]+(\\.[0-9]+){2}$"
+    },
+    "Author": {
+      "type": "string",
+      "description": "The holder of the copyright of the nodes this manifest.json describes."
+    },
+    "DeveloperId": {
+      "type": "string",
+      "description": "Has to match the field 'vendor' of your Gira developer license."
+    },
+    "License":{
+      "type":"string",
+      "description": "The licensing model of your nodes. Possible values: 'Free', 'Device' or 'Instance'. Default is Free (i.e. the License field is missing entirely).",
+      "default": "Free",
+      "enum": ["Free", "Device", "Instance"]
+    },
+    "PackageId": {
+      "type": "string",
+      "description": "A unique identifier for the logic node package. Please generate a GUID using Visual Studio."
+    },
+    "Nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "Type",
+          "Name",
+          "Category"
+        ],
+        "properties": {
+          "Type": {
+            "type": "string",
+            "description": "Name of the node's class including the namespace."
+          },
+          "Name": {
+            "type": "object",
+            "description": "Object with key-string pairs where the key is a country code and the value is the name of the node in the respective language."
+          },
+          "IsConverter": {
+            "type": "boolean",
+            "description": "Defines if your node can be used to directly convert a value from another node's single output.",
+            "default": false
+          },
+          "Category": {
+            "type": "string",
+            "description": "Enter the value 'Node'",
+            "default": "Node",
+            "enum": ["Node", "Event", "Action"]
+          },
+          "DefaultIcon": {
+            "type": "string",
+            "description": "Relative path to the icon of the node."
+          },
+          "HelpTooltip": {
+            "type": "object",
+            "description": "Object with key-string pairs where the key is a country code and the value a tooltip in the respective language."
+          },
+          "HelpFileReference": {
+            "type": ["string", "null"],
+            "description": "Describes where the helpfile for the logic node is located. Please consider the Logic SDK documentation for additional information."
+          }
+        }
+      }
+    }
+  }
+}

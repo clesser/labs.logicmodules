@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Velux KLF Bausteine - Setup</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Velux KLF-200 Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 class="noicon">Konfigurationsmöglichkeiten</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#einfuehrung">Einführung</a>
+                <a href="#solo">X1-Solobetrieb</a>
+                <a href="#combo">KNX- und X1-Mischbetrieb</a>
+                <a href="#sicherheit">Sicherheitsüberlegungen</a>
+            </nav>
+        </header>
+
+        <section id="einfuehrung">
+            <header>
+                <h2>Einführung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Die Besonderheiten von KNX, dem Gira X1 und dem Velux KLF-200 führen zu einer möglicherweise auf den ersten Blick komplizierten Verbindung aller drei Akteure.</p>
+            <p>Auf dieser Seite sollen daher einige Konfigurationen durchgesprochen werden.</p>
+            <p>Die nachfolgend gezeigten Konfigurationen beziehen sich auf einzelne Aktoren/Geräte. Sollen mehr als 3 Aktoren/Geräte gleichzeitig gesteuert werden (gleichzeitiger Start/Wertänderung), ist es ratsam Gruppen und Szenen zu definieren, die dann abgerufen werden können.</p>
+            <p>Gute Erfahrungen wurden auch damit gesammelt, die einzelnen Geräte zeitverzögert (ca. 2 Sekunden pro Gerät mit Hilfe eines Telegrammverzögerers) anzusteuern um die Kapazität des Velux KLF-200 nicht zu überlasten.</p>
+        </section>
+
+        <section id="solo">
+            <header>
+                <h2>X1-Solobetrieb</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>In diesem Einsatzszenario wird im X1 ein virtueller Aktor nachgebaut. Dafür werden ausschließlich Variablen-Datenpunkte benötigt. Für einen Rollladenaktor würde dies beispielsweise folgendermaßen aussehen:</p>
+            <h3>GPA Datenpunkte</h3>
+            <figure>
+                <img src="example01-01.png" alt="Konfiguration der Variablen-Datenpunkte und Visualisierung" />
+                <figcaption>Konfiguration der Variablen-Datenpunkte für die Visualsierung eines Rollladens im Gira Projekt Assistent</figcaption>
+            </figure>
+            <h3>GPA Logikblätter</h3>
+            <figure>
+                <img src="example01-02.png" alt="Logikblatt für die Steuerung eines einzelnen Rollladens" />
+                <figcaption>Wenn die Rollladensteuerung ausschließlich im Gira X1 abgebildet wird, kann anstelle des Kurz- und Langbetriebs auch die Steuerung über Min, Max und Stopp erfolgen. Dabei geht zwar der "Kurzbetrieb" verloren - jedoch ist die %-genaue Positionierung direkt erreichbar.</figcaption>
+            </figure>
+            <p>Auch wenn nur ein einzelner Aktor abgebildet ist, müssen die Gerätebezeichner im Auftraggeber und Antwortfilter korrekt gesetzt sein, damit die Telegramme richtig verarbeitet werden können.</p>
+        </section>
+
+        <section id="combo">
+            <header>
+                <h2>KNX- und X1-Mischbetrieb</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Realistischer dürfte jedoch eine Mischkonfiguration sein, bei der einige Funktionen über klassische KNX-Taster abgerufen werden. Im nachfolgend beschriebenen Fall sendet ein Gira Tastsensor 3 die Befehle zum Langzeit- und Kurzzeitbetrieb (jeweils Auf/Ab) an eine Markise.</p>
+            <p>Die Ansteuerung einer konkreten Position und die Rückmeldung der Bewegung der Markise wird ausschließlich im Gira X1 verarbeitet und visualisiert.</p>
+            <h3>ETS Parametrierung</h3>
+            <figure>
+                <img src="example02-01.png" alt="Konfiguration des Tastsensors in der ETS" />
+                <figcaption>In der ETS hat sich die Konfiguration "Lang-Kurz" bewährt. Aufgrund persönlicher Präferenzen liegt die Abwärtsbewegung auf der linken Wippenseite und die Aufwärtsbewegung daraus folgend auf der rechten Wippenseite.</figcaption>
+            </figure>
+            <h3>GPA Datenpunkte</h3>
+            <figure>
+                <img src="example02-02.png" alt="Konfiguration der Gruppenadress- und Variablen-Datenpunkte in der Visualisierung" />
+                <figcaption>Im Beispiel werden die Fahrbefehle durch Geruppenadress-Datenpunkte angesteuert und die Position bzw. Rückmeldung mittels Variablen.</figcaption>
+            </figure>
+            <p>Natürlich ist es auch möglich, dass alle Datenpunkte als Gruppenadress-Datenpunkte defineirt werden. Der X1 neigt jedoch in manchen Fällen dazu, die Telegramme zu verschlucken, wenn auf dem KNX-Bus kein Teilnehmer auf die Adresse hört.</p>
+            <p>Falls die <strong>Position</strong> als Gruppenadress-Datenpunkt angelegt wird, so wird die GA für die Rückmeldung (= Ausgang des Antwortfilters) unter "Senden" eingetragen werden und die GA für eingehende Positionsanfragen als "Status/Rückmeldung". Nur so werden KNX-Telegramme vom Bus richtig interpretiert und der Status korrekt zurückgeschrieben.</p>
+            <h3>GPA Logikblätter</h3>
+            <figure>
+                <img src="example02-03.png" alt="Logikblatt mit zentralem Gateway-Logikbaustein" />
+                <figcaption>Da es im konkreten Beispiel viele Rollladen und Markisen gibt, werden nicht alle Logikbausteine auf ein Logikblatt gebracht, sondern diese Raumweise gruppiert. Der zentrale Gateway-Baustein bekommt ein eigenes Logiklatt und zwei Text-Variablen-Datenpunkte, über den alle Bausteine untereinander kommunizieren.</figcaption>
+            </figure>
+            <figure>
+                <img src="example02-04.png" alt="Logikblatt der Markisensteuerung" />
+                <figcaption>Die Steuerung der Markise ist auf einem eigenen Logikblatt untergebracht. Die Ein- und Ausgeänge der Bausteine sind mit den zuvor definierten Gruppenadress- und Variablen-Datenpunkten verbunden.</figcaption>
+            </figure>       
+            <figure>
+                <img src="example02-05.png" alt="Logikblatt mit einer Gruppensteuerung" />
+                <figcaption>Die beiden Auftraggeber sind Gruppen (Konfiguration siehe "Sicherheitsüberlegungen") zugewiesen und fahren die Markisen bei Nacht ein und die Rollladen bei Nachtanbruch herunter und bei Taganbruch wieder herauf, sofern dies durch die Automatik (siehe auch: <a href="../../logic.control/blocker/index.html">Sperre+</a>) nicht unterbunden wird.</figcaption>
+            </figure>       
+        </section>
+
+        <section id="sicherheit">
+            <header>
+                <h2>Sicherheitsüberlegungen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Die Signalstrecke von einem Tast- oder Wettersensor über den KNX-Bus zum X1, weiter zum Velux KLF-200 Gateway und dann zum Rollladen oder zur Markise ist lang und kann störungsanfällig sein. Es wäre daher zu überlegen, ob man für Sicherheitsfunktionen den X1 und das Netzwerk umgeht. Dafür bieten sich die potentialfreien Kontakte des Velux KLF-200 an.</p>
+            <p>Im nachfolgend dargestellten Fall werden je alle Rollläden und alle Markisen in zwei Gruppen zusammengefasst. Die Gruppen können nun einerseits über den Auftraggeber (in der Gruppenkonfiguration; z.B. Rollladen auf am Morgen, Markisen einfahren am Abend) genutzt werden.</p>
+            <figure>
+                <img src="example03-01.png" alt="Gruppenkonfiguration im Velux KLF-200" />
+                <figcaption>Rollladen und Markisen sind jeweils in eigenen Gruppen zusammengefasst, um jeweils unterschiedliche Sicherheitsfunktionen auszulösen.</figcaption>
+            </figure>
+            <p>Darüber hinaus können aber mit einem einfachen Schaltaktor Sicherheitsaktionen ausgeführt werden (z.B. Rollladen auffahren bei Rauchalarm, Markisen einfahren bei Regen oder Wind). Der Schaltaktor wird dabei potentialfrei mit den Eingängen verbunden.</p>
+            <p>Beim Mischbetrieb der potentialfreien Eingänge über KNX-Aktoren ist darauf zu achten, dass die gleichen Gruppenadressen im X1 (z.B. über einen Auftraggeber in der Gruppenkonfiguration) <strong>nicht</strong> die gleiche Aktion auslösen, da die Befehle sich gegenseitig stoppen.</p>
+            <p>Es ist aber problemlos möglich, Sicherheitsfunktionen über die potentialfreien Eingänge auszulösen und Komfortfunktionen über den X1. Dabei sollten nur andere Gruppenadressen / Datenpunkte verwendet werden.</p>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

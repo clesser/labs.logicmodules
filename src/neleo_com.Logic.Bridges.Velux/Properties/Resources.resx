@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Error_GatewayCommunication" xml:space="preserve">
+    <value>The gateway reported error "{0}".</value>
+    <comment>0=error</comment>
+  </data>
+  <data name="Error_HardwareGateway" xml:space="preserve">
+    <value>The hardware gateway raised error "{0}".</value>
+    <comment>0=error</comment>
+  </data>
+  <data name="Error_OutgoingTelegram" xml:space="preserve">
+    <value>Outgoing telegram "{0}" can't be sent to gateway.</value>
+    <comment>0=telegram</comment>
+  </data>
+  <data name="Error_UnknownDatagram" xml:space="preserve">
+    <value>Datagram "{0}" cannot be mapped to a telegram.</value>
+    <comment>0=Id</comment>
+  </data>
+  <data name="Error_UnknownIdentifier" xml:space="preserve">
+    <value>Identifier {0}:{1} cannot be resolved.</value>
+    <comment>0={scene|group|node}, 1=identifier</comment>
+  </data>
+  <data name="Error_UnknownName" xml:space="preserve">
+    <value>Node, group or scene name "{0}" cannot be ressolved.</value>
+    <comment>0=name</comment>
+  </data>
+  <data name="Error_UnsupportedTelegram" xml:space="preserve">
+    <value>Incoming telegram "{0}" is not supported.</value>
+    <comment>0=telegram</comment>
+  </data>
+  <data name="Exception_GatewayConnection" xml:space="preserve">
+    <value>Gateway ({0}:51200) does not respond.</value>
+    <comment>0=ip address</comment>
+  </data>
+  <data name="Exception_GatewayConnectionAuthorization" xml:space="preserve">
+    <value>Gateway does not accept password.</value>
+  </data>
+  <data name="Exception_GatewayConnectionSecurity" xml:space="preserve">
+    <value>Gateway does not accept secure connection certificate  or protocol.</value>
+  </data>
+  <data name="GatewayError" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="GatewayHost" xml:space="preserve">
+    <value>IPv4 Address</value>
+  </data>
+  <data name="GatewayPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="GatewayRequest" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="GatewayResponse" xml:space="preserve">
+    <value>Responses</value>
+  </data>
+  <data name="GatewayState" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Info_CatalogToc" xml:space="preserve">
+    <value>{0}s TOC: {1}</value>
+    <comment>0={scene|group|node}, 1=list of entries</comment>
+  </data>
+  <data name="Info_CatalogTocEmpty" xml:space="preserve">
+    <value>{0}s TOC: (empty)</value>
+    <comment>0={scene|group|node}</comment>
+  </data>
+  <data name="NodeCurrentInteger" xml:space="preserve">
+    <value>Current Value</value>
+  </data>
+  <data name="NodeCurrentPercent" xml:space="preserve">
+    <value>Current Value (%)</value>
+  </data>
+  <data name="NodeEnforcement" xml:space="preserve">
+    <value>Forced Value</value>
+  </data>
+  <data name="NodeError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="NodeExecuting" xml:space="preserve">
+    <value>Executing</value>
+  </data>
+  <data name="NodeIdentifier" xml:space="preserve">
+    <value>Node Identifier</value>
+  </data>
+  <data name="NodeLimitation" xml:space="preserve">
+    <value>Limitation</value>
+  </data>
+  <data name="NodeTargetInteger" xml:space="preserve">
+    <value>Target Value</value>
+  </data>
+  <data name="NodeTargetPercent" xml:space="preserve">
+    <value>Target Value (%)</value>
+  </data>
+  <data name="OutputRangeAndUnit" xml:space="preserve">
+    <value>Output Value Range</value>
+  </data>
+  <data name="PriorityComfortLevel1" xml:space="preserve">
+    <value>Comfort Level 1</value>
+  </data>
+  <data name="PriorityComfortLevel2" xml:space="preserve">
+    <value>Comfort Level 2</value>
+  </data>
+  <data name="PriorityComfortLevel3" xml:space="preserve">
+    <value>Comfort Level 3</value>
+  </data>
+  <data name="PriorityComfortLevel4" xml:space="preserve">
+    <value>Comfort Level 4</value>
+  </data>
+  <data name="PriorityEnvironmentProtection" xml:space="preserve">
+    <value>Environment Protection</value>
+  </data>
+  <data name="PriorityHumanProtection" xml:space="preserve">
+    <value>Human Protection</value>
+  </data>
+  <data name="PriorityUserLevel1" xml:space="preserve">
+    <value>User Level 1</value>
+  </data>
+  <data name="PriorityUserLevel2" xml:space="preserve">
+    <value>User Level 2</value>
+  </data>
+  <data name="RangeDefault" xml:space="preserve">
+    <value>Default (0..51200)</value>
+  </data>
+  <data name="RangePercentAsc" xml:space="preserve">
+    <value>Percent (0..100)</value>
+  </data>
+  <data name="RangePercentDesc" xml:space="preserve">
+    <value>Percent (100..0)</value>
+  </data>
+  <data name="RequestIdentifier" xml:space="preserve">
+    <value>Name or :Identifier</value>
+  </data>
+  <data name="RequestLongUpDown" xml:space="preserve">
+    <value>Up / Down (Long)</value>
+  </data>
+  <data name="RequestMinMax" xml:space="preserve">
+    <value>Min / Max</value>
+  </data>
+  <data name="RequestPriority" xml:space="preserve">
+    <value>Command Priority</value>
+  </data>
+  <data name="RequestRangeAndUnit" xml:space="preserve">
+    <value>Input Value Range</value>
+  </data>
+  <data name="RequestReboot" xml:space="preserve">
+    <value>Request Reboot</value>
+  </data>
+  <data name="RequestReconnect" xml:space="preserve">
+    <value>Request Reconnect</value>
+  </data>
+  <data name="RequestScope" xml:space="preserve">
+    <value>Command Type</value>
+  </data>
+  <data name="RequestShortUpDown" xml:space="preserve">
+    <value>Up / Down (Short)</value>
+  </data>
+  <data name="RequestSource" xml:space="preserve">
+    <value>Command Source</value>
+  </data>
+  <data name="RequestStartStop" xml:space="preserve">
+    <value>Stop / Start</value>
+  </data>
+  <data name="RequestState" xml:space="preserve">
+    <value>Request State</value>
+  </data>
+  <data name="RequestTargetInteger" xml:space="preserve">
+    <value>Target Value</value>
+  </data>
+  <data name="RequestTargetPercent" xml:space="preserve">
+    <value>Target Value (%)</value>
+  </data>
+  <data name="RequestUpDownStepSize" xml:space="preserve">
+    <value>Up / Down (Short %)</value>
+  </data>
+  <data name="RequestUpDownTimeSpan" xml:space="preserve">
+    <value>Up / Down (Timespan)</value>
+  </data>
+  <data name="RequestVelocity" xml:space="preserve">
+    <value>Execution Velocity</value>
+  </data>
+  <data name="ScopeGroup" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="ScopeNode" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="ScopeScene" xml:space="preserve">
+    <value>Scene</value>
+  </data>
+  <data name="SourceEmergency" xml:space="preserve">
+    <value>Emergency Notification</value>
+  </data>
+  <data name="SourceRain" xml:space="preserve">
+    <value>Rain Sensor</value>
+  </data>
+  <data name="SourceSAAC" xml:space="preserve">
+    <value>Stand Alone Automatic Control</value>
+  </data>
+  <data name="SourceTimer" xml:space="preserve">
+    <value>Timer</value>
+  </data>
+  <data name="SourceUPS" xml:space="preserve">
+    <value>Uninterruptible Power Supply</value>
+  </data>
+  <data name="SourceUser" xml:space="preserve">
+    <value>Human Interaction</value>
+  </data>
+  <data name="SourceWind" xml:space="preserve">
+    <value>Wind Sensor</value>
+  </data>
+  <data name="VelocityDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="VelocityFast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="VelocitySilent" xml:space="preserve">
+    <value>Silent</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="velux_cert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\velux-cert.pem;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

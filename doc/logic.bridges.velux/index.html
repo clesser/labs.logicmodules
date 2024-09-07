@@ -1,0 +1,167 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Velux KLF Bausteine - Start</title>
+    <link rel="StyleSheet" href="../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../donate.html" target="popup" onclick="window.open('../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Velux KLF-200 Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 class="noicon">Inhalt des Logikpakets</h1>
+            <nav>
+                <a href="../index.html">Logikpakete</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#bausteine">Logikbausteine</a>
+                <a href="#lizenz">Lizenz</a>
+                <a href="#versionen">Changelog</a>
+                <a href="#versionen">Download</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieses Paket enthält Logikbausteine, die die Kommunikation mit dem Velux KLF-200 ermöglichen.</p>
+            <p>Aufgrund des technischen Designs von KNX, io-homecontrol und der Gira Logikbausteine, werden alle drei nachfolgend aufgeführten Komponenten kombiniert eingesetzt. Auf dieser Seite gibt es dazu einige <a href="doc/setup.html">Hinweise zur Einrichtung.</a></p>
+            <p>Das <a href="gatewayconnector/index.html">Velux Gateway</a> selbst kommuniziert mit dem Velux KLF-200 und stellt sicher, dass die Verbingung erhalten bleibt. Für jedes physikalische Gateway wird exakt ein logisches Gateway in einem Logikblatt verwendet.</p>
+            <p>Das Gateway stellt zudem einen Ausgang bereit, an dem beliebig viele <a href="gatewayresponse/index.html">Velux Ausgabefilter</a>-Bausteine lauschen können. Sie übersetzen die Nachrichten des Gateways in (KNX- oder Variablen-) Telegramme.</p>
+            <p>Mit Hilfe des Bausteins <a href="gatewayrequest/index.html">Velux Auftraggeber</a> werden (KNX- oder Variablen-) Telegramme in Anweisungen für das Gateway übersetzt. Es kann beliebig viele "Auftraggeber" geben, die Anweisungen an ein und dasselbe oder an verschiedene Gateways schicken.</p>
+            <p>Gegenwärtig wurden die folgenden Geräteklassen getestet:</p>
+            <ul>
+                <li><em>Roller Shutter</em> (Rollläden)</li>
+                <li><em>Horizontal Awning</em> (Markisen)</li>
+                <li><em>On/Off - Switch</em> (Schalter)*</li>
+                <li><em>Light</em> (Licht)*</li>
+                <li><em>Exterior Heating</em> (Terrassenheizung)*</li>
+            </ul>
+            <p>Andere Geräteklassen können mit Hilfe von <a href="doc/syntax.html">Telegrammen</a> jedoch ebenfalls angesteuert werden. Die Telegramme können dabei wahlweise auch durch andere Text-Generator-Bausteine erstellt werden.</p>
+            <p>* = #min und #max sind bei diesen Geräteklassen vertauscht; d.h. #min => ein / 100%, #max => aus / 0%. Siehe dazu auch Kapitel 14.1 der Velux KLF-200 Spezifikation.</p>
+            <!--p>Zu diesem Zweck wird der <a href="doc/tester.html">KLF-200 Tester</a> bereitgestellt, mit der das Testen auch außerhalb des GPAs jederzeit möglich ist (u.a. auch zur Fehlersuche oder um weitere Geräteklassen zu testen).</p-->
+        </section>
+
+        <section id="bausteine">
+            <header>
+                <h2>Logikbausteine</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="gatewayconnector/index.html">Velux Gateway</a></td>
+                        <td>
+                            <p>Dieser Baustein stellt die Verbindung zu einem Velux KLF-200 Gateway her.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="gatewayrequest/index.html">Velux Auftraggeber</a></td>
+                        <td>
+                            <p>Dieser Baustein abstrahiert die Bedienschnittstelle eines Gerätes oder einer Gruppe. Er wird am Ausgang mit einem <a href="gatewayconnector/index.html">Velux Gateway</a> verbunden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="gatewayresponse/index.html">Velux Ausgabefilter</a></td>
+                        <td>
+                            <p>Dieser Baustein abstrahiert die Statusanzeige eines Gerätes oder einer Gruppe. Er wird am Eingang mit einem <a href="gatewayconnector/index.html">Velux Gateway</a> verbunden.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Die drei Bausteine unterhalten sich untereinander mit Hilfe von <a href="doc/syntax.html">Telegrammen</a>, die an eine URL angelehnt sind und somit bei Bedarf auch manuell erzeugt bzw. abgerufen werden können.</p>
+            <p>Auf dieser Seite werden einige <a href="doc/setup.html">Hinweise zur Konfiguration</a> (Logikbausteine, Variablen und Gruppenadressen, ETs) zusammengetragen.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenz</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Die Logikbausteine ("Software"), Dokumentation und Grafiken in diesem Paket steht unter der <a href="https://mit-license.org/" target="_blank">MIT-Lizenz</a> <a href="https://de.wikipedia.org/wiki/MIT-Lizenz" target="_blank">(Sinngemäße Übersetzung)</a>, sofern Einzelkomponenten des Pakets nicht durch andere Lizensierungen gekennzeichnet sind. </p>
+            <p>&nbsp;</p>
+            <p>Copyright © 2022-2024 - Christoph Lesser - labs.neleo.com</p>
+            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+            <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+            <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+            <p>&nbsp;</p>
+            <p>"Velux" und damit verbundene Namen und Marken beschreiben Produkte und Dienste der <a href="https://www.velux.com/legal-notice" target="_blank">Velux Group</a>. Die angebotenen Logikbausteine nutzen die unter <a href="https://www.velux.com/klf200" target="_blank">https://www.velux.com/klf200</a> veröffentlichten Schnittstellen, sind jedoch selbst kein Produkt der Velux Group.</p>
+        </section>
+
+        <section id="versionen">
+            <header>
+                <h2>Changelog</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Version</th>
+                        <th>Änderungen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.0.1</td>
+                        <td>
+                            <p>Für Firmware 2.8.869 vom 20.12.2023 ohne TLS-1.2-Unterstützung</p>
+                            <p>Die BouncyCastle-Bibliothek übernimmt wieder die TLS-1.2-Verschlüsselung der Kommunikation mit dem Velux KLF200.</p>
+                            <p>Möglicherweise wird Dein X1 einen höheren Speicherverbrauch anzeigen - dies ist u.a. der externen Bibliothek geschuldet und lässt sich nicht vermeiden. Bisher sind dadurch jedoch noch keine Funktionseinschränkungen gemeldet worden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1.0.0</td>
+                        <td>
+                            <p>Nur für die Firmware 2.8.858 vom 25.05.2023 mit TLS-1.2-Unterstützung</p>
+                            <p>Umstellung der TLS1.2-Verschlüsselung von der BouncyCastle-Bibliothek auf die nativen X1-Funktionen. Die BouncyCastle-Bibliothek wurde in dieser Version entfernt (und damit verschwindet auch die Speicherauslastungswarnung).</p>
+                            <p>Das <a href="gatewayconnector/index.html">Velux KLF-200 Gateway</a>gibt den Verbindungsstatus nun über einen eigenen Ausgang aus und verbindet sich automatisch erneut, wenn ein Verbindungsausfall erkannt wurde (Prüfung erfolgt alle 7 Minuten). Das Gateway und die Verbindung können neu gestartet bzw. aufgebaut werden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0.9.0</td>
+                        <td>Erste veröffentlichte Version</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Die aktuelle Version des Logikpakets ist im <a href="https://service.knx-user-forum.de/?comm=download&id=20000104" target="_blank">KNX User Forum</a> und im <a href=" https://www.smarthome-appstore.de/produkt/velux-bridges-x1-labs-neleo-com" target="_blank">AppStore für den Gira X1</a> verfügbar. Der Source Code liegt auf <a href="https://github.com/clesser/labs.logicmodules" target="_blank">GitHub</a>.</p>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

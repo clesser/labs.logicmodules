@@ -1,0 +1,34 @@
+﻿{
+    "PackageFormatVersion": "1.0",
+    "Assembly": "neleo_com.Logic.Aggregation.dll",
+    "PackageName": {
+        "en": "Aggregation logic nodes",
+        "de": "Aggregationsbausteine"
+    },
+    "DependentFiles": [
+        "LogicModule.Nodes.Helpers.dll"
+    ],
+    "Version": "1.0.0",
+    "Author": "neleo.com - Christoph Lesser",
+    "Copyright": "",
+    "DeveloperId": "neleo_com",
+    "License": "Free",
+    "PackageId": "1CC349F5-6922-4DEE-A0E9-AD6A21DC5ABB",
+    "Nodes": [
+        {
+            "Type": "neleo_com.Logic.Aggregation.Aggregator",
+            "Name": {
+                "en": "Aggregator",
+                "de": "Wertesammler"
+            },
+            "IsConverter": false,
+            "Category": "Node",
+            "DefaultIcon": "Resources/icons8-bar-chart-44.png",
+            "HelpTooltip": {
+                "en": "Aggregates data based on day and hour and provides statistical evaluations of them.",
+                "de": "Sammelt tage- und stundenweise Daten und liefert statistische Auswertungen darüber."
+            },
+            "HelpFileReference": "!https://x1.labs.neleo.com/logic.aggregation/aggregator/index.html"
+        }
+    ]
+}

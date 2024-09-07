@@ -1,0 +1,230 @@
+﻿
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Zeitsteuerungsbausteine - Terminkalender - Hilfe</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Zeitsteuerungsbausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 style="background-image: url(icons8-today-44.png)">Terminkalender</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+                <a href="#lizenz">Lizenzinformationen</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Dieser Baustein liest einen als iCal formatierten Kalender ein und stellt Informationen zum jeweils nächsten Termin dar. Damit können Wecker gesteuert oder Termine auf grafischen Anzeigen visualisiert werden.</p>
+            <p>Wiederkehrende Termine (Serientermine) werden derzeit noch <strong>nicht</strong> vollständig unterstützt; während Serientermine selbst noch nicht einbezogen werden, werden die von der Serie abweichenden Termine berücksichtigt.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Eingänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>iCal Kalender</td>
+                        <td>Zeit</td>
+                        <td>
+                            <p>Eingang, an den ein iCal Kalender übermittelt wird.</p>
+                            <p>Da die Auswertung großer Kalender auf dem X1 recht viel Last erzeugen kann, sollten die Aktualierungsintervalle eher großzügig gewählt werden.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Einschließende Parameter</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Um die Auswahl der Termine eines Tages zu filtern, können Termine mittels einschließender Parameter gefiltert werden. Ein Termin wird dann angezeigt wenn <b>alle</b> 0..10 einschließenden Parameter erfüllt sind.</p>
+                            <p>Die Filterung efolgt mittels "String.StartsWith(.. OrdinalIgnoreCase)", so dass auch selbst gewählte Prefixe erfasst werden können.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>xx. Einschließender Parameter</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Ein einschließender Parameter.</p>
+                            <p>Sollen beispielsweise bei einem von Microsoft Exchange erzeugten iCal-Kalender nur Termine berücksichtigt werden, die als "gebucht" klassifiziert sind, so würde als Parameter "X-MICROSOFT-CDO-BUSYSTATUS:BUSY" eingetragen werden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ausschließende Parameter</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Um die Auswahl der Termine eines Tages zu filtern, können Termine mittels ausschließender Parameter gefiltert werden. Ein Termin wird dann angezeigt wenn <b>keiner</b> der 0..10 ausschließenden Parameter erfüllt sind.</p>
+                            <p>Die Filterung efolgt mittels "String.StartsWith(.. OrdinalIgnoreCase)", so dass auch selbst gewählte Prefixe erfasst werden können.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>xx. Ausschließender Parameter</td>
+                        <td>Ganzzahl</td>
+                        <td>
+                            <p>Ein ausschließender Parameter.</p>
+                            <p>Sollen beispielsweise in einem Kalender alle Buchungen ausgeblendet werden, die "Focus Time" heißen, so würde als Parameter "SUMMARY:Focus Time" eingetragen werden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aktualisieren nach</td>
+                        <td>Zeitspanne</td>
+                        <td>
+                            <p>Definiert die Zeit nach Beginn des aktuellen Termins (0 sek .. 15 min), nachdem der nächste Termin an den Ausgangsports angekündigt wird.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Formatvorlage</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Erlaubt die Formatierung des Ausgabetextes mit Platzhaltern "{x}" für den nächsten Termin. Dafür stehen die folgenden Werte zur Verfügung:</p>
+                            <ul>
+                                <li><em>0</em> [DateTime] Startzeit des nächsten Termins.</li>
+                                <li><em>1</em> [TimeSpan] Dauer des nächsten Termins.</li>
+                                <li><em>2</em> [String] Betreff/Titel des nächsten Termins.</li>
+                                <li><em>3</em> [String] Ort des nächsten Termins.</li>
+                            </ul>
+                            <p>Wird keine Formatierung angegeben, so bleibt die Ausgabe "Zusamenfassung" leer!</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Text "Kein Termin"</td>
+                        <td>Text</td>
+                        <td>
+                            <p>Text, der am Ausgang "Zusammenfassung" ausgegeben wird, wenn im Kalender für die nächsten sieben Tage kein Termin eingetragen ist.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ausgänge</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="200" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Porttyp </th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nächster Termin</td>
+                        <td>Zeit</td>
+                        <td>
+                            <p>Gibt die Startzeit des nächsten Termins zurück. Der jeweils nächste Termin wird nach Ablauf der Zeit "Aktualisieren nach" nach Beginn des aktuellen Termins angezeigt.</p>
+                            <p>Liegt für die nächsten sieben Tage kein Termin an, so wird der Standardzeitpunkt "01.01.0001 00:00:00" zurückgegeben.</p>
+                            <p>Der Parameter "Zusammenfassung" wird immer unmittelbar <strong>vor</strong> diesem Ausgang aktualisiert.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zusamenfassung</td>
+                        <td>Zeit</td>
+                        <td>
+                            <p>Liefert eine Zusammenfassung des nächsten Termins gemäß der in "Formatvorlage" eingestellten Formatierung.</p>
+                            <p>Liegt für nächsten sieben Tage kein Termin an, kann ein definierter Text ("Text "Kein Text"") ausgegeben werden.</p>
+                            <p>Der Parameter "Nächster Termin" wird immer unmittelbar <strong>nach</strong> diesem Ausgang aktualisiert.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <h3>Beispiel: Kalender zur Steuerung des Weckers</h3>
+            <p>Wenn Menschen jeden Tag zur gleichen Zeit aufstehen, so werden häufig Zeitschaltuhren eingesetzt, um Abläufe zu automatisieren. Verschiebt sich der Tagesablauf jedoch (z.B. aufgrund regelmäßiger Reisetätigkeit), gerät diese Steuerung häufig an ihre Grenzen.</p>
+            <p>Mit Hilfe des iCal-Kalender-Logikbausteins können Schaltzeiten durch einen externen Kalender bestimmt werden. Der Kalender wird dabei z.B. vom <a href="https://knx-user-forum.de/forum/supportforen/gira-logik-sdk/1313464-open-source-logic-nodes-wake-on-lan-dimmen-per-bin%C3%A4reingang-http-web-requests" target="_blank">WebRequest-Baustein von Daniel Albuschat</a> eingelesen und an den Logikbaustein übergeben.</p>
+            <p>Anhand von (teilweise herstellerspezifischen) Filtern werden die relevanten Termine des Tages gefiltert und stehen dann z.B. dem <a href="../alarm/index.html">Wecker</a>-Logikbaustein zur Verfügung.</p>
+            <figure>
+                <img src="example01.png" alt="Kalender für Wecksequenz" />
+                <figcaption>
+                    In diesem Beispiel werden zwei Kalender ausgelesen und die Startzeiten kombiniert an den Wecker übermitelt.
+                </figcaption>
+            </figure>
+            <h3>Beispiel: Terminanzeige</h3>
+            <p>Mit Hilfe geeigneter Displays kann der jeweils nächste Termin visualisiert werden.</p>
+        </section>
+
+        <section id="lizenz">
+            <header>
+                <h2>Lizenzinformationen</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <ul>
+                <li><a href="../index.html#lizenz">Lizenzbedingungen für diesen Logikbaustein</a></li>
+                <li>Teilweise Übernahme des iCal.NET Parsers von <a href="https://github.com/der-daniel/ical.NET" target="_blank">GitHub / der-daniel</a></li>
+                <li><a target="_blank" href="https://icons8.com/icon/nGCq83WiIaj1/today">Today</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

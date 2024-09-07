@@ -1,0 +1,250 @@
+
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Nuki Bridge Bausteine - Telegrammsyntax</title>
+    <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+</head>
+
+<body>
+    <article>
+        <header>
+            <span class="headDonate"><a href="../../donate.html" target="popup" onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Nuki Bridge Bausteine</span>
+            <span class="headGray">Hilfe</span>
+            <h1 class="noicon">Telegrammsyntax</h1>
+            <nav>
+                <a href="../index.html">Logikbausteine</a>
+                <a href="#beschreibung">Beschreibung</a>
+                <a href="#eigenschaften">Eigenschaften</a>
+                <a href="#anwendung">Anwendung</a>
+            </nav>
+        </header>
+
+        <section id="beschreibung">
+            <header>
+                <h2>Beschreibung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Die Kommunikation der Logikbausteine untereinander erfolgt mit Hilfe von Telegrammen, die einer URL-Syntax nachempfunden sind:</p>
+            <ul>
+                <li>request://&lt;device-id&gt;&lt;:device-type&gt;/{lock|unlock|unlatch|info}</li>
+                <li>response://&lt;device-id&gt;&lt;:device-type&gt;/{lock|unlock|unlatch|info}?param1=value1</li>
+            </ul>
+            <p>Die <a href="../gatewayrequest/index.html">Nuki Auftraggeber</a>-Bausteine generieren "request://"-Telegramme, die an den Eingang der <a href="../gatewayconnector/index.html">Nuki Bridge</a> gesendet werden. Diese antwortet mit "response://"-Telegrammen, die es über seinen Ausgang an die Eingänge der <a href="../gatewayresponse/index.html">Nuki Antwortfilter</a>-Bausteine sendet ("Broadcast").</p>
+            <p>Jedes Telegramm definiert die Nuki-ID (<em>device-id</em>), den Nuki-Gerättyp (<em>device-type</em>) und eine Aktion (z.B. <em>lock</em>, <em>info</em>).</p>
+            <p>Bei Antworten schließt sich nun die optionale Parameterliste an. Sie beginnt mit dem Fragezeichen ("?") und dem ersten Schlüssel-Wert-Paar. Weitere Schlüssel-Wert-Paare werden durch kaufmännisches Unds ("&amp;") angehängt.</p>
+            <p>In der Regel ist das manuelle Zusammenstellen der Telegramme nicht erforderlich - jedoch können damit gegebenenfalls auch noch nicht offiziell getestete Geräte angebunden werden.</p>
+        </section>
+
+        <section id="eigenschaften">
+            <header>
+                <h2>Eigenschaften</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <h3>Protokoll</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>request://</td>
+                        <td>
+                            <p>Das Telegramm richtet sich an den Eingang der <a href="../gatewayconnector/index.html">Nuki Bridge</a>. Es wird verwendet, um Eigenschaften in Geräten abzufragen oder Aktionen auszulösen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>response://</td>
+                        <td>
+                            <p>Das Telegramm wird vom Ausgang der <a href="../gatewayconnector/index.html">Nuki Bridge</a> versendet. Es zeigt Veränderungen der Eigenschaften von Geräten an.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Bezeichner</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Protokolle</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>device-id</td>
+                        <td>request<br />response</td>
+                        <td>
+                            <p>Der eindeutige Bezeichner eines Geräts ("nukiID").</p>
+                            <p>Die Bezeichner aller mit einer Bridge gekoppelten Geräte können mit Hilfe des <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--list" target="_blank">/list</a>-Befehls ermittelt werden.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>device-type</td>
+                        <td>request<br />response</td>
+                        <td>
+                            <p>Der Typ eines Geräts ("deviceType").</p>
+                            <p>Die Bezeichner aller mit einer Bridge gekoppelten Geräte können mit Hilfe des <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--list" target="_blank">/list</a>-Befehls ermittelt werden.</p>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Aktionen</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Protokolle</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/lock</td>
+                        <td>request<br />response</td>
+                        <td>
+                            <p>Fordert das angegebene Nuki Gerät auf, die Aktion "2" (= "lock", siehe <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--lock-actions" target="_blank">Lock Actions</a>) durchzuführen.</p>
+                            <p>Eine Antwort meldet die erfolgreiche bzw. erfolgreiche Ausführung der Aktion.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>/unlock</td>
+                        <td>request<br />response</td>
+                        <td>
+                            <p>Fordert das angegebene Nuki Gerät auf, die Aktion "1" (= "unlock", siehe <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--lock-actions" target="_blank">Lock Actions</a>) durchzuführen.</p>
+                            <p>Eine Antwort meldet die erfolgreiche bzw. erfolgreiche Ausführung der Aktion.</p>
+                        </td>
+                    </tr>
+                   <tr>
+                        <td>/unlatch</td>
+                        <td>request<br />response</td>
+                        <td>
+                            <p>Fordert das angegebene Nuki Gerät auf, die Aktion "3" (= "unlatch", siehe <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--lock-actions" target="_blank">Lock Actions</a>) durchzuführen.</p>
+                            <p>Eine Antwort meldet die erfolgreiche bzw. erfolgreiche Ausführung der Aktion.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>/info</td>
+                        <td>request<br />response</td>
+                        <td>
+                            <p>Fordert das angegebene Nuki Gerät auf, den Status des Geräts und ggf des Türsensors und der Batterie zu melden.</p>
+                            <p>Eine Antwort meldet den Status des Geräts, Türsensors und der Batterie.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Parameter</h3>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="150" />
+                    <col width="150" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Protokolle</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>success</td>
+                        <td>response</td>
+                        <td>
+                            <p>Definiert, ob eine Aktion erfolgreich war:</p>
+                            <ul>
+                                <li><em>true</em></li>
+                                <li><em>false</em></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>lock</td>
+                        <td>response</td>
+                        <td>
+                            <p>Liefert den Status des Geräts (typischerweise ein Smart Lock):</p>
+                            <ul>
+                                <li><em>1</em> - verschlossen</li>
+                                <li><em>3</em> - unverschlossen</li>
+                                <li><em>5</em> - entsperrt</li>
+                            </ul>
+                            <p>Siehe auch: <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--lock-states" target="_blank">Liste aller Nuki Lock States</a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>door</td>
+                        <td>response</td>
+                        <td>
+                            <p>Liefert den Status des Türsensors:</p>
+                            <ul>
+                                <li><em>2</em> - geschlossen</li>
+                                <li><em>3</em> - geöffnet</li>
+                            </ul>
+                            <p>Siehe auch: <a href="https://developer.nuki.io/page/nuki-bridge-http-api-1-13/4/#heading--doorsensor-states" target="_blank">Liste aller Nuki Door Sensor States</a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>battery</td>
+                        <td>response</td>
+                        <td>
+                            <p>Prozentualer Ladezustand der Batterie bzw. des Akkus des Nuki Geräts.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+        <section id="anwendung">
+            <header>
+                <h2>Anwendung</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <p>Die nachfolgenden Beispiele gehen von einem Nuki Smartlock der zweiten Generation (device-type=0) mit dem Bezeichner "13579" (device-id=13579) aus:</p>
+            <p><code>request://13579:0/lock</code><br />Schließt die Tür ab.</p>
+            <p><code>response://13579:0/lock?success=true</code><br />Bestätigt, dass die Tür abgeschlossen wurde.</p>
+            <p><code>request://13579:0/info</code><br />Fordert den aktuellen Gerätestatus an.</p>
+            <p><code>response://13579:0/info?lock=3&door=2&battery=50</code><br />Teilt mit, dass die Tür unverschlossen (lock=3), jedoch auch nicht geöffnet (door=2) ist und dass noch 50% Kapazität in der Batterie bzw. dem Akku vorhanden sind.</p>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>

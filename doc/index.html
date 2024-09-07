@@ -1,0 +1,173 @@
+
+<!DOCTYPE HTML>
+<html id="top" lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[neleo.labs] X1 Logikpakete - Start</title>
+    <link rel="StyleSheet" href="style/default.css" type="text/css" />
+</head>
+<body>
+    <article>
+
+        <header>
+            <span class="headDonate"><a href="donate.html" target="popup" onclick="window.open('donate.html', 'popup', 'height=620,width=380,resizable'); return false;" title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a></span>
+            <span class="headLogo"></span>
+            <span class="headBlack">Logikpakete</span>
+            <span class="headGray">Hilfe</span>
+        </header>
+
+        <section id="pakete">
+            <header>
+                <h2>Logikpakete</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="300" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Bezeichnung</th>
+                        <th>Beschreibung </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="logic.aggregation/index.html">Aggregationsbausteine</a>
+                        </td>
+                        <td>
+                            <p>Dieses Paket enthält Logikbausteine zur Datenaggregation und Datenauswertung für den GIRA X1.</p>
+                            <p>
+                                <a href="logic.aggregation/aggregator/index.html">Wertesammler</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="logic.control/index.html">Datenflussbausteine</a>
+                        </td>
+                        <td>
+                            <p>Dieses Paket enthält Logikbausteine, die zur Steuerung von Telegrammen verwendet werden können.</p>
+                            <p>
+                                <a href="logic.control/blocker/index.html">Sperre+</a>, 
+                                <a href="logic.control/switch/index.html">Vergleicher+</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="logic.timing/index.html">Zeitsteuerungsbausteine</a>
+                            <ul>
+                            </ul>
+                        </td>
+                        <td>
+                            <p>Dieses Paket enthält Logikbausteine für den Gira X1, die zur Zeitsteuerung von Telegrammen verwendet werden können.</p>
+                            <p>
+                                <a href="logic.timing/alarm/index.html">Wecker</a>,
+                                <a href="logic.timing/wakeup/index.html">Wecker (Weckzeit)</a>,
+                                <a href="logic.timing/calendar/index.html">Tageskalender</a>,
+                                <a href="logic.timing/observer/index.html">Beobachter</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="logic.bridges.nuki/index.html">Nuki Bridge Bausteine</a>
+                        </td>
+                        <td>
+                            <p>Dieses Paket enthält Logikbausteine zur Steuerung von Nuki Türschlössern.</p>
+                            <p>
+                                <a href="logic.bridges.nuki/smartlock/index.html">Nuki SmartLock</a>,
+                                <a href="logic.bridges.nuki/gatewayconnector/index.html">Nuki Bridge</a>,
+                                <a href="logic.bridges.nuki/gatewayrequest/index.html">Nuki Auftraggeber</a>,
+                                <a href="logic.bridges.nuki/gatewayresponse/index.html">Nuki Antwortfilter</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="logic.bridges.velux/index.html">Velux KLF-200 Bausteine</a>
+                            <ul>
+                            </ul>
+                        </td>
+                        <td>
+                            <p>Dieses Paket enthält Logikbausteine, die die Kommunikation mit dem Velux KLF-200 ermöglichen.</p>
+                            <p>
+                                <a href="logic.bridges.velux/gatewayconnector/index.html">Velux KLF-200 Gateway</a>,
+                                <a href="logic.bridges.velux/gatewayrequest/index.html">Velux KLF-200 Auftraggeber</a>,
+                                <a href="logic.bridges.velux/gatewayresponse/index.html">Velux KLF-200 Antwortfilter</a>
+                            </p>
+                        </td>
+                    </tr>
+              </tbody>
+            </table>
+        </section>
+
+        <section id="updates">
+            <header>
+                <h2>Changelog</h2>
+                <nav>
+                    <a href="#top">&#8593;</a>
+                </nav>
+            </header>
+            <table cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col width="300" />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Jahr-Monat</th>
+                        <th>Änderungen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-09</td>
+                        <td>
+                            <p>Aktualisierung der Velux-KLF200- und Nuki-Komponenten sowie Veröffentlichung des Quellcodes auf GitHub.</p>
+                            <p>Aufgrund des Downgrades der Kernkomponenten der Firmware des X1 musste wieder eine externe Bibliothek zur TLS-1.2-Verschlüsselung für die Velux-KLF200-Anbindung implementiert werden. Dies führt in einigen Fällen zur Anzeige einer hohen Speichernutzung, bei der jedoch bisher keine Probleme im Alltag gemeldet wurden.</p>
+                            <p>Die Nuki-Komponenten unterstützen jetzt alphanumerische Geträte-IDs.</p>
+                            <p>Ich habe ich zudem entschieden, den <a href="https://github.com/clesser/labs.logicmodules" target="_blank">Quellcode der Projekte</a> zu veröffentlichen, so dass andere Verbesserungsvorschläge einbringen können oder bei der Fehlersuche unterstützen können. Es wird nach wie vor ein Hobby-Projekt bleiben, für das ich keinen professionellen Support anbieten kann ;-)</p>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>2023-12</td>
+                        <td>
+                            <p>Veröffentlichung aller bisherigen Komponenten in der Version 1.0 und Überarbeitung der Dokumentation sowie Korrektur kleinerer Fehler (u.a. Parserfehler im Baustein Terminkalender, Übersetzungen, Dokumentation). </p>
+                            <p>Die Bausteine der Version 1.0 erfordern mindestens die Gira-X1-Firmware 2.8.858.0.<br />Sie laufen nicht auf dem Gira L1!</p>
+                            <p>NEU: Velux-KLF-200-Bausteine verwenden die nun verfügbare TLS-1.2-Verschlüsselung des X1. Darüber hinaus baut der Baustein die Verbindung zum KLF-200 automatisch neu auf, wenn sie verloren geht. Die Verbindung zum KLF-200 und der KLF-200 kann nun neu gestartet werden; darüber hinaus kann manuell der Status aller Geräte angefordert werden, falls die Automatik aussetzt. Geräte geben nun den letzten Fehlercode aus, so dass beispielsweise nicht erreichbare Geräte erkannt werden können.</p>
+                            <p>NEU: Nuki-Bausteine haben eine neue Architekur erhalten und unterstützen jetzt auch mehrere Geräte pro Bridge besser. <br/><strong>ACHTUNG: Aufgrund der veränderten Architektur und damit verbundenen Ein-/Ausgänge der Nuki-Logikbausteine müssen alle verwendeten Bausteine vor der Aktualisierung aus den Logikblättern entfernt und nach der Aktualisierung neu hinzugefügt werden!</strong></p>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>2022-03</td>
+                        <td>Initiale Veröffentlichung als Version 0.9</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <header>
+                <h2>Rechtliche Hinweise</h2>
+            </header>
+
+            <p>Neleo.Labs mit den hier veröffentlichten Komponenten sind ein rein privates betriebenes Projekt. Sollten unabsichtlich Rechte Dritter berührt oder verletzt worden sein, so bitte ich um Kontaktaufnahme (per E-Mail unter info-at-labs-dot-neleo-dot-com; oder via <a href="https://www.linkedin.com/in/clesser/">LinkedIn</a>) um das Anliegen unbürokratisch zu klären.</p>
+            <p>Diese Webseite nutzt <a href="https://azure.microsoft.com/de-de/services/app-service/static/">Azure Static Web Apps</a>. Der Quellcode liegt auf <a href="https://github.com/clesser/labs.logicmodules" target="_blank">GitHub</a>. Es werden keine weiteren externen Dienste verwendet. </p>
+        </section>
+
+        <footer>
+            <span class="footerGray">
+                <a href="index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+            </span>
+        </footer>
+
+    </article>
+</body>
+</html>
