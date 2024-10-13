@@ -343,7 +343,7 @@ namespace neleo_com.Logic.Bridges.Velux {
                     return;
 
                 // catch all confirmations that don't require further handling
-                case Klf200Command.GW_GET_STATE_CFM:
+                // case Klf200Command.GW_GET_STATE_CFM: // to ensure proper heartbeat handling
                 case Klf200Command.GW_PASSWORD_ENTER_CFM:
                 case Klf200Command.GW_HOUSE_STATUS_MONITOR_DISABLE_CFM:
                 case Klf200Command.GW_GET_ALL_NODES_INFORMATION_CFM:

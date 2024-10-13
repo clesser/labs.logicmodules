@@ -9,7 +9,7 @@
         "LogicModule.Nodes.Helpers.dll",
         "BouncyCastle.Crypto.dll"
     ],
-    "Version": "1.0.1",
+    "Version": "1.0.2",
     "Author": "neleo.com - Christoph Lesser",
     "Copyright": "",
     "DeveloperId": "neleo_com",
