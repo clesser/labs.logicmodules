@@ -167,7 +167,7 @@ namespace neleo_com.Logic.Timing {
                 foreach (DateTimeValueObject startDateTime in this.StartDateTime)
                     starts.Add(this.CalcWakeupDateTime(startDateTime, this.LeadTime));
 
-            if (defaulTimeEnabled && this.DefaultTime.HasValue) {
+            if (defaulTimeEnabled && this.DefaultTime != null && this.DefaultTime.HasValue) {
 
                 DateTime localNextDefaultDateTime = localNow.Date.Add(this.DefaultTime.Value);
                 if (localNextDefaultDateTime > localNow)
