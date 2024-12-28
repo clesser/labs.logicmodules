@@ -81,36 +81,29 @@ namespace neleo_com.Logic.Timing {
         }
 
         /// <summary>
-        ///   Time span to publish the next event to the output ports after the current event has begun.</summary>
-        [Parameter(DisplayOrder = 6, IsDefaultShown = true)]
-        public TimeSpanValueObject NextEventAfter {
-            get; private set;
-        }
-
-        /// <summary>
         ///   Format string for <see cref="NextEventSummary"/> (0=Date, 1=Subject).</summary>
-        [Parameter(DisplayOrder = 7, IsDefaultShown = false)]
+        [Parameter(DisplayOrder = 6, IsDefaultShown = false)]
         public StringValueObject NextEventSummaryFormat {
             get; private set;
         }
 
         /// <summary>
         ///   Text for <see cref="NextEventSummary"/> if the event queue is empty.</summary>
-        [Parameter(DisplayOrder = 8, IsDefaultShown = false)]
+        [Parameter(DisplayOrder = 7, IsDefaultShown = false)]
         public StringValueObject NextEventSummaryEmpty {
             get; private set;
         }
 
         /// <summary>
         ///   Start time of the next event.</summary>
-        [Output(DisplayOrder = 2, IsDefaultShown = true)]
+        [Output(DisplayOrder = 1, IsDefaultShown = true)]
         public DateTimeValueObject NextEventBegin {
             get; private set;
         }
 
         /// <summary>
         ///   Subject of the next event.</summary>
-        [Output(DisplayOrder = 3, IsDefaultShown = true)]
+        [Output(DisplayOrder = 2, IsDefaultShown = true)]
         public StringValueObject NextEventSummary {
             get; private set;
         }
@@ -154,10 +147,6 @@ namespace neleo_com.Logic.Timing {
             this.CalendarExcludeParameters = new List<StringValueObject>();
             ListHelpers.ConnectListToCounter(this.CalendarExcludeParameters, this.CalendarExcludeParamsCount,
                 this.TypeService.GetValueObjectCreator(PortTypes.String, nameof(this.CalendarExcludeParameters)), null);
-
-            this.NextEventAfter = this.TypeService.CreateTimeSpan(PortTypes.TimeSpan, nameof(this.NextEventAfter), TimeSpan.FromHours(1));
-            this.NextEventAfter.MinValue = TimeSpan.Zero;
-            this.NextEventAfter.MaxValue = TimeSpan.FromHours(23);
 
             this.NextEventSummaryFormat = this.TypeService.CreateString(PortTypes.String, nameof(this.NextEventSummaryFormat), Holidays.DefaultSummaryFormatString);
             this.NextEventSummaryEmpty = this.TypeService.CreateString(PortTypes.String, nameof(this.NextEventSummaryEmpty), String.Empty);
@@ -412,8 +401,7 @@ namespace neleo_com.Logic.Timing {
                     this.NextEventBegin.Value = nextEvent.LocalStartDateTime;
 
                 // calculate and schedule next update time
-                TimeSpan updateWaitTime = this.NextEventAfter.HasValue ? this.NextEventAfter.Value : TimeSpan.Zero;
-                DateTime utcUpdateTime = nextEvent.LocalStartDateTime.Add(updateWaitTime).ToUniversalTime();
+                DateTime utcUpdateTime = nextEvent.LocalStartDateTime.AddDays(1).AddSeconds(5).ToUniversalTime();
 
                 this.NextEventToken = this.SchedulerService.InvokeAt(utcUpdateTime, this.Next);
 
