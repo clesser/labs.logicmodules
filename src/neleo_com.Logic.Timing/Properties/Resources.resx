@@ -156,10 +156,13 @@
     <value>Time (one-time)</value>
   </data>
   <data name="DefaultTime" xml:space="preserve">
-    <value>Default Time (daily)</value>
+    <value>Default Time (workdays)</value>
   </data>
   <data name="DefaultTimeEnabled" xml:space="preserve">
     <value>Enable Default Time</value>
+  </data>
+  <data name="DefaultTimeHolidays" xml:space="preserve">
+    <value>Default Time (holidays)</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Alarm Active</value>
@@ -171,22 +174,25 @@
     <value>Activity</value>
   </data>
   <data name="ItemCount" xml:space="preserve">
-    <value>Input ports</value>
+    <value>Diaries</value>
+  </data>
+  <data name="ItemCountHolidays" xml:space="preserve">
+    <value>Holidays</value>
   </data>
   <data name="LeadTime" xml:space="preserve">
-    <value>Lead Time</value>
+    <value>Lead Time (Appointments)</value>
   </data>
   <data name="NextEventAfter" xml:space="preserve">
     <value>Send next event</value>
   </data>
   <data name="NextEventBegin" xml:space="preserve">
-    <value>Next event start</value>
+    <value>Next event</value>
   </data>
   <data name="NextEventSummary" xml:space="preserve">
     <value>Next event summary</value>
   </data>
   <data name="NextEventSummaryEmpty" xml:space="preserve">
-    <value>No Event Text</value>
+    <value>Unknown Event Text</value>
   </data>
   <data name="NextEventSummaryFormat" xml:space="preserve">
     <value>Event summary format</value>
@@ -231,8 +237,12 @@
     <value>Snooze Time</value>
   </data>
   <data name="StartDateTime" xml:space="preserve">
-    <value>Date and Time {0}</value>
+    <value>Appointment {0}</value>
     <comment>0=item count</comment>
+  </data>
+  <data name="StartDateTimeHolidays" xml:space="preserve">
+    <value>Holiday {0}</value>
+    <comment>0 = holiday item count</comment>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Time (daily)</value>
@@ -242,5 +252,26 @@
   </data>
   <data name="WakeupDateTime" xml:space="preserve">
     <value>Wakeup Date and Time</value>
+  </data>
+  <data name="Workdays1" xml:space="preserve">
+    <value>Monday is a workday</value>
+  </data>
+  <data name="Workdays2" xml:space="preserve">
+    <value>Tuesday is a workday</value>
+  </data>
+  <data name="Workdays3" xml:space="preserve">
+    <value>Wednesday is a workday</value>
+  </data>
+  <data name="Workdays4" xml:space="preserve">
+    <value>Thursday is a workday</value>
+  </data>
+  <data name="Workdays5" xml:space="preserve">
+    <value>Friday is a workday</value>
+  </data>
+  <data name="Workdays6" xml:space="preserve">
+    <value>Saturday is a workday</value>
+  </data>
+  <data name="Workdays7" xml:space="preserve">
+    <value>Sunday is a workday</value>
   </data>
 </root>

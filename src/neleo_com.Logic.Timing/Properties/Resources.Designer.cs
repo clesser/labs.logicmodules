@@ -169,7 +169,7 @@ namespace neleo_com.Logic.Timing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default Time (daily).
+        ///   Looks up a localized string similar to Default Time (workdays).
         /// </summary>
         internal static string DefaultTime {
             get {
@@ -183,6 +183,15 @@ namespace neleo_com.Logic.Timing.Properties {
         internal static string DefaultTimeEnabled {
             get {
                 return ResourceManager.GetString("DefaultTimeEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Time (holidays).
+        /// </summary>
+        internal static string DefaultTimeHolidays {
+            get {
+                return ResourceManager.GetString("DefaultTimeHolidays", resourceCulture);
             }
         }
         
@@ -214,7 +223,7 @@ namespace neleo_com.Logic.Timing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input ports.
+        ///   Looks up a localized string similar to Diaries.
         /// </summary>
         internal static string ItemCount {
             get {
@@ -223,7 +232,16 @@ namespace neleo_com.Logic.Timing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lead Time.
+        ///   Looks up a localized string similar to Holidays.
+        /// </summary>
+        internal static string ItemCountHolidays {
+            get {
+                return ResourceManager.GetString("ItemCountHolidays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lead Time (Appointments).
         /// </summary>
         internal static string LeadTime {
             get {
@@ -241,7 +259,7 @@ namespace neleo_com.Logic.Timing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Next event start.
+        ///   Looks up a localized string similar to Next event.
         /// </summary>
         internal static string NextEventBegin {
             get {
@@ -259,7 +277,7 @@ namespace neleo_com.Logic.Timing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Event Text.
+        ///   Looks up a localized string similar to Unknown Event Text.
         /// </summary>
         internal static string NextEventSummaryEmpty {
             get {
@@ -394,11 +412,20 @@ namespace neleo_com.Logic.Timing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date and Time {0}.
+        ///   Looks up a localized string similar to Appointment {0}.
         /// </summary>
         internal static string StartDateTime {
             get {
                 return ResourceManager.GetString("StartDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holiday {0}.
+        /// </summary>
+        internal static string StartDateTimeHolidays {
+            get {
+                return ResourceManager.GetString("StartDateTimeHolidays", resourceCulture);
             }
         }
         
@@ -426,6 +453,69 @@ namespace neleo_com.Logic.Timing.Properties {
         internal static string WakeupDateTime {
             get {
                 return ResourceManager.GetString("WakeupDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monday is a workday.
+        /// </summary>
+        internal static string Workdays1 {
+            get {
+                return ResourceManager.GetString("Workdays1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tuesday is a workday.
+        /// </summary>
+        internal static string Workdays2 {
+            get {
+                return ResourceManager.GetString("Workdays2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wednesday is a workday.
+        /// </summary>
+        internal static string Workdays3 {
+            get {
+                return ResourceManager.GetString("Workdays3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thursday is a workday.
+        /// </summary>
+        internal static string Workdays4 {
+            get {
+                return ResourceManager.GetString("Workdays4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friday is a workday.
+        /// </summary>
+        internal static string Workdays5 {
+            get {
+                return ResourceManager.GetString("Workdays5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saturday is a workday.
+        /// </summary>
+        internal static string Workdays6 {
+            get {
+                return ResourceManager.GetString("Workdays6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sunday is a workday.
+        /// </summary>
+        internal static string Workdays7 {
+            get {
+                return ResourceManager.GetString("Workdays7", resourceCulture);
             }
         }
     }

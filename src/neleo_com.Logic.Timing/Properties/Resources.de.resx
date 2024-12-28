@@ -156,10 +156,13 @@
     <value>Weckzeit (einmalig)</value>
   </data>
   <data name="DefaultTime" xml:space="preserve">
-    <value>Standardweckzeit (täglich)</value>
+    <value>Standardweckzeit (Werktag)</value>
   </data>
   <data name="DefaultTimeEnabled" xml:space="preserve">
     <value>Standardweckzeit verwenden</value>
+  </data>
+  <data name="DefaultTimeHolidays" xml:space="preserve">
+    <value>Standardweckzeit (Feiertag)</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Wecker aktiv</value>
@@ -171,22 +174,25 @@
     <value>Aktivität melden</value>
   </data>
   <data name="ItemCount" xml:space="preserve">
-    <value>Eingänge</value>
+    <value>Termine</value>
+  </data>
+  <data name="ItemCountHolidays" xml:space="preserve">
+    <value>Feiertage</value>
   </data>
   <data name="LeadTime" xml:space="preserve">
-    <value>Vorlaufzeit</value>
+    <value>Vorlaufzeit (Termine)</value>
   </data>
   <data name="NextEventAfter" xml:space="preserve">
     <value>Aktualisieren nach</value>
   </data>
   <data name="NextEventBegin" xml:space="preserve">
-    <value>Nächster Termin</value>
+    <value>Nächstes Ereignis</value>
   </data>
   <data name="NextEventSummary" xml:space="preserve">
     <value>Zusammenfassung</value>
   </data>
   <data name="NextEventSummaryEmpty" xml:space="preserve">
-    <value>Text "Kein Termin"</value>
+    <value>Text "Keine Ereignisse"</value>
   </data>
   <data name="NextEventSummaryFormat" xml:space="preserve">
     <value>Formatvorlage</value>
@@ -231,8 +237,12 @@
     <value>Schlummerzeit</value>
   </data>
   <data name="StartDateTime" xml:space="preserve">
-    <value>{0}. Datum und Zeit</value>
+    <value>{0}. Termin</value>
     <comment>0=item count</comment>
+  </data>
+  <data name="StartDateTimeHolidays" xml:space="preserve">
+    <value>{0}. Feiertag</value>
+    <comment>0 = holiday item count</comment>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Weckzeit (täglich)</value>
@@ -242,5 +252,26 @@
   </data>
   <data name="WakeupDateTime" xml:space="preserve">
     <value>Weckzeit (incl. Datum)</value>
+  </data>
+  <data name="Workdays1" xml:space="preserve">
+    <value>Montag ist ein Werktag</value>
+  </data>
+  <data name="Workdays2" xml:space="preserve">
+    <value>Dienstag ist ein Werktag</value>
+  </data>
+  <data name="Workdays3" xml:space="preserve">
+    <value>Mittwoch ist ein Werktag</value>
+  </data>
+  <data name="Workdays4" xml:space="preserve">
+    <value>Donnerstag ist ein Werktag</value>
+  </data>
+  <data name="Workdays5" xml:space="preserve">
+    <value>Freitag ist ein Werktag</value>
+  </data>
+  <data name="Workdays6" xml:space="preserve">
+    <value>Samstag ist ein Werktag</value>
+  </data>
+  <data name="Workdays7" xml:space="preserve">
+    <value>Sonntag ist ein Werktag</value>
   </data>
 </root>

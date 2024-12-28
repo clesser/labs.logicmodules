@@ -13,18 +13,12 @@ using neleo_com.Logic.Timing.Parser;
 namespace neleo_com.Logic.Timing {
 
     /// <summary>
-    ///   Simple Event Data class.</summary>
-    internal class Event {
+    ///   Simple All-Day Event Data class.</summary>
+    internal class AllDayEvent {
 
         /// <summary>
         ///   The local start date and time of the event;</summary>
         public DateTime LocalStartDateTime {
-            get; set;
-        }
-
-        /// <summary>
-        ///   The duration of the event.</summary>
-        public TimeSpan Duration {
             get; set;
         }
 
@@ -34,18 +28,11 @@ namespace neleo_com.Logic.Timing {
             get; set;
         }
 
-        /// <summary>
-        ///   The Location of the event.</summary>
-        public String Location {
-            get; set;
-        }
-
     }
 
     /// <summary>
-    ///   A calendar that handles the upcoming events for the next seven days.</summary>
-    public class Calendar : LogicNodeBase {
-
+    ///   A calendar that handles the upcoming all-day-events for the next 6 months.</summary>
+    public class Holidays: LogicNodeBase {
         /// <summary>
         ///   The Type Service manages incoming and outgoing ports.</summary>
         private readonly ITypeService TypeService;
@@ -56,7 +43,7 @@ namespace neleo_com.Logic.Timing {
 
         /// <summary>
         ///   Default format string for the upcoming event summary.</summary>
-        private const String DefaultSummaryFormatString = "[{0:t} {1:hh\\:mm}]: {2} ({3})";
+        private const String DefaultSummaryFormatString = "[{0:d}]: {1}";
 
         /// <summary>
         ///   Receives a iCal/vCal calendar.</summary>
@@ -101,7 +88,7 @@ namespace neleo_com.Logic.Timing {
         }
 
         /// <summary>
-        ///   Format string for <see cref="NextEventSummary"/> (0=DateTime, 1=Duration, 2=Subject, 3=Location).</summary>
+        ///   Format string for <see cref="NextEventSummary"/> (0=Date, 1=Subject).</summary>
         [Parameter(DisplayOrder = 7, IsDefaultShown = false)]
         public StringValueObject NextEventSummaryFormat {
             get; private set;
@@ -130,7 +117,7 @@ namespace neleo_com.Logic.Timing {
 
         /// <summary>
         ///   A collection of the upcoming events.</summary>
-        private IEnumerable<Event> Events;
+        private IEnumerable<AllDayEvent> Events;
 
         /// <summary>
         ///   A token for the scheduling service.</summary>
@@ -140,7 +127,7 @@ namespace neleo_com.Logic.Timing {
         ///   Constructor to setup the ports and services.</summary>
         /// <param name="context">
         ///   Context of the node instance to connect to services.</param>
-        public Calendar(INodeContext context) {
+        public Holidays(INodeContext context) {
 
             // ensure context is set
             context.ThrowIfNull(nameof(context));
@@ -168,11 +155,11 @@ namespace neleo_com.Logic.Timing {
             ListHelpers.ConnectListToCounter(this.CalendarExcludeParameters, this.CalendarExcludeParamsCount,
                 this.TypeService.GetValueObjectCreator(PortTypes.String, nameof(this.CalendarExcludeParameters)), null);
 
-            this.NextEventAfter = this.TypeService.CreateTimeSpan(PortTypes.TimeSpan, nameof(this.NextEventAfter), TimeSpan.FromMinutes(5));
+            this.NextEventAfter = this.TypeService.CreateTimeSpan(PortTypes.TimeSpan, nameof(this.NextEventAfter), TimeSpan.FromHours(1));
             this.NextEventAfter.MinValue = TimeSpan.Zero;
-            this.NextEventAfter.MaxValue = TimeSpan.FromMinutes(15);
+            this.NextEventAfter.MaxValue = TimeSpan.FromHours(23);
 
-            this.NextEventSummaryFormat = this.TypeService.CreateString(PortTypes.String, nameof(this.NextEventSummaryFormat), Calendar.DefaultSummaryFormatString);
+            this.NextEventSummaryFormat = this.TypeService.CreateString(PortTypes.String, nameof(this.NextEventSummaryFormat), Holidays.DefaultSummaryFormatString);
             this.NextEventSummaryEmpty = this.TypeService.CreateString(PortTypes.String, nameof(this.NextEventSummaryEmpty), String.Empty);
 
             this.NextEventBegin = this.TypeService.CreateDateTime(PortTypes.DateTime, nameof(this.NextEventBegin));
@@ -245,7 +232,7 @@ namespace neleo_com.Logic.Timing {
             DateTime localNow = this.SchedulerService.Now;
             if (this.CalendarInput.HasValue)
                 this.Events = this.Parse(this.CalendarInput.Value,
-                    includeFilters, excludeFilters, localNow, localNow.Date.AddDays(8));
+                    includeFilters, excludeFilters, localNow.Date, localNow.Date.AddMonths(6));
 
             // schedule next update
             this.Next();
@@ -267,11 +254,11 @@ namespace neleo_com.Logic.Timing {
         /// <param name="endDateTime">
         ///   End date/time event filter.</param>
         /// <returns>
-        ///   A list ov events for the given day - or - an empty list.</returns>
-        private IEnumerable<Event> Parse(String source, IEnumerable<String> includeFilters, IEnumerable<String> excludeFilters, DateTime startDateTime, DateTime endDateTime) {
+        ///   A list of upcoming all-day-events - or - an empty list.</returns>
+        private IEnumerable<AllDayEvent> Parse(String source, IEnumerable<String> includeFilters, IEnumerable<String> excludeFilters, DateTime startDateTime, DateTime endDateTime) {
 
             // setup event list
-            ICollection<Event> events = new Collection<Event>();
+            ICollection<AllDayEvent> events = new Collection<AllDayEvent>();
 
             // stop further processing if the calendar data is empty
             if (String.IsNullOrWhiteSpace(source))
@@ -296,20 +283,17 @@ namespace neleo_com.Logic.Timing {
             timezones.Add("#UTC", TimeZoneInfo.Utc);
             timezones.Add("#LOCAL", TimeZoneInfo.Local);
 
-            // load and filter events
-            TimeSpan maxDuration = TimeSpan.FromDays(1);
+            // load and filter all one-day events
             events = parser.Events
-                .Where(e => this.MatchAll(e.Values, includeFilters)
+                .Where(e => e.StartDateTime.AddDays(1) == e.EndDateTime
+                    && this.MatchAll(e.Values, includeFilters)
                     && this.MatchNone(e.Values, excludeFilters))
-                .Select(e => new Event() {
+                .Select(e => new AllDayEvent() {
                     Subject = e.Subject,
-                    Location = e.Location,
-                    LocalStartDateTime = this.CalcLocalTime(e.StartDateTime, e.StartDateTimeTzId, timezones),
-                    Duration = this.CalcDuration(e.StartDateTime, e.StartDateTimeTzId, e.EndDateTime, e.EndDateTimeTzId, timezones)
+                    LocalStartDateTime = this.CalcLocalTime(e.StartDateTime, e.StartDateTimeTzId, timezones)
                 })
-                .Where(e => e.LocalStartDateTime > startDateTime
-                    && e.LocalStartDateTime < endDateTime
-                    && e.Duration < maxDuration)
+                .Where(e => e.LocalStartDateTime >= startDateTime
+                    && e.LocalStartDateTime <= endDateTime)
                 .ToList();
 
             return events.OrderBy(e => e.LocalStartDateTime);
@@ -382,26 +366,6 @@ namespace neleo_com.Logic.Timing {
         }
 
         /// <summary>
-        ///   Calculates the duration between two date/times.</summary>
-        /// <param name="start">
-        ///   Start date/time.</param>
-        /// <param name="startTzId">
-        ///   Start date/time timezone.</param>
-        /// <param name="end">
-        ///   End date/time.</param>
-        /// <param name="endTzId">
-        ///   End date/time timezones.</param>
-        /// <param name="timezones">
-        ///   Timezone definitions.</param>
-        /// <returns>
-        ///   The time span between start and end date.</returns>
-        private TimeSpan CalcDuration(DateTime start, String startTzId, DateTime end, String endTzId, IDictionary<String, TimeZoneInfo> timezones) {
-
-            return this.CalcLocalTime(end, endTzId, timezones).Subtract(this.CalcLocalTime(start, startTzId, timezones));
-
-        }
-
-        /// <summary>
         ///   Configures the scheduler to update the "Next" outputs.</summary>
         private void Next() {
 
@@ -417,9 +381,9 @@ namespace neleo_com.Logic.Timing {
 
             }
 
-            // find the next event
-            DateTime localNow = this.SchedulerService.Now;
-            Event nextEvent = this.Events.Where(e => e.LocalStartDateTime > localNow).OrderBy(e => e.LocalStartDateTime).FirstOrDefault();
+            // find the next event (incl. today)
+            DateTime localToday = this.SchedulerService.Now.Date;
+            AllDayEvent nextEvent = this.Events.Where(e => e.LocalStartDateTime >= localToday).OrderBy(e => e.LocalStartDateTime).FirstOrDefault();
 
             // stop processing if there's no upcoming events
             if (nextEvent == null) {
@@ -434,10 +398,10 @@ namespace neleo_com.Logic.Timing {
             // update the output ports
             else {
 
-                String formatString = this.NextEventSummaryFormat.HasValue && !String.IsNullOrWhiteSpace(this.NextEventSummaryFormat.Value) ? this.NextEventSummaryFormat.Value : Calendar.DefaultSummaryFormatString;
+                String formatString = this.NextEventSummaryFormat.HasValue && !String.IsNullOrWhiteSpace(this.NextEventSummaryFormat.Value) ? this.NextEventSummaryFormat.Value : Holidays.DefaultSummaryFormatString;
 
                 String nextEventSummary = String.Format(formatString,
-                    nextEvent.LocalStartDateTime, nextEvent.Duration, nextEvent.Subject, nextEvent.Location);
+                    nextEvent.LocalStartDateTime, nextEvent.Subject);
 
                 if (!this.NextEventSummary.HasValue || this.NextEventSummary.Value != nextEventSummary)
                     this.NextEventSummary.Value = nextEventSummary;

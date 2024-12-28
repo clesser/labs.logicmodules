@@ -26,6 +26,20 @@ namespace neleo_com.Logic.Timing.Parser {
 
         }
 
+        /// <summary>
+        ///   Checks if the specified key-value-pair exists in the list of parameters.</summary>
+        /// <param name="key">
+        ///   A key.</param>
+        /// <param name="value">
+        ///   A value.</param>
+        /// <returns>
+        ///   <c>true</c> if the key-value-pair exists, otherwise <c>false</c>.</returns>
+        public Boolean Contains(String key, String value) {
+
+            return this.ContainsKey(key) && this[key].Contains(value);
+
+        }
+
     }
 
 }

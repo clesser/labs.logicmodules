@@ -30,30 +30,58 @@ namespace neleo_com.Logic.Timing {
         }
 
         /// <summary>
-        ///   Start times.</summary>
+        ///   Start times for appointments.</summary>
         [Input(DisplayOrder = 2, IsDefaultShown = true)]
         public IList<DateTimeValueObject> StartDateTime {
             get; private set;
         }
 
         /// <summary>
-        ///   Lead time.</summary>
+        ///   Lead time for appointments.</summary>
         [Parameter(DisplayOrder = 3, IsDefaultShown = true)]
         public TimeSpanValueObject LeadTime {
             get; private set;
         }
 
         /// <summary>
+        ///   Number of holiday items (1..10).</summary>
+        [Parameter(DisplayOrder = 4, IsRequired = true, IsDefaultShown = false)]
+        public IntValueObject ItemCountHolidays {
+            get; private set;
+        }
+
+        /// <summary>
+        ///   Start dates for holidays.</summary>
+        [Input(DisplayOrder = 5, IsDefaultShown = true)]
+        public IList<DateTimeValueObject> StartDateTimeHolidays {
+            get; private set;
+        }
+
+        /// <summary>
+        ///   Treat a day as workday.</summary>
+        [Parameter(DisplayOrder = 6, IsRequired = true, IsDefaultShown = false)]
+        public IList<BoolValueObject> Workdays {
+            get; private set;
+        }
+
+        /// <summary>
         ///   Switch to include/exclude default start time from calculation.</summary>
-        [Input(DisplayOrder = 4, IsDefaultShown = false)]
+        [Input(DisplayOrder = 7, IsDefaultShown = false)]
         public BoolValueObject DefaultTimeEnabled {
             get; private set;
         }
 
         /// <summary>
-        ///   Default start time.</summary>
-        [Input(DisplayOrder = 5, IsDefaultShown = false)]
+        ///   Default start time (workdays).</summary>
+        [Input(DisplayOrder = 8, IsDefaultShown = false)]
         public TimeSpanValueObject DefaultTime {
+            get; private set;
+        }
+
+        /// <summary>
+        ///   Default start time (holidays).</summary>
+        [Input(DisplayOrder = 9, IsDefaultShown = false)]
+        public TimeSpanValueObject DefaultTimeHolidays {
             get; private set;
         }
 
@@ -98,11 +126,27 @@ namespace neleo_com.Logic.Timing {
             if (!this.LeadTime.HasValue)
                 this.LeadTime.Value = TimeSpan.FromHours(1);
 
+            this.ItemCountHolidays = this.TypeService.CreateInt(PortTypes.Integer, nameof(this.ItemCountHolidays), 0);
+            this.ItemCountHolidays.MinValue = 0;
+            this.ItemCountHolidays.MaxValue = 25;
+
+            this.StartDateTimeHolidays = new List<DateTimeValueObject>();
+            ListHelpers.ConnectListToCounter(this.StartDateTimeHolidays, this.ItemCountHolidays,
+                this.TypeService.GetValueObjectCreator(PortTypes.DateTime, nameof(this.StartDateTimeHolidays)), null);
+
+            this.Workdays = new List<BoolValueObject>();
+            ListHelpers.UpdateListLength(this.Workdays, 7,
+                this.TypeService.GetValueObjectCreator(PortTypes.Binary, nameof(this.Workdays)), null);
+
             this.DefaultTimeEnabled = this.TypeService.CreateBool(PortTypes.Binary, nameof(this.DefaultTimeEnabled), false);
 
             this.DefaultTime = this.TypeService.CreateTimeSpan(PortTypes.Time, nameof(this.DefaultTime));
             this.DefaultTime.MinValue = TimeSpan.Zero;
             this.DefaultTime.MaxValue = new TimeSpan(23, 59, 59);
+
+            this.DefaultTimeHolidays = this.TypeService.CreateTimeSpan(PortTypes.Time, nameof(this.DefaultTimeHolidays));
+            this.DefaultTimeHolidays.MinValue = TimeSpan.Zero;
+            this.DefaultTimeHolidays.MaxValue = new TimeSpan(23, 59, 59);
 
             this.WakeupDateTime = this.TypeService.CreateDateTime(PortTypes.DateTime, nameof(this.WakeupDateTime));
 
@@ -132,7 +176,13 @@ namespace neleo_com.Logic.Timing {
             }
 
             // filter and map keys
-            if (key.StartsWith(nameof(this.StartDateTime))) {
+            if (key.StartsWith(nameof(this.StartDateTimeHolidays))) {
+
+                String identifier = key.Substring(nameof(this.StartDateTimeHolidays).Length);
+                return String.Format(ResourceManager.GetString(nameof(this.StartDateTimeHolidays), culture) ?? key, identifier);
+
+            }
+            else if (key.StartsWith(nameof(this.StartDateTime))) {
 
                 String identifier = key.Substring(nameof(this.StartDateTime).Length);
                 return String.Format(ResourceManager.GetString(nameof(this.StartDateTime), culture) ?? key, identifier);
@@ -158,25 +208,40 @@ namespace neleo_com.Logic.Timing {
         ///   Calculate the wakeup startup time and setup the hourly update schedule.</summary>
         private void UpdateWakeupDateTime() {
 
-            // update next wakeup date time
-            Boolean defaulTimeEnabled = this.DefaultTimeEnabled.HasValue && this.DefaultTimeEnabled.Value;
             DateTime localNow = this.SchedulerService.Now;
-
             ICollection<DateTime> starts = new Collection<DateTime>();
+
+            // add default wakeup time if enabled
+            Boolean defaultTimeEnabled = this.DefaultTimeEnabled.HasValue && this.DefaultTimeEnabled.Value;
+            if (defaultTimeEnabled) {
+
+                Boolean workdayWakeupTimeConfigured = this.DefaultTime != null && this.DefaultTime.HasValue;
+                Boolean holidayWakeupTimeConfigured = this.DefaultTimeHolidays != null && this.DefaultTimeHolidays.HasValue;
+
+                // add default wakeup times for today and tomorrow
+                for (Int32 days = 0; days < 2; days++) {
+
+                    DateTime day = localNow.Date.AddDays(days);
+
+                    if (holidayWakeupTimeConfigured && this.TestIsHoliday(day, this.StartDateTimeHolidays))
+                        starts.Add(day.Add(this.DefaultTimeHolidays.Value));
+
+                    else if (holidayWakeupTimeConfigured && !this.TestIsWorkday(day, this.Workdays))
+                        starts.Add(day.Add(this.DefaultTimeHolidays.Value));
+
+                    else if (workdayWakeupTimeConfigured && this.TestIsWorkday(day, this.Workdays))
+                        starts.Add(day.Add(this.DefaultTime.Value));
+
+                }
+
+            }
+
+            // add appointments
             if (this.StartDateTime != null)
                 foreach (DateTimeValueObject startDateTime in this.StartDateTime)
                     starts.Add(this.CalcWakeupDateTime(startDateTime, this.LeadTime));
 
-            if (defaulTimeEnabled && this.DefaultTime != null && this.DefaultTime.HasValue) {
-
-                DateTime localNextDefaultDateTime = localNow.Date.Add(this.DefaultTime.Value);
-                if (localNextDefaultDateTime > localNow)
-                    starts.Add(localNextDefaultDateTime);
-                else
-                    starts.Add(localNextDefaultDateTime.AddDays(1));
-
-            }
-
+            // find next wakeup time
             if (starts.Count() > 0) {
 
                 DateTime localNextWakeupDateTime = starts
@@ -195,10 +260,70 @@ namespace neleo_com.Logic.Timing {
             if (this.UpdateToken != null)
                 this.SchedulerService.Remove(this.UpdateToken);
 
-            if (defaulTimeEnabled)
+            if (defaultTimeEnabled)
                 this.UpdateToken = this.SchedulerService.InvokeIn(TimeSpan.FromHours(1), this.UpdateWakeupDateTime);
             else
                 this.UpdateToken = null;
+
+        }
+
+        /// <summary>
+        ///   Tests if a date is listed as a holiday.</summary>
+        /// <param name="date">
+        ///   A date.</param>
+        /// <param name="holidays">
+        ///   A list of holidays.</param>
+        /// <returns>
+        ///   <c>true</c> if a <paramref name="date"/> is enlisted as holiday, otherwise <c>false</c>.</returns>
+        private Boolean TestIsHoliday(DateTime date, IList<DateTimeValueObject> holidays) {
+
+            try {
+
+                if (holidays == null)
+                    return false;
+
+                DateTime day = date.Date;
+                foreach (DateTimeValueObject holiday in holidays)
+                    if (holiday != null && holiday.HasValue && holiday.Value.Date == day)
+                        return true;
+
+                return false;
+
+            }
+            catch {
+
+                return false;
+
+            }
+
+        }
+
+        /// <summary>
+        ///   Tests if a weekday is configured as workdays.</summary>
+        /// <param name="date">
+        ///   A date.</param>
+        /// <param name="workdays">
+        ///   A list of days (Monday --> Sunday) with workday configuration.</param>
+        /// <returns>
+        ///   <c>true</c> if a <paramref name="date"/> is configured as workday, otherwise <c>false</c>.</returns>
+        private Boolean TestIsWorkday(DateTime date, IList<BoolValueObject> workdays) {
+
+            try {
+
+                // workdays ==> 0 = Monday .. 6 = Sunday
+                // weekday ==> 0 = Sunday .. 6 = Saturday
+
+                Int32 weekday = (Int32)date.DayOfWeek - 1;
+                BoolValueObject workday = weekday < 0 ? workdays[6] : workdays[weekday];
+
+                return workday.HasValue && workday.Value;
+
+            }
+            catch {
+
+                return false;
+
+            }
 
         }
 
@@ -217,14 +342,12 @@ namespace neleo_com.Logic.Timing {
 
                 DateTime start = DateTime.MinValue;
 
-                // set start value or stop further processing (and return DateTime.MinValue)
                 if (startDateTime != null && startDateTime.HasValue)
                     start = startDateTime.Value;
 
                 TimeSpan lead = TimeSpan.Zero;
                 if (leadTime != null && leadTime.HasValue)
                     lead = leadTime.Value;
-
 
                 return start.Subtract(lead);
 

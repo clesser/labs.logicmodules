@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
+    <Compile Include="Holidays.cs" />
     <Compile Include="Parser\CalendarTimezone.cs" />
     <Compile Include="Parser\ContentLine.cs" />
     <Compile Include="Parser\ContentLineParameter.cs" />
@@ -75,6 +76,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\icons8-attendance-44.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icons8-calendar-44.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\icons8-today-44.png">

@@ -92,7 +92,7 @@ namespace neleo_com.Logic.Timing.Parser {
                         this.EndDateTimeTzId = "#LOCAL";
 
                     // extract date/time
-                    if (contentLine.Parameters.ContainsKey("DATE") && contentLineValue.Length == 8)
+                    if (contentLine.Parameters.Contains("VALUE", "DATE") && contentLineValue.Length == 8)
                         this.EndDateTime = contentLineValue.ToDate();
                     else if (contentLineValue.Length >= 15)
                         this.EndDateTime = contentLineValue.ToDateTime();
@@ -124,7 +124,7 @@ namespace neleo_com.Logic.Timing.Parser {
                         this.StartDateTimeTzId = "#LOCAL";
 
                     // extract date/time
-                    if (contentLine.Parameters.ContainsKey("DATE") && contentLineValue.Length == 8)
+                    if (contentLine.Parameters.Contains("VALUE", "DATE") && contentLineValue.Length == 8)
                         this.StartDateTime = contentLineValue.ToDate();
                     else if (contentLineValue.Length >= 15)
                         this.StartDateTime = contentLineValue.ToDateTime();
