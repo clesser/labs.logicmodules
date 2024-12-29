@@ -213,6 +213,9 @@ namespace neleo_com.Logic.Bridges.Velux {
                     };
 
                     this.Gateway.OnError += (sender, message) => {
+                        if (!String.IsNullOrWhiteSpace(message) && message.StartsWith(ErrorCodes.SocketIoException))
+                            this.Reconnect();
+
                         if (this.GatewayError != null)
                             this.GatewayError.Value = message;
                     };
