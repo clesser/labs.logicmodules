@@ -293,8 +293,17 @@ namespace neleo_com.Logic.Bridges.Velux {
             Byte[] data = Klf200SocketBc.EncodeFrame(datagram);
 
             // send data frame
-            this.GatewayStream.Write(data, 0, data.Length);
-            this.GatewayStream.Flush();
+            try {
+
+                this.GatewayStream.Write(data, 0, data.Length);
+                this.GatewayStream.Flush();
+
+            }
+            catch (IOException ex) {
+
+                this.ThrowError("{0}: {1}", ErrorCodes.SocketIoException, ex.Message);
+
+            }
 
         }
 

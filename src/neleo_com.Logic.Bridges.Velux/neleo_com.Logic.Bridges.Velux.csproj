@@ -111,6 +111,7 @@
     <Compile Include="Definitions\GW_NodeVariation.cs" />
     <Compile Include="Definitions\GW_NodeVelocity.cs" />
     <Compile Include="Definitions\GW_PowerMode.cs" />
+    <Compile Include="ErrorCodes.cs" />
     <Compile Include="IKlf200DatagramTelegramDecoder.cs" />
     <Compile Include="IKlf200DatagramTelegramEncoder.cs" />
     <Compile Include="IKlf200DatagramSessionResponse.cs" />
