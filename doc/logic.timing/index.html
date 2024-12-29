@@ -56,27 +56,33 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href="calendar/index.html">Terminkalender</a></td>
+                        <td><a href="observer/index.html">Beobachter</a></td>
                         <td>
-                            <p>Dieser Baustein liest einen als iCal formatierten Kalender ein und stellt Informationen zum jeweils nächsten Termin dar.</p>
+                            <p>Dieser Baustein ist ein Beobachter u.a. für die Anwesenheitserkennung oder als einfache Alarmanlage.</p>
                         </td>
                     </tr>
                     <tr>
-                        <td><a href="alarm/index.html">Wecker</a></td>
+                        <td><a href="calendar/index.html">Terminkalender</a></td>
                         <td>
-                            <p>Dieser Baustein ist ein Wecker, der vor der eigentlichen Weckzeit bereits Telegramme generieren kann.</p>
+                            <p>Dieser Baustein liest einen als iCal / ics formatierten Kalender ein und stellt Informationen zum jeweils nächsten Termin dar.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="holiday/index.html">Feiertagskalender</a></td>
+                        <td>
+                            <p>Dieser Baustein liest einen als iCal / ics formatierten Kalender ein und stellt Informationen zum jeweils nächsten ganztägigen Ereignis dar.</p>
                         </td>
                     </tr>
                     <tr>
                         <td><a href="wakeup/index.html">Wecker (Weckzeit)</a></td>
                         <td>
-                            <p>Dieser Baustein wählt aus mehreren Weckzeiten (z.B. von beruflichen, privaten und Familienkalendern) die Zeit des frühesten Termins.</p>
+                            <p>Dieser Baustein wählt aus mehreren Weckzeiten (z.B. von beruflichen, privaten und Familienkalendern) die Zeit des frühesten Termins. Zusätzlich können Standardweckzeiten für Werk- und Feiertage definiert bzw. ermittelt werden.</p>
                         </td>
                     </tr>
                     <tr>
-                        <td><a href="observer/index.html">Beobachter</a></td>
+                        <td><a href="alarm/index.html">Wecker</a></td>
                         <td>
-                            <p>Dieser Baustein ist ein Beobachter u.a. für die Anwesenheitserkennung.</p>
+                            <p>Dieser Baustein ist ein Wecker, der vor der eigentlichen Weckzeit bereits Telegramme generieren kann (z.B. um einen Sonnenaufganz zu simulieren).</p>
                         </td>
                     </tr>
                 </tbody>
@@ -117,6 +123,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>1.1.1</td>
+                        <td>
+                            <p>Neuer Baustein <a href="holiday/index.html">Feiertagskalender</a>, mit dem ganztägige Ereignisse aus einem iCal / ics Kalender ausgelesen werden können.</p>
+                            <p>Erweiterung des Bausteins <a href="wakeup/index.html">Wecker (Weckzeit)</a> um Standardweckzeiten für Werk- und Feiertage.</p>
+                            <p>Fehlerkorrektur im iCal / ics Parser des Bausteins <a href="calendar/index.html">Terminkalender</a>.</p>
+                        </td>
+                    </tr>
                     <tr>
                         <td>1.0.1</td>
                         <td>Fehlerkorrektur für eine Parameterkonfiguration des Bausteins <a href="wakeup/index.html">Wecker (Weckzeit)</a>.</td>

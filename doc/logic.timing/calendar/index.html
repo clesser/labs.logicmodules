@@ -31,7 +31,7 @@
                     <a href="#top">&#8593;</a>
                 </nav>
             </header>
-            <p>Dieser Baustein liest einen als iCal formatierten Kalender ein und stellt Informationen zum jeweils nächsten Termin dar. Damit können Wecker gesteuert oder Termine auf grafischen Anzeigen visualisiert werden.</p>
+            <p>Dieser Baustein liest einen als iCal / ics formatierten Kalender ein und stellt Informationen zum jeweils nächsten Termin dar. Damit können Wecker gesteuert oder Termine auf grafischen Anzeigen visualisiert werden.</p>
             <p>Wiederkehrende Termine (Serientermine) werden derzeit noch <strong>nicht</strong> vollständig unterstützt; während Serientermine selbst noch nicht einbezogen werden, werden die von der Serie abweichenden Termine berücksichtigt.</p>
         </section>
 
@@ -62,8 +62,8 @@
                         <td>iCal Kalender</td>
                         <td>Zeit</td>
                         <td>
-                            <p>Eingang, an den ein iCal Kalender übermittelt wird.</p>
-                            <p>Da die Auswertung großer Kalender auf dem X1 recht viel Last erzeugen kann, sollten die Aktualierungsintervalle eher großzügig gewählt werden.</p>
+                            <p>Eingang, an den ein iCal / ics Kalender übermittelt wird.</p>
+                            <p>Da die Auswertung großer Kalender auf dem X1 recht viel Last erzeugen kann, sollten die Aktualierungsintervalle eher großzügig gewählt werden und Lastzeiten (z.B. volle Stunden) gemieden werden. Gute Erfahrungen wurden mit einer Aktualisierungszeit von z.B. 2h 22min erzielt.</p>
                         </td>
                     </tr>
                 </tbody>
@@ -135,13 +135,14 @@
                                 <li><em>3</em> [String] Ort des nächsten Termins.</li>
                             </ul>
                             <p>Wird keine Formatierung angegeben, so bleibt die Ausgabe "Zusamenfassung" leer!</p>
+                            <p>Formatierungsoptionen werden hier erläutert: <a href="https://learn.microsoft.com/de-de/dotnet/standard/base-types/standard-date-and-time-format-strings" target="_blank">Formatierungsoptionen für Datum und Zeit</a> bzw. <a href="https://learn.microsoft.com/de-de/dotnet/standard/base-types/standard-timespan-format-strings" target="_blank">Formatierungsoptionen für Zeitspannen</a>.</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>Text "Kein Termin"</td>
+                        <td>Text "Keine Eregnisse"</td>
                         <td>Text</td>
                         <td>
-                            <p>Text, der am Ausgang "Zusammenfassung" ausgegeben wird, wenn im Kalender für die nächsten sieben Tage kein Termin eingetragen ist.</p>
+                            <p>Text, der am Ausgang "Zusammenfassung" ausgegeben wird, wenn im Kalender für die nächsten sechs Monate kein Ereignis eingetragen ist.</p>
                         </td>
                     </tr>
                 </tbody>
@@ -163,7 +164,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Nächster Termin</td>
+                        <td>Nächstes Ereignis</td>
                         <td>Zeit</td>
                         <td>
                             <p>Gibt die Startzeit des nächsten Termins zurück. Der jeweils nächste Termin wird nach Ablauf der Zeit "Aktualisieren nach" nach Beginn des aktuellen Termins angezeigt.</p>
@@ -176,8 +177,8 @@
                         <td>Zeit</td>
                         <td>
                             <p>Liefert eine Zusammenfassung des nächsten Termins gemäß der in "Formatvorlage" eingestellten Formatierung.</p>
-                            <p>Liegt für nächsten sieben Tage kein Termin an, kann ein definierter Text ("Text "Kein Text"") ausgegeben werden.</p>
-                            <p>Der Parameter "Nächster Termin" wird immer unmittelbar <strong>nach</strong> diesem Ausgang aktualisiert.</p>
+                            <p>Liegt für nächsten sieben Tage kein Termin an, kann ein definierter Text ("Text "Keine Ereignisse"") ausgegeben werden.</p>
+                            <p>Der Parameter "Nächstes Ereignis" wird immer unmittelbar <strong>nach</strong> diesem Ausgang aktualisiert.</p>
                         </td>
                     </tr>
                 </tbody>
@@ -191,18 +192,25 @@
                     <a href="#top">&#8593;</a>
                 </nav>
             </header>
-            <h3>Beispiel: Kalender zur Steuerung des Weckers</h3>
-            <p>Wenn Menschen jeden Tag zur gleichen Zeit aufstehen, so werden häufig Zeitschaltuhren eingesetzt, um Abläufe zu automatisieren. Verschiebt sich der Tagesablauf jedoch (z.B. aufgrund regelmäßiger Reisetätigkeit), gerät diese Steuerung häufig an ihre Grenzen.</p>
-            <p>Mit Hilfe des iCal-Kalender-Logikbausteins können Schaltzeiten durch einen externen Kalender bestimmt werden. Der Kalender wird dabei z.B. vom <a href="https://knx-user-forum.de/forum/supportforen/gira-logik-sdk/1313464-open-source-logic-nodes-wake-on-lan-dimmen-per-bin%C3%A4reingang-http-web-requests" target="_blank">WebRequest-Baustein von Daniel Albuschat</a> eingelesen und an den Logikbaustein übergeben.</p>
-            <p>Anhand von (teilweise herstellerspezifischen) Filtern werden die relevanten Termine des Tages gefiltert und stehen dann z.B. dem <a href="../alarm/index.html">Wecker</a>-Logikbaustein zur Verfügung.</p>
+            <h3>Beispiel: Weckzeit ermitteln</h3>
+            <p>Wenn die Tagesroutine zu unterschiedlichen Zeiten beginnt, die sich nicht auf Wochentage festlegen lassen (-> Zeitschaltuhr), bietet es sich an, die zumeist existierenden Kalender auszulesen. Häufig exisiteren verschiedene Kalender parallel, so dass aus allen Kalendern gegebenenfalls der nächste bzw. früheste Termin ausgewählt werden muss.</p>
+            <p>Dieser Baustein nimmt von 1..10 Kalendern die Zeiten des jeweils nächsten Termins entgegen und bestimmt so den nächsten bzw. frühesten Termin, der dann an den Wecker weitergeleitet werden kann.</p>
+            <p>Da der Wecker zum Wecken aktiv eingeschaltet werden muss, können auch während des Tages jeweils die nächsten Termine an die Logikbausteine geschickt werden. Der Wecker würde nur dann auslösen, wenn er untertags aktiv geschaltet wird.</p>
             <figure>
-                <img src="example01.png" alt="Kalender für Wecksequenz" />
+                <img src="../wakeup/example01.png" alt="Wecker (Weckzeit) - Terminkalender und Feiertagskalender auslesen" />
                 <figcaption>
-                    In diesem Beispiel werden zwei Kalender ausgelesen und die Startzeiten kombiniert an den Wecker übermitelt.
+                    Zunächst werden Termine aus einem Exchange-Online-Kalender ausgelesen und die Feiertage von einem Webdienst bereitgestellt. Um die Daten in verschiedenen Logikblättern zu verwenden, werden sie in X1-Variablen-Datenpunkten gespeichert.
                 </figcaption>
             </figure>
-            <h3>Beispiel: Terminanzeige</h3>
-            <p>Mit Hilfe geeigneter Displays kann der jeweils nächste Termin visualisiert werden.</p>
+            <figure>
+                <img src="../wakeup/example02.png" alt="Wecker (Weckzeit) - Terminkalender und Feiertagskalender verwenden" />
+                <figcaption>
+                    In diesem Beispiel wird die Weckzeit aus einem Kalender bestimmt. Der Feiertagskalender und die Werktagskonfiguration unterstützen bei der Auswahl der Standardweckzeit.
+                </figcaption>
+            </figure>
+            <p>Standardweckzeiten können beispielsweise durch Szenen, Zeitschaltuhren (z.B. Wochentag, Wochenende) oder auch Eingabegeräte auf einen der Eingänge gelegt werden.</p>
+            <p>Damit ein Wecker auslöst, muss der Termin rechtzeitig übermittelt werden. Dauert beispielsweise die Wecksequenz des Weckers 30 min, die Vorlaufzeit des Weckzeit-Bausteins 45 min, so muss der Termin mindestens 1h 15min vor der eigentlichen Weckzeit durch den Terminkalender-Logikbaustein übermittelt worden sein.</p>
+            <p>Wird ein <a href="../holiday/index.html">Feiertagskalender</a> verwendet und für den aktuellen Tag ein Feiertag ermittelt, so wird der nächste Feiertag erst kurz nach Mitternacht übermittelt und damit ggf. die Standardweckzeit aktualisiert.</p>
         </section>
 
         <section id="lizenz">

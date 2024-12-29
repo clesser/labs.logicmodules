@@ -68,10 +68,11 @@
                         <td>
                             <p>Dieses Paket enthält Logikbausteine für den Gira X1, die zur Zeitsteuerung von Telegrammen verwendet werden können.</p>
                             <p>
-                                <a href="logic.timing/alarm/index.html">Wecker</a>,
-                                <a href="logic.timing/wakeup/index.html">Wecker (Weckzeit)</a>,
+                                <a href="logic.timing/observer/index.html">Beobachter</a>,
                                 <a href="logic.timing/calendar/index.html">Tageskalender</a>,
-                                <a href="logic.timing/observer/index.html">Beobachter</a>
+                                <a href="logic.timing/holiday/index.html">Feiertagskalender</a>,
+                                <a href="logic.timing/wakeup/index.html">Wecker (Weckzeit)</a>,
+                                <a href="logic.timing/alarm/index.html">Wecker</a>
                             </p>
                         </td>
                     </tr>
@@ -128,9 +129,16 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>2024-12</td>
+                        <td>
+                            <p>Neuer Baustein zur Ermittlung ganztägiger Ereignisse aus iCal / ics Kalendern (<a href="logic.timing/holiday/index.html">Feiertagskalender</a>), Anpassung des Bausteins <a href="logic.timing/wakeup/index.html">Wecker (Weckzeit)</a>, so dass nun Standadweckzeiten für Werk- und Feiertage definiert werden können und Fehlerkorrekturen am internen Parser des Bausteins <a href="logic.timing/calendar/index.html">Terminkalender</a>.</p>
+                            <p>Bugfix der internen Verbindungsüberwachung der <a href="logic.bridges.velux/index.html">Velux KLF-200 Bausteine</a>.</p>
+                            </td>
+                    </tr>
+                    <tr>
                         <td>2024-11</td>
                         <td>
-                            <p>Fehlerbehebung für eine Parameterkonfiguration des Bausteins <a href="logic.timing/wakeup/index.html">Wecker (weckzeit)</a>.</p>
+                            <p>Fehlerbehebung für eine Parameterkonfiguration des Bausteins <a href="logic.timing/wakeup/index.html">Wecker (Weckzeit)</a>.</p>
                             </td>
                     </tr>
                     <tr>
@@ -139,7 +147,7 @@
                             <p>Aktualisierung der Velux-KLF200- und Nuki-Komponenten sowie Veröffentlichung des Quellcodes auf GitHub.</p>
                             <p>Aufgrund des Downgrades der Kernkomponenten der Firmware des X1 musste wieder eine externe Bibliothek zur TLS-1.2-Verschlüsselung für die Velux-KLF200-Anbindung implementiert werden. Dies führt in einigen Fällen zur Anzeige einer hohen Speichernutzung, bei der jedoch bisher keine Probleme im Alltag gemeldet wurden.</p>
                             <p>Die Nuki-Komponenten unterstützen jetzt alphanumerische Geträte-IDs.</p>
-                            <p>Ich habe ich zudem entschieden, den <a href="https://github.com/clesser/labs.logicmodules" target="_blank">Quellcode der Projekte</a> zu veröffentlichen, so dass andere Verbesserungsvorschläge einbringen können oder bei der Fehlersuche unterstützen können. Es wird nach wie vor ein Hobby-Projekt bleiben, für das ich keinen professionellen Support anbieten kann ;-)</p>
+                            <p>Ich habe ich zudem entschieden, den <a href="https://github.com/clesser/labs.logicmodules" target="_blank">Quellcode der Projekte</a> zu veröffentlichen, so dass andere Verbesserungsvorschläge einbringen können oder bei der Fehlersuche unterstützen können. Es wird nach wie vor ein Hobby-Projekt bleiben, für das ich keinen professionellen Support anbieten werde ;-)</p>
                             </td>
                     </tr>
                     <tr>
