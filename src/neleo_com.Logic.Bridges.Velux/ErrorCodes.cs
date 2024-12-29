@@ -8,7 +8,7 @@ namespace neleo_com.Logic.Bridges.Velux {
 
         /// <summary>
         ///   Identifies an exception in the transport layer.</summary>
-        public static String SocketIoException = "SocketIoException";
+        public static readonly String SocketIoException = nameof(ErrorCodes.SocketIoException);
 
     }
 
