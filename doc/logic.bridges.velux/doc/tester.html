@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html id="top" lang="de">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>[neleo.labs] X1 Velux KLF Bausteine - Setup</title>
+        <link rel="StyleSheet" href="../../style/default.css" type="text/css" />
+    </head>
+
+    <body>
+        <article>
+            <header>
+                <span class="headDonate"
+                    ><a
+                        href="../../donate.html"
+                        target="popup"
+                        onclick="window.open('../../donate.html', 'popup', 'height=620,width=380,resizable'); return false;"
+                        title="Dem Entwickler mit einer Spende 'Dankeschön' sagen."></a
+                ></span>
+                <span class="headLogo"></span>
+                <span class="headBlack">Velux KLF-200 Bausteine</span>
+                <span class="headGray">Hilfe</span>
+                <h1 class="noicon">Konfigurationsmöglichkeiten</h1>
+                <nav>
+                    <a href="../index.html">Logikbausteine</a>
+                    <a href="#einfuehrung">Einführung</a>
+                    <a href="#download">Download und Start</a>
+                    <a href="#benutzung">Benutzung</a>
+                </nav>
+            </header>
+
+            <section id="einfuehrung">
+                <header>
+                    <h2>Einführung</h2>
+                    <nav>
+                        <a href="#top">&#8593;</a>
+                    </nav>
+                </header>
+                <p>
+                    Mitunter ist es recht aufwändig, das Setup mit einem Gira X1, einem Velux KLF-200 und dem Gira
+                    Projekt Assistenten (GPA) zu konfigurieren.
+                </p>
+                <p>
+                    Aus diesem Grund stelle ich eine Kommandozeilenanwendung zur Verfügung, die ich während der
+                    Entwicklungsarbeit genutzt habe und die es ermöglicht, die Funktionen mit Hilfe der
+                    <a href="syntax.html">Telegrammsyntax</a> einfacher zu testen.
+                </p>
+                <p>Die Anwendung erfordert das .Net-Framework, dass aber bereits mit dem GPA installiert wird.</p>
+            </section>
+
+            <section id="download">
+                <header>
+                    <h2>Download und Start</h2>
+                    <nav>
+                        <a href="#top">&#8593;</a>
+                    </nav>
+                </header>
+                <p>
+                    Die Anwendung kann
+                    <a href="https://1drv.ms/u/c/19ea6aaf4b1f919a/EQNViBgZ5QlMq81n5-HUQwIBJAuOsFukZe4_3_INWDiSnA"
+                        >KLF200Tester.zip</a
+                    >
+                    heruntergeladen werden.
+                </p>
+                <p>
+                    Nach dem Entpacken der ZIP-Datei kann die Anwendung durch einen Doppelklick auf die Datei
+                    <code>KLF200Tester.exe</code> gestartet werden. Falls der Tester häufiger genutzt werden soll, kann
+                    eine Verknüpfung mit allen Parametern angelegt werden:
+                </p>
+                <ul>
+                    <li><code>"Pfad\zu\KLF200Tester.exe"</code></li>
+                    <li>
+                        <code>"Pfad\zu\KLF200Tester.exe" <em>&lt;IP-Adresse des X1&gt;</em></code>
+                    </li>
+                    <li>
+                        <code
+                            >"Pfad\zu\KLF200Tester.exe" <em>&lt;IP-Adresse des X1&gt;</em>
+                            <em>&lt;Passwort&gt;</em></code
+                        >
+                    </li>
+                </ul>
+                <p>Nicht übergebene Parameter werden von der Anwendung abgefragt.</p>
+                <ul>
+                    <li>Beispiel: <code>KLF200Tester 192.168.1.100 P@ssw0rd</code></li>
+                </ul>
+            </section>
+
+            <section id="benutzung">
+                <header>
+                    <h2>Benutzung</h2>
+                    <nav>
+                        <a href="#top">&#8593;</a>
+                    </nav>
+                </header>
+                <p>
+                    Nach dem Start der Anwendung werden fehlende Parameter abgefragt und es wird versucht, eine
+                    Verbindung zum KLF-200 herzustellen.
+                </p>
+                <p>Die Anwendung fragt anschließend nach dem Betriebsmodus:</p>
+                <ul>
+                    <li>
+                        <code>(S)ocket</code> - stellt die Kommunikation mit dem KLF-200 dar und ist für
+                        Debugging-Zwecke gedacht.
+                    </li>
+                    <li>
+                        <code>(G)ateway</code> - ermöglicht das Senden und Empfangen von Telegrammen entsprechend der
+                        <a href="syntax.html">Telegrammsyntax</a>.
+                    </li>
+                </ul>
+                <p>
+                    (G)ateway ist der Standardmodus und kann durch einen Druck der [Enter]-Taste ausgewählt werden. Die
+                    Anwendung wird dann beginnen, den Zustand aller am KLF-200 angemeldeten Geräte zu empfangen. Es kann
+                    dabei vorkommen, dass nicht alle Geräte ihren Status melden.
+                </p>
+                <p>
+                    Die Telegramme, die durch die Anwendung dargestellt werden bzw. die die durch die Anwendung
+                    entgegengenommen werden, sind in der <a href="syntax.html">Telegrammsyntax</a> dokumentiert und
+                    entsprechen denen, die <a href="../gatewayrequest/index.html">Auftraggeber</a> und
+                    <a href="../gatewayresponse/index.html">Auftragnehmer</a> verwenden.
+                </p>
+                <p>
+                    Mit Hilfe der <code>#min</code> und <code>#max</code> Parameter können die minimalen und maximalen
+                    Werte für die Geräte festgelegt werden. Diese sind nicht immer selbsterklärend...
+                </p>
+                <ul>
+                    <li>
+                        Rollläden, Markisen, Dachfenster, Shades: #min = komplett eingefahren, #max = komplett
+                        ausgefahren / geöffnet
+                    </li>
+                    <li>
+                        Leuchten, Heizungen: #min = Licht / Heizung eingeschaltet, #max = Licht / Heizung
+                        ausgeschaltet...
+                    </li>
+                </ul>
+                <p>
+                    Mit Hilfe des Testers können so die Zielwerte für verschiedene Geräte ermittelt und dann entweder
+                    über die bereitgestellten Logikbausteine oder über einfache Telegrammgeneratoren / Textformatierer
+                    in einem X1-Logikblatt verwendet werden.
+                </p>
+            </section>
+
+            <footer>
+                <span class="footerGray">
+                    <a href="../../index.html">&copy; Christoph Lesser - labs.neleo.com</a>
+                </span>
+            </footer>
+        </article>
+    </body>
+</html>
