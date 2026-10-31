@@ -1,0 +1,32 @@
+{
+  "name": "labs-logicmodules-docs",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run sync:content-images && vite",
+    "dev:win": "npm run sync:content-images && set CHOKIDAR_USEPOLLING=1&& set CHOKIDAR_INTERVAL=300&& vite",
+    "sync:content-images": "node ./scripts/sync-content-images.mjs",
+    "build": "npm run sync:content-images && tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.30.1",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-raw": "^7.0.0",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
