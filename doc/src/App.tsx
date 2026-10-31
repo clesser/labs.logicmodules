@@ -7,7 +7,6 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { getPage, normalizeSlug } from "./lib/content";
 import { appLocaleText } from "./lib/i18n";
-import { legacyRoutes } from "./lib/legacyRoutes";
 import type {
   HeadingEntry,
   LanguageSwitchProps,
@@ -16,17 +15,6 @@ import type {
   PageLevel,
   PageViewProps
 } from "./lib/types";
-
-function LegacyRedirects(): React.ReactElement | null {
-  const location = useLocation();
-  const target = legacyRoutes[location.pathname];
-
-  if (!target) {
-    return null;
-  }
-
-  return <Navigate replace to={`${target}${location.search}${location.hash}`} />;
-}
 
 function HashScrollHandler(): React.ReactElement | null {
   const location = useLocation();
@@ -364,7 +352,6 @@ function DefaultLocaleRedirect(): React.ReactElement {
 export function App(): React.ReactElement {
   return (
 	<>
-	  <LegacyRedirects />
 	  <HashScrollHandler />
 	  <Routes>
 		<Route path="/" element={<RootLocaleRedirect />} />

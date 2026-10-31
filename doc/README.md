@@ -7,7 +7,7 @@ This folder contains the new Markdown-first static documentation app.
 - Keep content in Markdown files using language suffixes (`*.de.md`, `*.en.md`)
 - Keep route paths aligned with current folder names
 - Use explicit language prefixes in routes (`/de/...`, `/en/...`)
-- Keep static legacy HTML redirects in `src/lib/legacyRoutes.ts` (maintained manually)
+- Keep static legacy HTML redirects in `staticwebapp.config.json` routes (maintained manually)
 
 ## Commands
 

@@ -1,4 +1,37 @@
 {
+  "routes": [
+    { "route": "/index.html", "redirect": "/de", "statusCode": 301 },
+    { "route": "/donate.html", "redirect": "/de/donate", "statusCode": 301 },
+
+    { "route": "/logic.aggregation/index.html", "redirect": "/de/logic.aggregation", "statusCode": 301 },
+    { "route": "/logic.aggregation/aggregator/index.html", "redirect": "/de/logic.aggregation/aggregator", "statusCode": 301 },
+
+    { "route": "/logic.control/index.html", "redirect": "/de/logic.control", "statusCode": 301 },
+    { "route": "/logic.control/blocker/index.html", "redirect": "/de/logic.control/blocker", "statusCode": 301 },
+    { "route": "/logic.control/switch/index.html", "redirect": "/de/logic.control/switch", "statusCode": 301 },
+
+    { "route": "/logic.timing/index.html", "redirect": "/de/logic.timing", "statusCode": 301 },
+    { "route": "/logic.timing/alarm/index.html", "redirect": "/de/logic.timing/alarm", "statusCode": 301 },
+    { "route": "/logic.timing/calendar/index.html", "redirect": "/de/logic.timing/calendar", "statusCode": 301 },
+    { "route": "/logic.timing/holiday/index.html", "redirect": "/de/logic.timing/holiday", "statusCode": 301 },
+    { "route": "/logic.timing/observer/index.html", "redirect": "/de/logic.timing/observer", "statusCode": 301 },
+    { "route": "/logic.timing/wakeup/index.html", "redirect": "/de/logic.timing/wakeup", "statusCode": 301 },
+
+    { "route": "/logic.bridges.nuki/index.html", "redirect": "/de/logic.bridges.nuki", "statusCode": 301 },
+    { "route": "/logic.bridges.nuki/doc/syntax.html", "redirect": "/de/logic.bridges.nuki/doc/syntax", "statusCode": 301 },
+    { "route": "/logic.bridges.nuki/gatewayconnector/index.html", "redirect": "/de/logic.bridges.nuki/gatewayconnector", "statusCode": 301 },
+    { "route": "/logic.bridges.nuki/gatewayrequest/index.html", "redirect": "/de/logic.bridges.nuki/gatewayrequest", "statusCode": 301 },
+    { "route": "/logic.bridges.nuki/gatewayresponse/index.html", "redirect": "/de/logic.bridges.nuki/gatewayresponse", "statusCode": 301 },
+    { "route": "/logic.bridges.nuki/smartlock/index.html", "redirect": "/de/logic.bridges.nuki/smartlock", "statusCode": 301 },
+
+    { "route": "/logic.bridges.velux/index.html", "redirect": "/de/logic.bridges.velux", "statusCode": 301 },
+    { "route": "/logic.bridges.velux/doc/setup.html", "redirect": "/de/logic.bridges.velux/doc/setup", "statusCode": 301 },
+    { "route": "/logic.bridges.velux/doc/syntax.html", "redirect": "/de/logic.bridges.velux/doc/syntax", "statusCode": 301 },
+    { "route": "/logic.bridges.velux/doc/tester.html", "redirect": "/de/logic.bridges.velux/doc/tester", "statusCode": 301 },
+    { "route": "/logic.bridges.velux/gatewayconnector/index.html", "redirect": "/de/logic.bridges.velux/gatewayconnector", "statusCode": 301 },
+    { "route": "/logic.bridges.velux/gatewayrequest/index.html", "redirect": "/de/logic.bridges.velux/gatewayrequest", "statusCode": 301 },
+    { "route": "/logic.bridges.velux/gatewayresponse/index.html", "redirect": "/de/logic.bridges.velux/gatewayresponse", "statusCode": 301 }
+  ],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": ["/assets/*", "/*.png", "/*.jpg", "/*.jpeg", "/*.gif", "/*.svg", "/*.css", "/*.js", "/*.ico"]
