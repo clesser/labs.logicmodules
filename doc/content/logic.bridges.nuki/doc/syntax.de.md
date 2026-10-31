@@ -71,13 +71,13 @@ In der Regel ist das manuelle Zusammenstellen der Telegramme nicht erforderlich 
 Die nachfolgenden Beispiele gehen von einem Nuki Smartlock der zweiten Generation (device-type=0) mit dem Bezeichner "13579" (device-id=13579) aus:
 
 
-request://13579:0/lockSchließt die Tür ab.
+request://13579:0/lock ► Schließt die Tür ab.
 
 
-response://13579:0/lock?success=trueBestätigt, dass die Tür abgeschlossen wurde.
+response://13579:0/lock?success=true ► Bestätigt, dass die Tür abgeschlossen wurde.
 
 
-request://13579:0/infoFordert den aktuellen Gerätestatus an.
+request://13579:0/info ► Fordert den aktuellen Gerätestatus an.
 
 
-response://13579:0/info?lock=3&door=2&battery=50Teilt mit, dass die Tür unverschlossen (lock=3), jedoch auch nicht geöffnet (door=2) ist und dass noch 50% Kapazität in der Batterie bzw. dem Akku vorhanden sind.
+response://13579:0/info?lock=3&door=2&battery=50 ► Teilt mit, dass die Tür unverschlossen (lock=3), jedoch auch nicht geöffnet (door=2) ist und dass noch 50% Kapazität in der Batterie bzw. dem Akku vorhanden sind.

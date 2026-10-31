@@ -64,8 +64,8 @@ In most cases, manually creating telegrams is not required - but this allows int
 
 | Name | Protocols | Scopes | Description |
 | --- | --- | --- | --- |
-| :id | request | nodegroupscene | Identifier of a device, group, or scene in form of internal index in Velux KLF-200 Gateway. Supported ranges: devices 0..199, groups 0..99, scenes 0..31. Note: device/group/scene number can only be used in "request://" telegrams / request sender. In "response://" telegrams / response filter, names are always used (see next row). |
-| /name | requestresponse | nodegroupscene | Identifier of a device, group, or scene by name assigned in Velux KLF-200 Gateway (e.g., "Esszimmer"). Max. length is 64 characters. |
+| :id | request | node{{br}}group{{br}}scene | Identifier of a device, group, or scene in form of internal index in Velux KLF-200 Gateway. Supported ranges: devices 0..199, groups 0..99, scenes 0..31. Note: device/group/scene number can only be used in "request://" telegrams / request sender. In "response://" telegrams / response filter, names are always used (see next row). |
+| /name | requestresponse | node{{br}}group{{br}}scene | Identifier of a device, group, or scene by name assigned in Velux KLF-200 Gateway (e.g., "Esszimmer"). Max. length is 64 characters. |
 
 
 
@@ -74,10 +74,10 @@ In most cases, manually creating telegrams is not required - but this allows int
 
 | Name | Protocols | Scopes | Description |
 | --- | --- | --- | --- |
-| #start | request | nodegroupscene | Sets standard parameter (e.g., position for shutters) of a device/group to default value ("0xD300"). This value is not defined for all devices and may be ignored. Starts scene execution. |
-| #stop | request | nodegroupscene | Sets standard parameter (e.g., position for shutters) of a device/group to current value ("0xD200"). This stops running actions of a device/group. If target value is already reached, telegram is ignored. Stops a running scene. If scene already ended, telegram is ignored. |
-| #min | request | nodegroup | Sets standard parameter (e.g., position for shutters) of a device/group to minimum value ("0x000" = fully up for shutters). See chapter 14.1 of Velux KLF-200 documentation. |
-| #max | request | nodegroup | Sets standard parameter (e.g., position for shutters) of a device/group to maximum value ("0xC800" = fully down for shutters). See chapter 14.1 of Velux KLF-200 documentation. |
+| #start | request | node{{br}}group{{br}}scene | Sets standard parameter (e.g., position for shutters) of a device/group to default value ("0xD300"). This value is not defined for all devices and may be ignored. Starts scene execution. |
+| #stop | request | node{{br}}group{{br}}scene | Sets standard parameter (e.g., position for shutters) of a device/group to current value ("0xD200"). This stops running actions of a device/group. If target value is already reached, telegram is ignored. Stops a running scene. If scene already ended, telegram is ignored. |
+| #min | request | node{{br}}group | Sets standard parameter (e.g., position for shutters) of a device/group to minimum value ("0x000" = fully up for shutters). See chapter 14.1 of Velux KLF-200 documentation. |
+| #max | request | node{{br}}group | Sets standard parameter (e.g., position for shutters) of a device/group to maximum value ("0xC800" = fully down for shutters). See chapter 14.1 of Velux KLF-200 documentation. |
 
 
 
@@ -86,10 +86,10 @@ In most cases, manually creating telegrams is not required - but this allows int
 
 | Name | Protocols | Scopes | Actions | Description |
 | --- | --- | --- | --- | --- |
-| source | request | nodegroupscene | minmaxstartstop | Defines who initiated telegram: *User* *Rain* *Timer* *UPS* *SAAC* *Wind* *LoadShedding* *LocalLight* *UnspecificEnvironmentSensor* *Emergency*. Default: *User* |
-| priority | request | nodegroupscene | minmaxstartstop | Defines priority handling: *HumanProtection* *EnvironmentProtection* *UserLevel1* *UserLevel2* *ComfortLevel1* *ComfortLevel2* *ComfortLevel3* *ComfortLevel4*. Default: *UserLevel2*, for stop telegrams: *UserLevel1* |
-| velocity | request | nodegroupscene | minmaxstart | Defines execution speed where supported: *Default* *Silent* *Fast*. Default: *Default* |
-| target | request | nodegroup | (overwritten by #start, #stop, #min, #max) | Target value can be defined in different ways: *Absolute target value* 0x0000 = 0 = 0%, 0xC800 = 51200 = 100%. *Relative target value* 0xC900 = 51456 = -100%, 0xCCE8 = 52456 = +/-0%, 0xD0D0 = 53456 = +100%. *Default* equals #start. *Current* equals #stop. Absolute and relative values must be provided in decimal notation. See chapter 13 of Velux KLF-200 documentation. |
+| source | request | node{{br}}group{{br}}scene | minmaxstartstop | Defines who initiated telegram: *User* *Rain* *Timer* *UPS* *SAAC* *Wind* *LoadShedding* *LocalLight* *UnspecificEnvironmentSensor* *Emergency*. Default: *User* |
+| priority | request | node{{br}}group{{br}}scene | minmaxstartstop | Defines priority handling: *HumanProtection* *EnvironmentProtection* *UserLevel1* *UserLevel2* *ComfortLevel1* *ComfortLevel2* *ComfortLevel3* *ComfortLevel4*. Default: *UserLevel2*, for stop telegrams: *UserLevel1* |
+| velocity | request | node{{br}}group{{br}}scene | minmaxstart | Defines execution speed where supported: *Default* *Silent* *Fast*. Default: *Default* |
+| target | request | node{{br}}group | (overwritten by #start, #stop, #min, #max) | Target value can be defined in different ways: *Absolute target value* 0x0000 = 0 = 0%, 0xC800 = 51200 = 100%. *Relative target value* 0xC900 = 51456 = -100%, 0xCCE8 = 52456 = +/-0%, 0xD0D0 = 53456 = +100%. *Default* equals #start. *Current* equals #stop. Absolute and relative values must be provided in decimal notation. See chapter 13 of Velux KLF-200 documentation. |
 | target | response | node | - | Absolute target value (0x000 .. 0xC800 / 0..51200) of a device. If relative target value (+/-%) was set, gateway returns undefined value (0xF7FF = 63487). Values are always decimal. For shutters, this corresponds to requested position. |
 | current | response | node | - | Absolute value (0x000 .. 0xC800 / 0..51200) of standard parameter of a device. Values are always decimal. For shutters, this corresponds to current position. |
 | countdown | response | node | - | Time in seconds required by device to reach target value of standard parameter. For shutters, this is travel time from current to target position. |
@@ -100,10 +100,10 @@ In most cases, manually creating telegrams is not required - but this allows int
 The following examples assume a shutter named "Esszimmer" with internal gateway number "1":
 
 
-request://node:1#minMoves shutter up to end position (internally used defaults: source=User, priority=UserLevel2, velocity=Default).
+request://node:1#min ► Moves shutter up to end position (internally used defaults: source=User, priority=UserLevel2, velocity=Default).
 
 
-request://node:1?priority=UserLevel1#minMoves shutter up to end position with higher priority (internally used defaults: source=User, velocity=Default).
+request://node:1?priority=UserLevel1#min ► Moves shutter up to end position with higher priority (internally used defaults: source=User, velocity=Default).
 
 
-request://node/Esszimmer?target=25600Moves shutter to 50% (50% of 51200 equals 25600; internally used defaults: source=User, priority=UserLevel2, velocity=Default). The 50% target value refers to travel time, not physical shutter height. Some calibration per shutter is usually needed to find correct "50%".
+request://node/Esszimmer?target=25600 ► Moves shutter to 50% (50% of 51200 equals 25600; internally used defaults: source=User, priority=UserLevel2, velocity=Default). The 50% target value refers to travel time, not physical shutter height. Some calibration per shutter is usually needed to find correct "50%".

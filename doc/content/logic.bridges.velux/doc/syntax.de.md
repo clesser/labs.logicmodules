@@ -64,8 +64,8 @@ In der Regel ist das manuelle Zusammenstellen der Telegramme nicht erforderlich 
 
 | Bezeichnung | Protokolle | Geltungsbereiche | Beschreibung |
 | --- | --- | --- | --- |
-| :id | request | nodegroupscene | Der Bezeichner eines Geräts, einer Gruppe oder einer Szene wird in Form der internen Stellennummer im Velux KLF-200 Gateway angegeben. Das Velux KLF-200 Gateway unterstützt die folgenden Nummernkreise: Geräte: 0..199, Gruppen: 0..99, Szenen: 0..31. Hinweis: die Gerät-, Gruppen- oder Szenennummer kann nur bei "request://"-Telegrammen bzw. im Auftraggeber genutzt werden. In "response://"-Telegrammen bzw. im Ausgabefilter werden immer die Namen (siehe nächste Zeile) verwendet! |
-| /name | requestresponse | nodegroupscene | Der Bezeichner eines Geräts, einer Gruppe oder einer Szene wird mit dem im Velux KLF-200 Gateway vergebenen Namen angesprochen (z.B. "Esszimmer"). Der Name darf max. 64 Buchstaben lang sein. |
+| :id | request | node{{br}}group{{br}}scene | Der Bezeichner eines Geräts, einer Gruppe oder einer Szene wird in Form der internen Stellennummer im Velux KLF-200 Gateway angegeben. Das Velux KLF-200 Gateway unterstützt die folgenden Nummernkreise: Geräte: 0..199, Gruppen: 0..99, Szenen: 0..31. Hinweis: die Gerät-, Gruppen- oder Szenennummer kann nur bei "request://"-Telegrammen bzw. im Auftraggeber genutzt werden. In "response://"-Telegrammen bzw. im Ausgabefilter werden immer die Namen (siehe nächste Zeile) verwendet! |
+| /name | requestresponse | node{{br}}group{{br}}scene | Der Bezeichner eines Geräts, einer Gruppe oder einer Szene wird mit dem im Velux KLF-200 Gateway vergebenen Namen angesprochen (z.B. "Esszimmer"). Der Name darf max. 64 Buchstaben lang sein. |
 
 
 
@@ -74,10 +74,10 @@ In der Regel ist das manuelle Zusammenstellen der Telegramme nicht erforderlich 
 
 | Bezeichnung | Protokolle | Geltungsbereiche | Beschreibung |
 | --- | --- | --- | --- |
-| #start | request | nodegroupscene | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den Standardwert ("0xD300"). Dieser Wert ist nicht für alle Geräte definiert und wird gegebenenfalls ignoriert. Beginnt, eine Szene auszuführen. |
-| #stop | request | nodegroupscene | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den aktuellen Wert ("0xD200"). Damit werden laufende Aktionen eines Geräts oder einer Gruppe angehalten. Haben die Geräte oder Gerätegruppen ihre jeweiligen Zielwerte schon erreicht, wird das Telegramm ignoriert. Beendet eine laufende Szene. Ist die Szene bereits abgelaufen, wird das Telegramm ignoriert. |
-| #min | request | nodegroup | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den minimalen Wert ("0x000" = Auffahren bis zur Endposition bei Rollläden). Siehe Kapitel 14.1 der Velux KLF-200-Dokumentation. |
-| #max | request | nodegroup | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den maximalen Wert ("0xC800" = Abfahren bis zur Endposition bei Rollläden). Siehe Kapitel 14.1 der Velux KLF-200-Dokumentation. |
+| #start | request | node{{br}}group{{br}}scene | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den Standardwert ("0xD300"). Dieser Wert ist nicht für alle Geräte definiert und wird gegebenenfalls ignoriert. Beginnt, eine Szene auszuführen. |
+| #stop | request | node{{br}}group{{br}}scene | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den aktuellen Wert ("0xD200"). Damit werden laufende Aktionen eines Geräts oder einer Gruppe angehalten. Haben die Geräte oder Gerätegruppen ihre jeweiligen Zielwerte schon erreicht, wird das Telegramm ignoriert. Beendet eine laufende Szene. Ist die Szene bereits abgelaufen, wird das Telegramm ignoriert. |
+| #min | request | node{{br}}group | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den minimalen Wert ("0x000" = Auffahren bis zur Endposition bei Rollläden). Siehe Kapitel 14.1 der Velux KLF-200-Dokumentation. |
+| #max | request | node{{br}}group | Setzt den Standardparameter (z.B. Position bei Rollläden) eines Geräts oder einer Gerätegruppe auf den maximalen Wert ("0xC800" = Abfahren bis zur Endposition bei Rollläden). Siehe Kapitel 14.1 der Velux KLF-200-Dokumentation. |
 
 
 
@@ -86,10 +86,10 @@ In der Regel ist das manuelle Zusammenstellen der Telegramme nicht erforderlich 
 
 | Bezeichnung | Protokolle | Geltungsbereiche | Aktionen | Beschreibung |
 | --- | --- | --- | --- | --- |
-| source | request | nodegroupscene | minmaxstartstop | Definiert, wer das Telegramm initiiert hat: *User* *Rain* *Timer* *UPS* *SAAC* *Wind* *LoadShedding* *LocalLight* *UnspecificEnvironmentSensor* *Emergency* Standardwert: *User* |
-| priority | request | nodegroupscene | minmaxstartstop | Definiert, mit welcher Priorität das Telegramm behandelt werden soll: *HumanProtection* *EnvironmentProtection* *UserLevel1* *UserLevel2* *ComfortLevel1* *ComfortLevel2* *ComfortLevel3* *ComfortLevel4* Standardwert: *UserLevel2*, für Stop-Telegramme: *UserLevel1* |
-| velocity | request | nodegroupscene | minmaxstart | Definiert, mit welcher Geschwindigkeit die Geräte bzw. Gerätegruppen arbeiten sollen, sofern sie dies technisch unterstützen: *Default* *Silent* *Fast* Standardwert: *Default* |
-| target | request | nodegroup | (wird durch #start, #stop, #min und #max überschrieben) | Der Zielwert kann auf unterschiedliche Weise festgelegt werden: *Absoluter Zielwert*0x0000 = 0 = 0%0xC800 = 51200 = 100% *Relativer Zielwert*0xC900 = 51456 = -100%0xCCE8 = 52456 = +/-0%0xD0D0 = 53456 = +100% *Default* entspricht #start *Current* entspricht #stop Absolute und relative Zielwerte müssen in Dezimalschreibweise angegeben werden. Siehe Kapitel 13 der Velux KLF-200-Dokumentation. |
+| source | request | node{{br}}group{{br}}scene | minmaxstartstop | Definiert, wer das Telegramm initiiert hat: *User* *Rain* *Timer* *UPS* *SAAC* *Wind* *LoadShedding* *LocalLight* *UnspecificEnvironmentSensor* *Emergency* Standardwert: *User* |
+| priority | request | node{{br}}group{{br}}scene | minmaxstartstop | Definiert, mit welcher Priorität das Telegramm behandelt werden soll: *HumanProtection* *EnvironmentProtection* *UserLevel1* *UserLevel2* *ComfortLevel1* *ComfortLevel2* *ComfortLevel3* *ComfortLevel4* Standardwert: *UserLevel2*, für Stop-Telegramme: *UserLevel1* |
+| velocity | request | node{{br}}group{{br}}scene | minmaxstart | Definiert, mit welcher Geschwindigkeit die Geräte bzw. Gerätegruppen arbeiten sollen, sofern sie dies technisch unterstützen: *Default* *Silent* *Fast* Standardwert: *Default* |
+| target | request | node{{br}}group | (wird durch #start, #stop, #min und #max überschrieben) | Der Zielwert kann auf unterschiedliche Weise festgelegt werden: *Absoluter Zielwert*0x0000 = 0 = 0%0xC800 = 51200 = 100% *Relativer Zielwert*0xC900 = 51456 = -100%0xCCE8 = 52456 = +/-0%0xD0D0 = 53456 = +100% *Default* entspricht #start *Current* entspricht #stop Absolute und relative Zielwerte müssen in Dezimalschreibweise angegeben werden. Siehe Kapitel 13 der Velux KLF-200-Dokumentation. |
 | target | response | node | - | Es wird der absolute Zielwert (0x000 .. 0xC800 bzw. 0..51200) für ein Gerät ausgegeben. Wurde ein relativer Zielwert (+/-%) gesetzt, liefert das Gateway den undefinierten Wert (0xF7FF = 63487). Werte werden immer in Dezimalschreibweise ausgegeben. Bei einem Rollladen entspricht dies der anzufahrenden Position. |
 | current | response | node | - | Es wird der absolute Wert (0x000 .. 0xC800 bzw. 0..51200) des Standardparameters eines Geräts ausgegeben. Werte werden immer in Dezimalschreibweise ausgegeben. Bei einem Rollladen entspricht dies der gegenwärtigen Position. |
 | countdown | response | node | - | Dieser Parameter informiert über die Zeit in Sekunden, die vom angegebenen Gerät benötigt wird, um den Zielwert des Standardparameters umzusetzen. Bei einem Rollladen entspricht dies der Fahrzeit von der aktuellen zur Zielposition. |
@@ -97,13 +97,13 @@ In der Regel ist das manuelle Zusammenstellen der Telegramme nicht erforderlich 
 
 ## Anwendung
 
-Die nachfolgenden Beispiele gehen von einem Rollladen mit dem Namen "Esszimmer" und der Gateway-internen Nummer von "1" aus:
+Die nachfolgenden Beispiele gehen von einem Rollladen mit dem Namen "Esszimmer" und der Gateway-internen Nummer von "1" aus.
 
 
-request://node:1#minFährt den Rollladen aufwärts bis zur Endposition (intern verwendete Standardparameter: source=User, priority=UserLevel2, velocity=Default).
+request://node:1#min ► Fährt den Rollladen aufwärts bis zur Endposition (intern verwendete Standardparameter: source=User, priority=UserLevel2, velocity=Default).
 
 
-request://node:1?priority=UserLevel1#minFährt den Rollladen mit einer höheren Priorisierung aufwärts bis zur Endposition (intern verwendete Standardparameter: source=User, velocity=Default).
+request://node:1?priority=UserLevel1#min ► Fährt den Rollladen mit einer höheren Priorisierung aufwärts bis zur Endposition (intern verwendete Standardparameter: source=User, velocity=Default).
 
 
-request://node/Esszimmer?target=25600Fährt den Rollladen auf 50% (50% von 51200 entsprechen 25600; intern verwendete Standardparameter: source=User, priority=UserLevel2, velocity=Default). Die Angabe des Zielwertes 50% bezieht sich auf die Fahrzeit, nicht auf die "technische" Höhe des Rollladens. Hier muss ein wenig experimentiert werden, um die für jeden Rollladen korrekten "50%" zu finden.
+request://node/Esszimmer?target=25600 ► Fährt den Rollladen auf 50% (50% von 51200 entsprechen 25600; intern verwendete Standardparameter: source=User, priority=UserLevel2, velocity=Default). Die Angabe des Zielwertes 50% bezieht sich auf die Fahrzeit, nicht auf die "technische" Höhe des Rollladens. Hier muss ein wenig experimentiert werden, um die für jeden Rollladen korrekten "50%" zu finden.

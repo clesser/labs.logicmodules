@@ -71,13 +71,13 @@ In most cases, manually constructing telegrams is not required - but it can be u
 The following examples assume a second-generation Nuki SmartLock (device-type=0) with identifier "13579" (device-id=13579):
 
 
-request://13579:0/lockLocks the door.
+request://13579:0/lock ► Locks the door.
 
 
-response://13579:0/lock?success=trueConfirms the door was locked.
+response://13579:0/lock?success=true ► Confirms the door was locked.
 
 
-request://13579:0/infoRequests current device status.
+request://13579:0/info ► Requests current device status.
 
 
-response://13579:0/info?lock=3&door=2&battery=50Indicates that the door is unlocked (lock=3), not open (door=2), and battery/accumulator level is 50%.
+response://13579:0/info?lock=3&door=2&battery=50 ► Indicates that the door is unlocked (lock=3), not open (door=2), and battery/accumulator level is 50%.
