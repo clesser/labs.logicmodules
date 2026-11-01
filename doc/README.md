@@ -1,23 +1,11 @@
-# New documentation app
+# Neleo Labs - X1 Logic Modules Documentation
 
 This folder contains the new Markdown-first static documentation app.
 
-## Goals
+## Notes
 
-- Keep content in Markdown files using language suffixes (`*.de.md`, `*.en.md`)
-- Keep route paths aligned with current folder names
 - Use explicit language prefixes in routes (`/de/...`, `/en/...`)
-- Keep static legacy HTML redirects in `staticwebapp.config.json` routes (maintained manually)
-
-## Commands
-
-```bash
-npm install
-npm run sync:content-images
-npm run dev
-npm run dev:win
-npm run build
-```
+- Static legacy HTML redirects defined in `staticwebapp.config.json` routes (maintained manually)
 
 ## Content conventions
 
@@ -35,9 +23,3 @@ npm run build
 - Use shortcode-based internal section links for stable anchors:
   - `{{sectionLink path="/en/logic.timing" section="license" label="License"}}`
   - Anchors are normalized to the generated heading IDs (e.g., `#2-license`)
-
-Examples:
-
-- `content/index.de.md` -> `/de`
-- `content/logic.bridges.nuki/index.de.md` -> `/de/logic.bridges.nuki`
-- `content/logic.bridges.nuki/index.en.md` -> `/en/logic.bridges.nuki`
